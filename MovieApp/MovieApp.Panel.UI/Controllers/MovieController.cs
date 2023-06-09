@@ -14,7 +14,7 @@ namespace MovieApp.Panel.UI.Controllers
 
         MovieManager movieManager = new MovieManager(new EfMovieRepository());
         DirectorManager directorManager = new DirectorManager(new EfDirectorRepository());
-        
+        CategoryManager categoryManager = new CategoryManager(new EfCategoryRepository());
 
         public MovieController(IWebHostEnvironment webHostEnvironment)
         {
@@ -23,20 +23,65 @@ namespace MovieApp.Panel.UI.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            List<Movie> list = movieManager.GetAll();
+            return View(list);
         }
 
         [HttpGet]
         public IActionResult Create()
         {
             ViewBag.Directors = directorManager.GetAll()
-        .Select(s => new SelectListItem { Value = s.ID.ToString(), Text = s.DirectorName}).ToList();
+        .Select(s => new SelectListItem { Value = s.ID.ToString(), Text = s.DirectorName }).ToList();
 
             ViewBag.Categories = categoryManager.GetAll()
-        .Select(s => new SelectListItem { Value = s.ID.ToString(), Text = s.DirectorName }).ToList();
+        .Select(s => new SelectListItem { Value = s.ID.ToString(), Text = s.CategoryName }).ToList();
 
 
             return View(new Movie());
+        }
+
+        [HttpPost]
+        public IActionResult Create(Movie movie, IFormFile file)
+        {
+            movie.Poster = "";
+            if (file != null)
+            {
+                string wwwrootPath = webHostEnvironment.WebRootPath;
+                string fileName = Path.GetFileNameWithoutExtension(file.FileName);
+                string extension = Path.GetExtension(file.FileName);
+
+                string yeniDosyaAdi = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                string path = Path.Combine(wwwrootPath + "/images/movie/", yeniDosyaAdi);
+
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    file.CopyTo(fileStream);
+                }
+
+                movie.Poster = yeniDosyaAdi;
+            }
+
+            movie.DetailPoster = "";
+            if (file != null)
+            {
+                string wwwrootPath = webHostEnvironment.WebRootPath;
+                string fileName = Path.GetFileNameWithoutExtension(file.FileName);
+                string extension = Path.GetExtension(file.FileName);
+
+                string yeniDosyaAdi = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                string path = Path.Combine(wwwrootPath + "/images/movie/", yeniDosyaAdi);
+
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    file.CopyTo(fileStream);
+                }
+
+                movie.DetailPoster = yeniDosyaAdi;
+            }
+
+            
+            movieManager.Create(movie);
+            return RedirectToAction("Index");
         }
     }
 }
