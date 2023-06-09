@@ -10,5 +10,7 @@ namespace MovieApp.EntityLayer.Entities
     public class Director : BaseEntity
     {
         public string DirectorName { get; set; }
+
+        public List<Movie> Movies { get; set; }
     }
 }

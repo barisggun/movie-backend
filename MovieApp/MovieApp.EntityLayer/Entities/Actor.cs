@@ -10,5 +10,6 @@ namespace MovieApp.EntityLayer.Entities
     public class Actor : BaseEntity
     {
         public string ActorName { get; set; }
+        public List<Movie> Movies { get; set; }
     }
 }
