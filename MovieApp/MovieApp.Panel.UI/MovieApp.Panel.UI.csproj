@@ -27,4 +27,8 @@
     <ProjectReference Include="..\MovieApp.EntityLayer\MovieApp.EntityLayer.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\home\sass\pages\" />
+  </ItemGroup>
+
 </Project>
