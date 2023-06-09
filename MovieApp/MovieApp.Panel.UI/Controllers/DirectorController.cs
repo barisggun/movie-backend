@@ -10,8 +10,8 @@ namespace MovieApp.Panel.UI.Controllers
         DirectorManager directorManager = new DirectorManager(new EfDirectorRepository());
         public IActionResult Index()
         {
-            directorManager.GetAll();
-            return View();
+            var values = directorManager.GetAll();
+            return View(values);
         }
 
         public IActionResult Create()
