@@ -11,9 +11,4 @@
     <ProjectReference Include="..\MovieApp.EntityLayer\MovieApp.EntityLayer.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Abstract\" />
-    <Folder Include="Concrete\" />
-  </ItemGroup>
-
 </Project>
