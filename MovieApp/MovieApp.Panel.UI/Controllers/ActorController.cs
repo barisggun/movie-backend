@@ -9,11 +9,6 @@ namespace MovieApp.Panel.UI.Controllers
     {
         ActorManager actorManager = new ActorManager(new EfActorRepository());
 
-        public ActorController(ActorManager actorManager)
-        {
-            this.actorManager = actorManager;
-        }
-
         public IActionResult Index()
         {
             var values = actorManager.GetAll();
