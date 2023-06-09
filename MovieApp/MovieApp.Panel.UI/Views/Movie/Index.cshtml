@@ -1,73 +1,73 @@
-﻿@model MovieApp.EntityLayer.Entities.Movie
+﻿@model IEnumerable<MovieApp.EntityLayer.Entities.Movie>
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<div class="card-body">
-    <h4 class="card-title">Film Ekle</h4>
-    <p class="card-description"> Film bilgilerini eksiksiz giriniz </p>
-    <form class="forms-sample">
-        <div class="form-group">
-            <label for="exampleInputName1">Film Adı</label>
-            <input type="text" class="form-control" id="exampleInputName1" placeholder="Name">
-        </div>
+<h1>Index</h1>
 
-        <div class="form-group">
-            <label asp-for="ReleaseDate" class="control-label"></label>
-            <input asp-for="ReleaseDate" class="form-control" />
-            <span asp-validation-for="ReleaseDate" class="text-danger"></span>
-        </div>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
 
-
-        <div class="form-group">
-            <label for="exampleSelectGender">Oyuncu</label>
-            <select class="form-control" id="exampleSelectGender">
-                <option>Male</option>
-                <option>Female</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="exampleSelectGender">Yönetmen</label>
-            <select class="form-control" id="exampleSelectGender">
-                <option>Male</option>
-                <option>Female</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label>Ana Fotoğraf</label>
-            <input type="file" name="img[]" class="file-upload-default">
-            <div class="input-group col-xs-12">
-                <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
-                <span class="input-group-append">
-                    <button class="file-upload-browse btn btn-gradient-primary" type="button">Upload</button>
-                </span>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label>Detay Fotoğraf</label>
-            <input type="file" name="img[]" class="file-upload-default">
-            <div class="input-group col-xs-12">
-                <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
-                <span class="input-group-append">
-                    <button class="file-upload-browse btn btn-gradient-primary" type="button">Upload</button>
-                </span>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="exampleTextarea1">Film Açıklaması</label>
-            <textarea class="form-control" id="exampleTextarea1" rows="4"></textarea>
-        </div>
-        <button type="submit" class="btn btn-gradient-primary mr-2">Oluştur</button>
-        <button class="btn btn-light">Geri Dön</button>
-
-
-
-
-    </form>
-</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MovieTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReleaseDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Poster)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DetailPoster)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ID)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MovieTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReleaseDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Poster)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DetailPoster)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ID)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

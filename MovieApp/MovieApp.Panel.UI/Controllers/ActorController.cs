@@ -2,7 +2,7 @@
 
 namespace MovieApp.Panel.UI.Controllers
 {
-    public class MovieController : Controller
+    public class ActorController : Controller
     {
         public IActionResult Index()
         {
