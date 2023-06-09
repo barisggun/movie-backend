@@ -4,6 +4,7 @@ using MovieApp.BusinessLayer.Concrete;
 using MovieApp.DataAccess.Concrete;
 using MovieApp.DataAccess.EntityFramework;
 using MovieApp.EntityLayer.Entities;
+using MovieApp.EntityLayer.Entities.ConnectionClasses;
 
 namespace MovieApp.Panel.UI.Controllers
 {
@@ -15,6 +16,9 @@ namespace MovieApp.Panel.UI.Controllers
         MovieManager movieManager = new MovieManager(new EfMovieRepository());
         DirectorManager directorManager = new DirectorManager(new EfDirectorRepository());
         CategoryManager categoryManager = new CategoryManager(new EfCategoryRepository());
+        ActorManager actorManager = new ActorManager(new EfActorRepository());
+        ActorMovieManager actorMovieManager = new ActorMovieManager(new EfActorMovieRepository());
+        DirectorMovieManager directorMovieManager = new DirectorMovieManager(new EfDirectorMovieRepository());
 
         public MovieController(IWebHostEnvironment webHostEnvironment)
         {
@@ -36,14 +40,17 @@ namespace MovieApp.Panel.UI.Controllers
             ViewBag.Categories = categoryManager.GetAll()
         .Select(s => new SelectListItem { Value = s.ID.ToString(), Text = s.CategoryName }).ToList();
 
+            List<Actor> actors = actorManager.GetAll();
+            ViewBag.Actors = new SelectList(actors, "ID", "ActorName");
 
             return View(new Movie());
         }
 
         [HttpPost]
-        public IActionResult Create(Movie movie, IFormFile file)
+        public IActionResult Create(Movie movie, IFormFile file, List<int> selectedActorIds, List<int> selectedDirectorIds)
         {
-            movie.Poster = "";
+
+            // Dosya adlarını atamadan önce Poster ve DetailPoster'ı kontrol edin
             if (file != null)
             {
                 string wwwrootPath = webHostEnvironment.WebRootPath;
@@ -59,29 +66,30 @@ namespace MovieApp.Panel.UI.Controllers
                 }
 
                 movie.Poster = yeniDosyaAdi;
-            }
-
-            movie.DetailPoster = "";
-            if (file != null)
-            {
-                string wwwrootPath = webHostEnvironment.WebRootPath;
-                string fileName = Path.GetFileNameWithoutExtension(file.FileName);
-                string extension = Path.GetExtension(file.FileName);
-
-                string yeniDosyaAdi = fileName + DateTime.Now.ToString("yymmssfff") + extension;
-                string path = Path.Combine(wwwrootPath + "/images/movie/", yeniDosyaAdi);
-
-                using (var fileStream = new FileStream(path, FileMode.Create))
-                {
-                    file.CopyTo(fileStream);
-                }
-
                 movie.DetailPoster = yeniDosyaAdi;
             }
 
-            
             movieManager.Create(movie);
+
+            int movieId = movie.ID;
+
+            foreach (int actorId in selectedActorIds)
+            { 
+                ActorMovie actorMovie = new ActorMovie { ActorId = actorId, MovieId = movieId };
+                actorMovieManager.Create(actorMovie);
+            }
+
+            foreach (int directorId in selectedDirectorIds)
+            {
+                DirectorMovie directorMovie = new DirectorMovie { DirectorId = directorId, MovieId = movieId };
+                directorMovieManager.Create(directorMovie);
+            }
             return RedirectToAction("Index");
         }
+
+
+
+
+
     }
 }
