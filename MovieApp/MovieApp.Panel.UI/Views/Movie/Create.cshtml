@@ -25,6 +25,19 @@
                 <input asp-for="MovieTitle" class="form-control" />
                 <span asp-validation-for="MovieTitle" class="text-danger"></span>
             </div>
+
+            <div class="form-group">
+                <label asp-for="CategoryId" class="control-label"></label>
+                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.Categories"></select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+
+             <div class="form-group">
+                <label asp-for="Directors" class="control-label"></label>
+                <select asp-for="Directors" class="form-control" asp-items="ViewBag.Directors"></select>
+                <span asp-validation-for="Directors" class="text-danger"></span>
+            </div>
+
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
                 <input asp-for="Description" class="form-control" />
@@ -37,19 +50,20 @@
             </div>
             <div class="mb-3">
                 <label asp-for="Poster">Poster</label>
-                <input type="file" name="file" multiple="false" class="form-control">
+                <input type="file" name="file" multipe="false" class="form-control file-upload-default">
                 <span asp-validation-for="Poster" class="text-danger"></span>
             </div>
+
             <div class="mb-3">
                 <label asp-for="DetailPoster">Detay Poster</label>
-                <input type="file" name="file" multiple="false" class="form-control">
+                <input type="file" name="file" multipe="false" class="form-control file-upload-default">
                 <span asp-validation-for="DetailPoster" class="text-danger"></span>
             </div>
-            <div class="form-group">
+          @*  <div class="form-group">
                 <label asp-for="CategoryId" class="control-label"></label>
                 <input asp-for="CategoryId" class="form-control" />
                 <span asp-validation-for="CategoryId" class="text-danger"></span>
-            </div>
+            </div>*@
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
