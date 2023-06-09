@@ -1,5 +1,6 @@
 ﻿using MovieApp.DataAccess.Abstract;
 using MovieApp.DataAccess.Concrete;
+using MovieApp.EntityLayer.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,3 +51,4 @@ namespace MovieApp.DataAccess.Repositories
             return c.Set<T>().ToList();
         }
     }
+}
