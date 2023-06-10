@@ -99,6 +99,18 @@ namespace MovieApp.DataAccess.Concrete
                     j.ToTable("DirectorMovie");
                 }
                 );
+            modelBuilder.Entity<Category>()
+                        .HasMany(m => m.Movies)
+                        .WithMany(c => c.Categories)
+                        .UsingEntity<CategoryMovie>(
+                j => j.HasOne(mc => mc.Movie).WithMany().HasForeignKey(mc => mc.MovieId),
+                j => j.HasOne(mc => mc.Category).WithMany().HasForeignKey(mc => mc.CategoryId),
+                j =>
+                {
+                    j.HasKey(mc => new { mc.MovieId, mc.CategoryId });
+                    j.ToTable("CategoryMovie");
+                }
+                );
         }
 
         public DbSet<Movie> Movies { get; set; }

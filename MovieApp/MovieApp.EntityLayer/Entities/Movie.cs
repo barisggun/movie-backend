@@ -28,13 +28,15 @@ namespace MovieApp.EntityLayer.Entities
         [DisplayName("Detay Posteri")]
         public string? DetailPoster { get; set; }
 
-        [DisplayName("Film Kategorisi")]
-        public int CategoryId { get; set; }
-        public Category Category { get; set; }
+        //[DisplayName("Film Kategorisi")]
+        //public int CategoryId { get; set; }
+        //public Category Category { get; set; }
+
         [Required(ErrorMessage = "Yönetmen alanı boş geçilemez.")]
         [DisplayName("Yönetmenler")]
         public List<Director> Directors { get; set; }
         //public List<Actor> Actors { get; set; }
         public List<Actor> Actors { get; set; } = new List<Actor>();
+        public List<Category> Categories { get; set; } = new List<Category>();
     }
 }

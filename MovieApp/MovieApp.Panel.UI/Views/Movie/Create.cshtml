@@ -35,6 +35,20 @@
             <!-- Seçilen oyuncuların listesi -->
             <ul id="actorList" class="list-group mt-3"></ul>
 
+            <div class="form-group">
+                <label for="categorySelect">Kategori Seç</label>
+                <select id="categorySelect" name="selectedCategoryIds" class="form-control">
+                    <option value="">Seç</option>
+                    @foreach (var category in ViewBag.Categories)
+                    {
+                        <option value="@category.Value">@category.Text</option>
+                    }
+                </select>
+            </div>
+            <button type="button" class="btn btn-primary" id="addCategoryButton">Ekle</button>
+
+            <ul id="categoryList" class="list-group mt-3"></ul>
+
 
 
             <div class="form-group">
@@ -54,11 +68,11 @@
                 <span asp-validation-for="MovieTitle" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
+            @*<div class="form-group">
                 <label asp-for="CategoryId" class="control-label"></label>
                 <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.Categories"></select>
                 <span asp-validation-for="CategoryId" class="text-danger"></span>
-            </div>
+            </div>*@
 @*
              <div class="form-group">
                 <label asp-for="Directors" class="control-label"></label>
@@ -117,6 +131,23 @@
             listItem.textContent = selectedActorName;
             listItem.innerHTML += '<input type="hidden" name="selectedActorIds" value="' + selectedActorId + '">';
             actorList.appendChild(listItem);
+
+            selectElement.value = "";
+        }
+    });
+
+    document.getElementById("addCategoryButton").addEventListener("click", function () {
+        var selectElement = document.getElementById("categorySelect");
+        var selectedCategoryId = selectElement.value;
+        var selectedCategoryName = selectElement.options[selectElement.selectedIndex].text;
+
+        if (selectedCategoryId && selectedCategoryName) {
+            var categoryList = document.getElementById("categoryList");
+            var listItem = document.createElement("li");
+            listItem.classList.add("list-group-item");
+            listItem.textContent = selectedCategoryName;
+            listItem.innerHTML += '<input type="hidden" name="selectedCategoryIds" value="' + selectedCategoryId + '">';
+            categoryList.appendChild(listItem);
 
             selectElement.value = "";
         }
