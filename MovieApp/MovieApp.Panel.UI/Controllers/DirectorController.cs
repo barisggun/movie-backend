@@ -6,7 +6,6 @@ using MovieApp.EntityLayer.Entities;
 
 namespace MovieApp.Panel.UI.Controllers
 {
-    [Authorize]
     public class DirectorController : Controller
     {
         DirectorManager directorManager = new DirectorManager(new EfDirectorRepository());
