@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using MovieApp.DataAccess.Concrete;
 using MovieApp.EntityLayer.Entities;
 
@@ -16,14 +17,10 @@ namespace MovieApp.Panel.UI
                 x.Password.RequireNonAlphanumeric = false;
             }).AddEntityFrameworkStores<Context>();
 
-
             // Add services to the container.
             builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
             var app = builder.Build();
-
-          
-
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
