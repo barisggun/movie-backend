@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Authentication.Cookies;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using MovieApp.DataAccess.Concrete;
@@ -10,43 +10,42 @@ namespace MovieApp.Panel.UI
     {
         public static void Main(string[] args)
         {
-         
-            //Identity
             var builder = WebApplication.CreateBuilder(args);
 
+            //Identity Start
             builder.Services.AddDbContext<Context>();
             builder.Services.AddIdentity<AppUser, AppRole>(x =>
             {
                 x.Password.RequireNonAlphanumeric = false;
             }).AddEntityFrameworkStores<Context>();
+            builder.Services.AddHttpContextAccessor();
             //Identity End
+
 
             //Cookie start
             builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
-
             builder.Services.AddSession();
-
             builder.Services.AddMvc(config =>
             {
                 var policy = new AuthorizationPolicyBuilder()
-                                .RequireAuthenticatedUser()
-                                .Build();
+                    .RequireAuthenticatedUser()
+                    .Build();
                 config.Filters.Add(new AuthorizeFilter(policy));
             });
 
-            builder.Services.AddMvc();
-            builder.Services.AddAuthentication(
-                CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(x => {
-                    x.LoginPath = "/Login/Index/";
-                }
-                );
-            //Cookie end
+            builder.Services.ConfigureApplicationCookie(opts =>
+            {
+                //Cookie settings
+                opts.Cookie.HttpOnly = true;
+                opts.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+                opts.AccessDeniedPath = new PathString("/Login/AccessDenied"); // eriþimin reddedildiði durumda gitmesi gerek yer
+                opts.AccessDeniedPath = new PathString("/Login/AccessDenied/");
+                opts.LoginPath = "/Login/Index/";
+                opts.SlidingExpiration = true;
+            });
+
 
             var app = builder.Build();
-
-          
-
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -59,12 +58,14 @@ namespace MovieApp.Panel.UI
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            app.UseAuthentication();
-            app.UseSession();
-
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseAuthentication(); // üyeyi kontol eder
+            app.UseAuthorization(); // yetkiyi konrol eder  
+
+            app.UseSession();
+
+         
 
             app.MapControllerRoute(
                 name: "default",
