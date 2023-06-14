@@ -57,6 +57,7 @@ namespace MovieApp.Panel.UI
                 app.UseHsts();
             }
 
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -69,7 +70,7 @@ namespace MovieApp.Panel.UI
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Admin}/{action=Index}/{id?}");
+                pattern: "{controller=Movie}/{action=Index}/{id?}");
 
             app.Run();
         }
