@@ -78,5 +78,25 @@ namespace MovieApp.Panel.UI.Controllers
             return View(model);
 
         }
+
+        [HttpPost]
+        public async Task<IActionResult> AssignRole(List<RoleAssignViewModel> model)
+        {
+            var userId = (int)TempData["UserId"];
+            var user = _userManager.Users.FirstOrDefault(x=>x.Id == userId);
+            foreach (var item in model)
+            {
+                if (item.Exists)
+                {
+                    await _userManager.AddToRoleAsync(user, item.Name);
+                }
+                else
+                {
+                    await _userManager.RemoveFromRoleAsync(user, item.Name);
+
+                }
+            }
+            return RedirectToAction("UserRoleList");
+        }
     }
 }
