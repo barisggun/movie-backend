@@ -1,3 +1,5 @@
+using MovieApp.EntityLayer.Entities;
+
 namespace MovieApp.Panel.UI
 {
     public class Program
@@ -10,6 +12,9 @@ namespace MovieApp.Panel.UI
             builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
             var app = builder.Build();
+
+            builder.Services.AddIdentity<AppUser, AppRole>();
+
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())

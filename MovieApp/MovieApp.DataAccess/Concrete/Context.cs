@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using MovieApp.EntityLayer.Entities;
 using MovieApp.EntityLayer.Entities.ConnectionClasses;
 using System;
@@ -9,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace MovieApp.DataAccess.Concrete
 {
-    public class Context : DbContext
+    public class Context : IdentityDbContext<AppUser,AppRole, int>
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
