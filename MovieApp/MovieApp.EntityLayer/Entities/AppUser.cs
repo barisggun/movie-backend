@@ -10,9 +10,9 @@ namespace MovieApp.EntityLayer.Entities
     public class AppUser:IdentityUser<int>
     {
         public string NameSurname { get; set; } 
-        public string ImageUrl { get; set; }
-        public string About { get; set; }
-        public int BlogId { get; set; }
+        public string? ImageUrl { get; set; }
+        public string? About { get; set; }
+        public int? BlogId { get; set; }
         
     }
 

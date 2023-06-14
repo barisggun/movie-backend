@@ -20,7 +20,7 @@ namespace MovieApp.Panel.UI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(UserSignViewModel p)
+        public async Task<IActionResult> Index(UserSignInViewModel p)
         {
             if(ModelState.IsValid)
             {

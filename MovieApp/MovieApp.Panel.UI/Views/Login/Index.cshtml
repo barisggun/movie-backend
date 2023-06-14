@@ -1,4 +1,4 @@
-﻿@model UserSignViewModel
+﻿@model UserSignInViewModel
 
 @{
     Layout = null;
@@ -28,12 +28,12 @@
                             </div>
                             <h4>Giriş Ekranı</h4>
                             <h6 class="font-weight-light">Devam etmek için giriş yapınız!</h6>
-                            <form class="pt-3" method="post">
+                            <form method="post" class="pt-3">
                                 <div class="form-group">
-                                    <input type="text" class="form-control form-control-lg" id="exampleInputEmail1" asp-for="@Model.username" placeholder="Username">
+                                    <input type="text" class="form-control form-control-lg" asp-for="@Model.username" placeholder="Username">
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" asp-for="@Model.password" placeholder="Password">
+                                    <input type="password" class="form-control form-control-lg" asp-for="@Model.password" placeholder="Password" required="">
                                 </div>
                                 <div class="mt-3">
                                     <button type="submit" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn">Giriş Yap</button>
@@ -41,18 +41,18 @@
                                 <div class="my-2 d-flex justify-content-between align-items-center">
                                     <div class="form-check">
                                         <label class="form-check-label text-muted">
-                                            <input type="checkbox" class="form-check-input"> Keep me signed in
+                                            <input type="checkbox" class="form-check-input"> Beni hatırla
                                         </label>
                                     </div>
-                                    <a href="#" class="auth-link text-black">Forgot password?</a>
+                                    <a href="#" class="auth-link text-black">Şifremi unuttum</a>
                                 </div>
-                                <div class="mb-2">
+@*                                <div class="mb-2">
                                     <button type="button" class="btn btn-block btn-facebook auth-form-btn">
                                         <i class="mdi mdi-facebook mr-2"></i>Connect using facebook
                                     </button>
                                 </div>
-                                <div class="text-center mt-4 font-weight-light">
-                                    Bir hesabın yok mu? <a href="register.html" class="text-primary">Oluştur</a>
+*@                                <div class="text-center mt-4 font-weight-light">
+                                    Bir hesabın yok mu? <a href="/RegisterUser/Index/" class="text-primary">Oluştur</a>
                                 </div>
                             </form>
                         </div>

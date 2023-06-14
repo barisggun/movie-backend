@@ -2,7 +2,7 @@
 
 namespace MovieApp.Panel.UI.Models
 {
-    public class UserSignViewModel
+    public class UserSignInViewModel
     {
         [Required(ErrorMessage ="Lütfen kullanıcı adını giriniz.")]
         public string username { get; set; }
