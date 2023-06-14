@@ -111,6 +111,8 @@ namespace MovieApp.DataAccess.Concrete
                     j.ToTable("CategoryMovie");
                 }
                 );
+
+            base.OnModelCreating(modelBuilder);
         }
 
         public DbSet<Movie> Movies { get; set; }
