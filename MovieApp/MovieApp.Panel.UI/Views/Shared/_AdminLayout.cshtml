@@ -56,9 +56,12 @@
                                 <i class="mdi mdi-cached mr-2 text-success"></i> Activity Log
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">
+                            @*<a class="dropdown-item" href="@Url.Action("Logout","Account")">
                                 <i class="mdi mdi-logout mr-2 text-primary"></i> Signout
-                            </a>
+                            </a>*@
+                            <form method="post" action="#">
+                                <button type="submit" class="mdi mdi-logout mr-2 text-primary">Çıkış Yap</button>
+                            </form>
                         </div>
                     </li>
                     <li class="nav-item d-none d-lg-block full-screen-link">
@@ -213,6 +216,13 @@
                     <li class="nav-item">
                         <a class="nav-link" asp-controller="Director" asp-action="Create">
                             <span class="menu-title">Yönetmen Oluştur</span>
+
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Account" asp-action="Logout">
+                            <span class="menu-title">Çıkış Yap</span>
 
                         </a>
                     </li>
