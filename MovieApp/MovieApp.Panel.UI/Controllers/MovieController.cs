@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MovieApp.BusinessLayer.Concrete;
 using MovieApp.DataAccess.Concrete;
@@ -8,6 +9,7 @@ using MovieApp.EntityLayer.Entities.ConnectionClasses;
 
 namespace MovieApp.Panel.UI.Controllers
 {
+    [Authorize]
     public class MovieController : Controller
     {
 

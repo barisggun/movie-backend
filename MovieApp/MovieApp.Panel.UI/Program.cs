@@ -18,34 +18,35 @@ namespace MovieApp.Panel.UI
             {
                 x.Password.RequireNonAlphanumeric = false;
             }).AddEntityFrameworkStores<Context>();
-            builder.Services.AddHttpContextAccessor();
             //Identity End
 
 
             //Cookie start
             builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
+
             builder.Services.AddSession();
             builder.Services.AddMvc(config =>
             {
                 var policy = new AuthorizationPolicyBuilder()
-                    .RequireAuthenticatedUser()
-                    .Build();
+                                .RequireAuthenticatedUser()
+                                .Build();
                 config.Filters.Add(new AuthorizeFilter(policy));
             });
 
-            builder.Services.ConfigureApplicationCookie(opts =>
-            {
-                //Cookie settings
-                opts.Cookie.HttpOnly = true;
-                opts.ExpireTimeSpan = TimeSpan.FromMinutes(30);
-                opts.AccessDeniedPath = new PathString("/Login/AccessDenied"); // eriþimin reddedildiði durumda gitmesi gerek yer
-                opts.AccessDeniedPath = new PathString("/Login/AccessDenied/");
-                opts.LoginPath = "/Login/Index/";
-                opts.SlidingExpiration = true;
-            });
+            builder.Services.AddMvc();
+            builder.Services.AddAuthentication(
+                CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(x => {
+                    x.LoginPath = "/Login/Index/";
+                }
+                );
+            //Cookie end
 
 
             var app = builder.Build();
+
+          
+
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -58,14 +59,12 @@ namespace MovieApp.Panel.UI
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            app.UseRouting();
-
-            app.UseAuthentication(); // üyeyi kontol eder
-            app.UseAuthorization(); // yetkiyi konrol eder  
-
+            app.UseAuthentication();
             app.UseSession();
 
-         
+            app.UseRouting();
+
+            app.UseAuthorization();
 
             app.MapControllerRoute(
                 name: "default",
