@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MovieApp.Panel.UI.Controllers
 {
-    [AllowAnonymous]
     public class AdminController : Controller
     {
         public IActionResult Index()

@@ -36,7 +36,8 @@ namespace MovieApp.Panel.UI
             builder.Services.AddMvc();
             builder.Services.AddAuthentication(
                 CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(x => {
+                .AddCookie(x =>
+                {
                     x.LoginPath = "/Login/Index/";
                 }
                 );
@@ -45,7 +46,7 @@ namespace MovieApp.Panel.UI
 
             var app = builder.Build();
 
-          
+
 
 
             // Configure the HTTP request pipeline.
