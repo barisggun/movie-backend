@@ -11,7 +11,10 @@ namespace MovieApp.Panel.UI
 
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddDbContext<Context>();
-            builder.Services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<Context>();
+            builder.Services.AddIdentity<AppUser, AppRole>(x =>
+            {
+                x.Password.RequireNonAlphanumeric = false;
+            }).AddEntityFrameworkStores<Context>();
 
 
             // Add services to the container.
