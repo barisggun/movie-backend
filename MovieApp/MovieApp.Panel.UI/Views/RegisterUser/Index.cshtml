@@ -30,21 +30,21 @@
                             <h6>Yeni bir hesap oluşturun!</h6>
                             <form class="pt-3" role="form" asp-action="Index">
                                 <div class="form-group">
-                                    <input type="text" class="form-control form-control-lg" id="exampleInputNameSurname1" asp-for="@Model.NameSurname" placeholder="Name Surname">
+                                    <input type="text" class="form-control form-control-lg" asp-for="@Model.NameSurname" placeholder="Name Surname">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control form-control-lg" id="exampleInputUsername1" asp-for="@Model.UserName" placeholder="Username">
+                                    <input type="text" class="form-control form-control-lg" asp-for="@Model.UserName" placeholder="Username">
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" class="form-control form-control-lg" id="exampleInputEmail1" asp-for="@Model.Mail" placeholder="Email">
+                                    <input type="email" class="form-control form-control-lg" asp-for="@Model.Mail" placeholder="Email">
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" asp-for="@Model.Password" placeholder="Password">
+                                    <input type="password" class="form-control form-control-lg" asp-for="@Model.Password" placeholder="Password">
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" class="form-control form-control-lg" id="exampleInputConfirmPassword1" asp-for="@Model.ConfirmPassword" placeholder="Confirm Password">
+                                    <input type="password" class="form-control form-control-lg" asp-for="@Model.ConfirmPassword" placeholder="Confirm Password">
                                 </div>
-                                <div class="mb-4">
+                                <div class="form-group mb-4">
                                     <div class="form-check">
                                         <label class="form-check-label text-muted">
                                             <input type="checkbox" class="form-check-input">Kullanım şartlarını okudum, kabul ediyorum.
@@ -55,7 +55,7 @@
                                     <button type="submit" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn">Kayıt Ol</button>
                                 </div>
                                 <div class="text-center mt-4 font-weight-light">
-                                   Bir hesabınız var mı?<a href="/RegisterUser/Login/" class="text-primary">Login</a>
+                                   Bir hesabınız var mı?<a href="/RegisterUser/Login/" class="text-primary">Giriş Yap</a>
                                 </div>
                             </form>
                         </div>
