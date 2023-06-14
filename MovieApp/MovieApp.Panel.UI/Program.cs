@@ -1,4 +1,6 @@
-using Microsoft.AspNetCore.Authentication.Cookies;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using MovieApp.DataAccess.Concrete;
 using MovieApp.EntityLayer.Entities;
 
@@ -8,19 +10,44 @@ namespace MovieApp.Panel.UI
     {
         public static void Main(string[] args)
         {
-         
-
             var builder = WebApplication.CreateBuilder(args);
+
+            //Identity Start
             builder.Services.AddDbContext<Context>();
             builder.Services.AddIdentity<AppUser, AppRole>(x =>
             {
                 x.Password.RequireNonAlphanumeric = false;
             }).AddEntityFrameworkStores<Context>();
+            //Identity End
 
-            // Add services to the container.
+
+            //Cookie start
             builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
+            builder.Services.AddSession();
+            builder.Services.AddMvc(config =>
+            {
+                var policy = new AuthorizationPolicyBuilder()
+                                .RequireAuthenticatedUser()
+                                .Build();
+                config.Filters.Add(new AuthorizeFilter(policy));
+            });
+
+            builder.Services.AddMvc();
+            builder.Services.AddAuthentication(
+                CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(x =>
+                {
+                    x.LoginPath = "/Login/Index/";
+                }
+                );
+            //Cookie end
+
+
             var app = builder.Build();
+
+
+
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -32,6 +59,9 @@ namespace MovieApp.Panel.UI
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseAuthentication();
+            app.UseSession();
 
             app.UseRouting();
 

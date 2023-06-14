@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MovieApp.BusinessLayer.Concrete;
 using MovieApp.DataAccess.EntityFramework;
 using MovieApp.EntityLayer.Entities;
