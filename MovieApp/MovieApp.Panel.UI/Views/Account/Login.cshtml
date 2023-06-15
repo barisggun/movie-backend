@@ -29,7 +29,6 @@
                             <h4>Giriş Ekranı</h4>
                             <h6 class="font-weight-light">Devam etmek için giriş yapınız!</h6>
                             <form method="post" class="pt-3">
-                                <div asp-validation-summary="All" class="text-danger"></div> <!-- Add validation summary -->
                                 <div class="form-group">
                                     <span asp-validation-for="@Model.username" class="text-danger"></span>
                                     <input type="text" class="form-control form-control-lg" asp-for="@Model.username" placeholder="Username">

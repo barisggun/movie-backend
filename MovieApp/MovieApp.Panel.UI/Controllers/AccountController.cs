@@ -35,7 +35,8 @@ namespace MovieApp.Panel.UI.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Kullanıcı veya şifre hatalı tekrar deneyiniz."); // Add error message
+                    ModelState.AddModelError("username", "Kullanıcı adı hatalı tekrar deneyiniz."); // Add error message
+                    ModelState.AddModelError("password", "Şifre hatalı tekrar deneyiniz."); // Add error message
                     return View(p); // Return the view with the updated model containing the error
 
                     //return RedirectToAction("Login", "Account");
