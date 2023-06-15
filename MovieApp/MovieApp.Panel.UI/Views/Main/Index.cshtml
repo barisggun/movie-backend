@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 
-@await Html.PartialAsync("_HomePageCover")
+@await Component.InvokeAsync("HomepageCover")
 
 <div class="onerilenFilmler">
     <div class="cards">

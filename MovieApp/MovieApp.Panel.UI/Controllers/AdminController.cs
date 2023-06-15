@@ -30,8 +30,8 @@ namespace MovieApp.Panel.UI.Controllers
         [HttpGet]
         public IActionResult CreateCover()
         {
-
-            return View();  
+            var homepageCover = homepageCoverManager.GetAll().FirstOrDefault();
+            return View(homepageCover);  
         }
 
         [HttpPost]
@@ -57,6 +57,7 @@ namespace MovieApp.Panel.UI.Controllers
 
 
             homepageCoverManager.Update(homepageCover);
+
             return RedirectToAction("Index");
         }
 
