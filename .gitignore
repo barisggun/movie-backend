@@ -396,3 +396,21 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/MovieApp/MovieApp.DataAccess/Migrations/20230609214052_InitializeMigration.cs
+/MovieApp/MovieApp.DataAccess/Migrations/20230609214052_InitializeMigration.Designer.cs
+/MovieApp/MovieApp.DataAccess/Migrations/20230610160942_CategoryMovieTable.cs
+/MovieApp/MovieApp.DataAccess/Migrations/20230610160942_CategoryMovieTable.Designer.cs
+/MovieApp/MovieApp.DataAccess/Migrations/20230614074930_IdentityInstalled.cs
+/MovieApp/MovieApp.DataAccess/Migrations/20230614074930_IdentityInstalled.Designer.cs
+/MovieApp/MovieApp.DataAccess/Migrations/20230614075654_AppUserUpdated.cs
+/MovieApp/MovieApp.DataAccess/Migrations/20230614075654_AppUserUpdated.Designer.cs
+/MovieApp/MovieApp.DataAccess/Migrations/20230614125418_UpdateUsers.cs
+/MovieApp/MovieApp.DataAccess/Migrations/20230614125418_UpdateUsers.Designer.cs
+/MovieApp/MovieApp.DataAccess/Migrations/20230615094725_blogadd.cs
+/MovieApp/MovieApp.DataAccess/Migrations/20230615094725_blogadd.Designer.cs
+/MovieApp/MovieApp.DataAccess/Migrations/20230615101339_appuserAddedBlog.Designer.cs
+/MovieApp/MovieApp.DataAccess/Migrations/20230615101339_appuserAddedBlog.cs
+/MovieApp/MovieApp.DataAccess/Migrations/20230615101651_blogappuser.cs
+/MovieApp/MovieApp.DataAccess/Migrations/20230615101651_blogappuser.Designer.cs
+/MovieApp/MovieApp.DataAccess/Migrations/20230615101808_commentratingdelete.Designer.cs
+/MovieApp/MovieApp.DataAccess/Migrations/20230615101808_commentratingdelete.cs
