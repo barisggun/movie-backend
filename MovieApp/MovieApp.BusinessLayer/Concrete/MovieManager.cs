@@ -40,5 +40,9 @@ namespace MovieApp.BusinessLayer.Concrete
         {
             _movieDal.Update(movie);
         }
+        public List<Movie> GetList()
+        {
+            return _movieDal.GetAll();
+        }
     }
 }

@@ -14,5 +14,7 @@ namespace MovieApp.BusinessLayer.Abstract
         void Create(Blog blog);
         void Update(Blog blog);
         void Delete(Blog blog);
+        List<Blog> GetBlogListWithMovie();
+        List<Blog> GetBlogListByWriter(int id);
     }
 }

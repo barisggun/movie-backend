@@ -1,0 +1,69 @@
+﻿@using MovieApp.EntityLayer.Entities
+@model List<Blog>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Blog Başlığı
+            </th>
+            <th>
+                Blog Content
+            </th>
+            <th>
+                Yayın Tarihi
+            </th>
+            <th>
+                Yazar ID
+            </th>
+            <th>
+                Film ID
+            </th>
+            <th>
+                ID
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BlogTitle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BlogContent)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BlogCreateDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AppUserId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MovieId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ID)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
