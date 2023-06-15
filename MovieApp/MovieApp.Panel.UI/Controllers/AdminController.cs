@@ -28,15 +28,16 @@ namespace MovieApp.Panel.UI.Controllers
         }
 
         [HttpGet]
-        public IActionResult CreateCover()
+        public IActionResult CreateCover(int id)
         {
-            var homepageCover = homepageCoverManager.GetAll().FirstOrDefault();
-            return View(homepageCover);  
+            var values = homepageCoverManager.GetById(1);
+            return View(values);  
         }
 
         [HttpPost]
         public IActionResult CreateCover(HomepageCover homepageCover, IFormFile file)
         {
+            homepageCover.ID = 1;
             homepageCover.ImageUrl = "";
             if (file != null)
             {
