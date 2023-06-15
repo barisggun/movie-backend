@@ -48,5 +48,20 @@ namespace MovieApp.BusinessLayer.Concrete
         {
             return _blogDal.GetAll().Take(3).ToList();
         }
+
+        public List<Blog> GetBlogListWithMovie()
+        {
+            return _blogDal.GetListWithMovie();
+        }
+
+        public List<Blog> GetBlogListByWriter(int id)
+        {
+            return _blogDal.GetAll(x => x.AppUserId == id);
+        }
+
+        public List<Blog> GetListWithMovieByWriterBm(int id)
+        {
+            return _blogDal.GetListWithMovieByWriter(id);
+        }
     }
 }

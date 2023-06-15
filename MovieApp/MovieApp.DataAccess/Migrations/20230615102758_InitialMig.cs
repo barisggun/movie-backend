@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MovieApp.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class blogadd : Migration
+    public partial class InitialMig : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -23,18 +23,18 @@ namespace MovieApp.DataAccess.Migrations
                     BlogImage = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     BlogCreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     BlogStatus = table.Column<bool>(type: "bit", nullable: true),
-                    AppUserId = table.Column<int>(type: "int", nullable: true),
-                    AppUsersId = table.Column<int>(type: "int", nullable: true),
+                    AppUserId = table.Column<int>(type: "int", nullable: false),
                     MovieId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Blogs", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_Blogs_AspNetUsers_AppUsersId",
-                        column: x => x.AppUsersId,
+                        name: "FK_Blogs_AspNetUsers_AppUserId",
+                        column: x => x.AppUserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Blogs_Movies_MovieId",
                         column: x => x.MovieId,
@@ -42,6 +42,7 @@ namespace MovieApp.DataAccess.Migrations
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
+
 
             migrationBuilder.CreateTable(
                 name: "Comments",
@@ -53,7 +54,6 @@ namespace MovieApp.DataAccess.Migrations
                     CommentTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CommentContent = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CommentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    BlogScore = table.Column<int>(type: "int", nullable: false),
                     CommentStatus = table.Column<bool>(type: "bit", nullable: false),
                     BlogID = table.Column<int>(type: "int", nullable: false)
                 },
@@ -68,15 +68,11 @@ namespace MovieApp.DataAccess.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+           
             migrationBuilder.CreateIndex(
-                name: "IX_Blogs_AppUsersId",
+                name: "IX_Blogs_AppUserId",
                 table: "Blogs",
-                column: "AppUsersId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Blogs_MovieId",
-                table: "Blogs",
-                column: "MovieId");
+                column: "AppUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_BlogID",

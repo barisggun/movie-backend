@@ -9,6 +9,7 @@ namespace MovieApp.DataAccess.Abstract
 {
     public interface IBlogDal:IGenericDal<Blog>
     {
- 
+        List<Blog> GetListWithMovie();
+        List<Blog> GetListWithMovieByWriter(int id);
     }
 }

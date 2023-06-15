@@ -12,8 +12,8 @@ using MovieApp.DataAccess.Concrete;
 namespace MovieApp.DataAccess.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20230614075654_AppUserUpdated")]
-    partial class AppUserUpdated
+    [Migration("20230615102758_InitialMig")]
+    partial class InitialMig
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -184,13 +184,9 @@ namespace MovieApp.DataAccess.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("About")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BlogId")
                         .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -205,7 +201,6 @@ namespace MovieApp.DataAccess.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("ImageUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
@@ -258,6 +253,47 @@ namespace MovieApp.DataAccess.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("MovieApp.EntityLayer.Entities.Blog", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<int>("AppUserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("BlogContent")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("BlogCreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("BlogImage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("BlogStatus")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("BlogThumbnailImage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BlogTitle")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("MovieId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("AppUserId");
+
+                    b.HasIndex("MovieId");
+
+                    b.ToTable("Blogs");
+                });
+
             modelBuilder.Entity("MovieApp.EntityLayer.Entities.Category", b =>
                 {
                     b.Property<int>("ID")
@@ -273,6 +309,42 @@ namespace MovieApp.DataAccess.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("MovieApp.EntityLayer.Entities.Comment", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<int>("BlogID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CommentContent")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CommentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("CommentStatus")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("CommentTitle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CommentUserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("BlogID");
+
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("MovieApp.EntityLayer.Entities.ConnectionClasses.ActorMovie", b =>
@@ -418,6 +490,36 @@ namespace MovieApp.DataAccess.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("MovieApp.EntityLayer.Entities.Blog", b =>
+                {
+                    b.HasOne("MovieApp.EntityLayer.Entities.AppUser", "AppUsers")
+                        .WithMany("Blogs")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MovieApp.EntityLayer.Entities.Movie", "Movies")
+                        .WithMany("Blogs")
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUsers");
+
+                    b.Navigation("Movies");
+                });
+
+            modelBuilder.Entity("MovieApp.EntityLayer.Entities.Comment", b =>
+                {
+                    b.HasOne("MovieApp.EntityLayer.Entities.Blog", "Blog")
+                        .WithMany("Comments")
+                        .HasForeignKey("BlogID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Blog");
+                });
+
             modelBuilder.Entity("MovieApp.EntityLayer.Entities.ConnectionClasses.ActorMovie", b =>
                 {
                     b.HasOne("MovieApp.EntityLayer.Entities.Actor", "Actor")
@@ -473,6 +575,21 @@ namespace MovieApp.DataAccess.Migrations
                     b.Navigation("Director");
 
                     b.Navigation("Movie");
+                });
+
+            modelBuilder.Entity("MovieApp.EntityLayer.Entities.AppUser", b =>
+                {
+                    b.Navigation("Blogs");
+                });
+
+            modelBuilder.Entity("MovieApp.EntityLayer.Entities.Blog", b =>
+                {
+                    b.Navigation("Comments");
+                });
+
+            modelBuilder.Entity("MovieApp.EntityLayer.Entities.Movie", b =>
+                {
+                    b.Navigation("Blogs");
                 });
 #pragma warning restore 612, 618
         }
