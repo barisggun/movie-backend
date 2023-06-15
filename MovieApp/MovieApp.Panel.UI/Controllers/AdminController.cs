@@ -45,7 +45,7 @@ namespace MovieApp.Panel.UI.Controllers
                 string extension = Path.GetExtension(file.FileName);
 
                 string yeniDosyaAdi = fileName + DateTime.Now.ToString("yymmssfff") + extension;
-                string path = Path.Combine(wwwrootPath + "/images/product/", yeniDosyaAdi);
+                string path = Path.Combine(wwwrootPath + "/images/homepage/", yeniDosyaAdi);
 
                 using (var fileStream = new FileStream(path, FileMode.Create))
                 {
@@ -59,6 +59,8 @@ namespace MovieApp.Panel.UI.Controllers
             homepageCoverManager.Update(homepageCover);
             return RedirectToAction("Index");
         }
+
+        
 
 
     }

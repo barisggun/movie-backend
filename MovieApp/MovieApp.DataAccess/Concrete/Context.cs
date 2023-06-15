@@ -68,6 +68,7 @@ namespace MovieApp.DataAccess.Concrete
         public DbSet<Director> Directors { get; set; }
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<HomepageCover> HomepageCovers { get; set; }
 
     }
 }

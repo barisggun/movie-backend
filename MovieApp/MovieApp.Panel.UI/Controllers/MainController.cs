@@ -11,7 +11,11 @@ namespace MovieApp.Panel.UI.Controllers
             return View();
         }
 
+        public PartialViewResult _HomepageCover()
+        {
 
+            return PartialView();
+        }
 
     }
 }

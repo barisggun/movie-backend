@@ -406,6 +406,27 @@ namespace MovieApp.DataAccess.Migrations
                     b.ToTable("Directors");
                 });
 
+            modelBuilder.Entity("MovieApp.EntityLayer.Entities.HomepageCover", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("HomepageCovers");
+                });
+
             modelBuilder.Entity("MovieApp.EntityLayer.Entities.Movie", b =>
                 {
                     b.Property<int>("ID")

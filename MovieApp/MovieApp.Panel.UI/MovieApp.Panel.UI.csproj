@@ -36,6 +36,7 @@
   <ItemGroup>
     <Folder Include="wwwroot\home\sass\pages\" />
     <Folder Include="wwwroot\images\movie\" />
+    <Folder Include="wwwroot\images\homepage\" />
     <Folder Include="wwwroot\main\.git\objects\info\" />
     <Folder Include="wwwroot\main\.git\refs\tags\" />
   </ItemGroup>

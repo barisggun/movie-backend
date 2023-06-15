@@ -5,13 +5,8 @@
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 
-<div class="hero">
-    <h1>
-        İzlediğiniz filmleri takip edin <br />
-        Yorum yapın.. <br />
-        Daha fazlasını keşfedin...
-    </h1>
-</div>
+@await Html.PartialAsync("_HomePageCover")
+
 <div class="onerilenFilmler">
     <div class="cards">
         <img src="assets/img/png/moonlight.jpg" alt="" />

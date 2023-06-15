@@ -1,0 +1,13 @@
+﻿@using MovieApp.EntityLayer.Entities
+@model List<HomepageCover>
+
+
+<div class="hero">
+    @foreach (var item in Model)
+    {
+        <h1>
+           @item.Title
+        </h1>
+
+    }
+</div>

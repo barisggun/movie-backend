@@ -12,8 +12,8 @@ using MovieApp.DataAccess.Concrete;
 namespace MovieApp.DataAccess.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20230615102758_InitialMig")]
-    partial class InitialMig
+    [Migration("20230615124730_addedHomePageCoverClass")]
+    partial class addedHomePageCoverClass
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -407,6 +407,27 @@ namespace MovieApp.DataAccess.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Directors");
+                });
+
+            modelBuilder.Entity("MovieApp.EntityLayer.Entities.HomepageCover", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("HomepageCovers");
                 });
 
             modelBuilder.Entity("MovieApp.EntityLayer.Entities.Movie", b =>
