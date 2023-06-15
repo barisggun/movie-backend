@@ -10,5 +10,10 @@ namespace MovieApp.Panel.UI.Controllers
         {
             return View();
         }
+
+        public PartialViewResult AdminNavbarPartial()
+        {
+            return PartialView();
+        }
     }
 }
