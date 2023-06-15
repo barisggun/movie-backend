@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MovieApp.DataAccess.Concrete;
 
@@ -11,9 +12,11 @@ using MovieApp.DataAccess.Concrete;
 namespace MovieApp.DataAccess.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20230615094725_blogadd")]
+    partial class blogadd
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -186,6 +189,9 @@ namespace MovieApp.DataAccess.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<int?>("BlogId")
+                        .HasColumnType("int");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -258,7 +264,10 @@ namespace MovieApp.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
-                    b.Property<int>("AppUserId")
+                    b.Property<int?>("AppUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("AppUsersId")
                         .HasColumnType("int");
 
                     b.Property<string>("BlogContent")
@@ -284,7 +293,7 @@ namespace MovieApp.DataAccess.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("AppUserId");
+                    b.HasIndex("AppUsersId");
 
                     b.HasIndex("MovieId");
 
@@ -317,6 +326,9 @@ namespace MovieApp.DataAccess.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
                     b.Property<int>("BlogID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BlogScore")
                         .HasColumnType("int");
 
                     b.Property<string>("CommentContent")
@@ -490,10 +502,8 @@ namespace MovieApp.DataAccess.Migrations
             modelBuilder.Entity("MovieApp.EntityLayer.Entities.Blog", b =>
                 {
                     b.HasOne("MovieApp.EntityLayer.Entities.AppUser", "AppUsers")
-                        .WithMany("Blogs")
-                        .HasForeignKey("AppUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("AppUsersId");
 
                     b.HasOne("MovieApp.EntityLayer.Entities.Movie", "Movies")
                         .WithMany("Blogs")
@@ -572,11 +582,6 @@ namespace MovieApp.DataAccess.Migrations
                     b.Navigation("Director");
 
                     b.Navigation("Movie");
-                });
-
-            modelBuilder.Entity("MovieApp.EntityLayer.Entities.AppUser", b =>
-                {
-                    b.Navigation("Blogs");
                 });
 
             modelBuilder.Entity("MovieApp.EntityLayer.Entities.Blog", b =>

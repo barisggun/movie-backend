@@ -11,7 +11,6 @@ namespace MovieApp.BusinessLayer.Abstract
     public interface ICommentService
     {
         void Create(Comment comment);
-        List<Comment> GetList(int id);
 
     }
 }

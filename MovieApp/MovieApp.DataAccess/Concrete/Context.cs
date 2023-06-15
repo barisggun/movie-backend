@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace MovieApp.DataAccess.Concrete
 {
-    public class Context : IdentityDbContext<AppUser,AppRole, int>
+    public class Context : IdentityDbContext<AppUser, AppRole, int>
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -57,6 +57,7 @@ namespace MovieApp.DataAccess.Concrete
                     j.ToTable("CategoryMovie");
                 }
                 );
+
 
             base.OnModelCreating(modelBuilder);
         }

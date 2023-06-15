@@ -17,8 +17,8 @@ namespace MovieApp.EntityLayer.Entities
         public DateTime BlogCreateDate { get; set; }
         public bool? BlogStatus { get; set; }
 
-        public int? AppUserId { get; set; }
-        public AppUser? AppUsers { get; set; }
+        public int AppUserId { get; set; }
+        public AppUser AppUsers { get; set; }
 
         public int MovieId { get; set; }
         public Movie Movies { get; set; }

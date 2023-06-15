@@ -10,6 +10,6 @@ namespace MovieApp.DataAccess.Abstract
 {
     public interface ICommentDal:IGenericDal<Comment>
     {
-        List<Comment> GetListAll(Expression<Func<Comment, bool>> filter);
+       
     }
 }

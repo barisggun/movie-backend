@@ -16,6 +16,5 @@ namespace MovieApp.DataAccess.Abstract
         void Create(T entity);
         void Update(T entity);
         void Delete(T entity);
-        List<T> GetListAll(Expression<Func<T, bool>> filter);
     }
 }

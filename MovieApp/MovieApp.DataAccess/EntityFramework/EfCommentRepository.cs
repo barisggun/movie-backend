@@ -4,12 +4,13 @@ using MovieApp.EntityLayer.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MovieApp.DataAccess.EntityFramework
 {
-    public class EfCommentRepository:GenericRepository<Comment>,ICommentDal
+    public class EfCommentRepository : GenericRepository<Comment>, ICommentDal
     {
 
     }

@@ -24,9 +24,5 @@ namespace MovieApp.BusinessLayer.Concrete
             _commentDal.Create(comment);
         }
 
-        public List<Comment> GetList(int id)
-        {
-            return _commentDal.GetListAll(x => x.BlogID == id);
-        }
     }
     }

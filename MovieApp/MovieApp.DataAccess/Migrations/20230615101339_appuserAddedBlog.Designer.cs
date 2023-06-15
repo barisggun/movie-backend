@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MovieApp.DataAccess.Concrete;
 
@@ -11,9 +12,11 @@ using MovieApp.DataAccess.Concrete;
 namespace MovieApp.DataAccess.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20230615101339_appuserAddedBlog")]
+    partial class appuserAddedBlog
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -261,6 +264,9 @@ namespace MovieApp.DataAccess.Migrations
                     b.Property<int>("AppUserId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("AppUserId1")
+                        .HasColumnType("int");
+
                     b.Property<string>("BlogContent")
                         .HasColumnType("nvarchar(max)");
 
@@ -285,6 +291,10 @@ namespace MovieApp.DataAccess.Migrations
                     b.HasKey("ID");
 
                     b.HasIndex("AppUserId");
+
+                    b.HasIndex("AppUserId1")
+                        .IsUnique()
+                        .HasFilter("[AppUserId1] IS NOT NULL");
 
                     b.HasIndex("MovieId");
 
@@ -317,6 +327,9 @@ namespace MovieApp.DataAccess.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
                     b.Property<int>("BlogID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BlogScore")
                         .HasColumnType("int");
 
                     b.Property<string>("CommentContent")
@@ -489,11 +502,15 @@ namespace MovieApp.DataAccess.Migrations
 
             modelBuilder.Entity("MovieApp.EntityLayer.Entities.Blog", b =>
                 {
-                    b.HasOne("MovieApp.EntityLayer.Entities.AppUser", "AppUsers")
-                        .WithMany("Blogs")
+                    b.HasOne("MovieApp.EntityLayer.Entities.AppUser", "AppUser")
+                        .WithMany()
                         .HasForeignKey("AppUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("MovieApp.EntityLayer.Entities.AppUser", null)
+                        .WithOne("Blog")
+                        .HasForeignKey("MovieApp.EntityLayer.Entities.Blog", "AppUserId1");
 
                     b.HasOne("MovieApp.EntityLayer.Entities.Movie", "Movies")
                         .WithMany("Blogs")
@@ -501,7 +518,7 @@ namespace MovieApp.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("AppUsers");
+                    b.Navigation("AppUser");
 
                     b.Navigation("Movies");
                 });
@@ -576,7 +593,8 @@ namespace MovieApp.DataAccess.Migrations
 
             modelBuilder.Entity("MovieApp.EntityLayer.Entities.AppUser", b =>
                 {
-                    b.Navigation("Blogs");
+                    b.Navigation("Blog")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("MovieApp.EntityLayer.Entities.Blog", b =>
