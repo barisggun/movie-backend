@@ -38,5 +38,7 @@ namespace MovieApp.EntityLayer.Entities
         //public List<Actor> Actors { get; set; }
         public List<Actor> Actors { get; set; } = new List<Actor>();
         public List<Category> Categories { get; set; } = new List<Category>();
+
+        public List<Blog> Blogs { get; set; } = new List<Blog>();
     }
 }

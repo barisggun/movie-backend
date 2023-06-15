@@ -9,7 +9,6 @@ using MovieApp.EntityLayer.Entities.ConnectionClasses;
 
 namespace MovieApp.Panel.UI.Controllers
 {
-
     public class MovieController : Controller
     {
 
