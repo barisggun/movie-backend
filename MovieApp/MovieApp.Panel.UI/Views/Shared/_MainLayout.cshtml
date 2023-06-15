@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="assets/img/icons/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap"
+          rel="stylesheet" />
+    <link rel="stylesheet" href="assets/CSS/reset.css" />
+    <link rel="stylesheet" href="assets/CSS/main.css" />
+    <script src="assets/JS/main.js" defer></script>
+    <title>Film Project</title>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="navbar">
+                <div class="logo">
+                    <img class="logo" src="assets/img/filmatlasi (2) (1).png" alt="" />
+                </div>
+                <div class="nav">
+                    <ul class="left">
+                        <li>Anasayfa</li>
+                        <li>Filmler</li>
+                        <li>Listeler</li>
+                    </ul>
+                    <input class="filter" type="text" placeholder="Ara" />
+                    <ul>
+                        <li>Giriş Yap</li>
+                        <li>Üye Ol</li>
+                    </ul>
+                </div>
+                <div class="menu-wrap">
+                    <ul class="menu">
+                        <li class="menu-item">
+                            <a href="#">
+                                <img class="icon" src="assets/img/user.svg" alt="" />
+                            </a>
+                            <ul class="drop-menu">
+                                <li class="drop-menu-item">
+                                    <a target="_blank" href="http://emirhankadiroglu.me/">Profile</a>
+                                </li>
+                                <li class="drop-menu-item">
+                                    <a target="_blank" href="https://github.com/huseyincengizz">Settings</a>
+                                </li>
+                                <li class="drop-menu-item">
+                                    <a href="#">Help</a>
+                                </li>
+                                <li class="drop-menu-item">
+                                    <a href="#">Sign Out</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <ul class="menu">
+                        <li class="menu-item">
+                            <a href="#">
+                                <img class="icon"
+                                     src="assets/img/github-mark-white.png"
+                                     alt="" />
+                            </a>
+                            <ul class="drop-menu">
+                                <li class="drop-menu-item">
+                                    <a target="_blank" href="https://github.com/thekadiroglu">emirhan</a>
+                                </li>
+                                <li class="drop-menu-item">
+                                    <a target="_blank" href="https://github.com/huseyincengizz">Hüseyin</a>
+                                </li>
+                                <li class="drop-menu-item">
+                                    <a href="#">Barış</a>
+                                </li>
+                                <li class="drop-menu-item">
+                                    <a href="#">Işılay</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Header Finish-->
+     @RenderBody()
+
+
+    </div>
+</body>
+</html>
