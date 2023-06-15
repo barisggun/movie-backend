@@ -35,7 +35,10 @@ namespace MovieApp.Panel.UI.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("Index", "Login");
+                    ModelState.AddModelError("", "Kullanıcı veya şifre hatalı tekrar deneyiniz."); // Add error message
+                    return View(p); // Return the view with the updated model containing the error
+
+                    //return RedirectToAction("Login", "Account");
                 }
             }
             return View();
