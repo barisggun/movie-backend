@@ -10,19 +10,25 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 using System.Configuration;
 using MovieApp.DataAccess.Concrete;
+using Microsoft.AspNetCore.Hosting;
 
 namespace MovieApp.Panel.UI.Controllers
 {
     [Authorize(Roles = "Admin,Writer")]
     public class BlogController : Controller
     {
-        //private readonly IWebHostEnvironment webHostEnvironment;
+        private readonly IWebHostEnvironment webHostEnvironment;
         //private readonly SignInManager<AppUser> _signInManager;
 
         BlogManager bm = new BlogManager(new EfBlogRepository());
         MovieManager mm = new MovieManager(new EfMovieRepository());
         Context c = new Context();
         private readonly UserManager<AppUser> _userManager;
+
+        public BlogController(IWebHostEnvironment webHostEnvironment)
+        {
+            this.webHostEnvironment = webHostEnvironment;
+        }
 
         public IActionResult Index()
         {
@@ -53,10 +59,27 @@ namespace MovieApp.Panel.UI.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Create(Blog b)
+        public IActionResult Create(Blog b, IFormFile file)
         {
             //BlogValidator bv = new BlogValidator();
-            //ValidationResult result = bv.Validate(b);           
+            //ValidationResult result = bv.Validate(b);
+            b.BlogImage = "";
+            if (file != null)
+            {
+                string wwwrootPath = webHostEnvironment.WebRootPath;
+                string fileName = Path.GetFileNameWithoutExtension(file.FileName);
+                string extension = Path.GetExtension(file.FileName);
+
+                string yeniDosyaAdi = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                string path = Path.Combine(wwwrootPath + "/images/blog/", yeniDosyaAdi);
+
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    file.CopyTo(fileStream);
+                }
+
+                b.BlogImage = yeniDosyaAdi;
+            }
             var username = User.Identity.Name;
             var usermail = c.Users.Where(x => x.UserName == username).Select(y => y.Email).FirstOrDefault();
             var userID = c.Users.Where(x => x.Email == usermail).Select(y => y.Id).FirstOrDefault();
@@ -64,6 +87,7 @@ namespace MovieApp.Panel.UI.Controllers
             b.BlogStatus = true;
             b.BlogCreateDate = DateTime.Parse(DateTime.Now.ToShortDateString());
             b.AppUserId = userID;
+          
             bm.Create(b);
             return RedirectToAction("BlogListByWriter", "Blog");
         }
@@ -90,8 +114,24 @@ namespace MovieApp.Panel.UI.Controllers
         }
 
         [HttpPost]
-        public IActionResult BlogEdit(Blog b)
+        public IActionResult BlogEdit(Blog b, IFormFile? file)
         {
+            if (file != null)
+            {
+                string wwwrootPath = webHostEnvironment.WebRootPath;
+                string fileName = Path.GetFileNameWithoutExtension(file.FileName);
+                string extension = Path.GetExtension(file.FileName);
+
+                string yeniDosyaAdi = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                string path = Path.Combine(wwwrootPath + "/images/blog/", yeniDosyaAdi);
+
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    file.CopyTo(fileStream);
+                }
+
+                b.BlogImage = yeniDosyaAdi;
+            }
             var username = User.Identity.Name;
             var usermail = c.Users.Where(x => x.UserName == username).Select(y => y.Email).FirstOrDefault();
             var userID = c.Users.Where(x => x.Email == usermail).Select(y => y.Id).FirstOrDefault();

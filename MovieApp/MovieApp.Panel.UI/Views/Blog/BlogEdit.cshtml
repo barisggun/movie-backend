@@ -7,7 +7,7 @@
 
 <h1>Blog Düzenleme Ekranı</h1>
 <br />
-@using(Html.BeginForm("BlogEdit","Blog", FormMethod.Post))
+@*@using(Html.BeginForm("BlogEdit","Blog", FormMethod.Post))
 {
     @Html.Label("Blog ID")
     @Html.TextBoxFor(x=>x.ID, new{@class = "form-control"})
@@ -28,5 +28,41 @@
     @Html.TextAreaFor(x=>x.BlogContent,15,3, new{@class = "form-control"})
     <br />
     <button class="btn btn-primary">Güncelle</button>
-}
+}*@
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="BlogEdit" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group mt-3">
+                <label asp-for="BlogTitle" class="control-label"></label>
+                <input asp-for="BlogTitle" class="form-control" />
+                <span asp-validation-for="BlogTitle" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="BlogImage">Poster</label>
+                <input type="file" name="file" multipe="false" class="form-control file-upload-default">
+                <span asp-validation-for="BlogImage" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Film Seçiniz")
+                @Html.DropDownListFor(x=>x.MovieId, (List<SelectListItem>)ViewBag.cv, new {@class = "form-control"})
+                <br />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="BlogContent" class="control-label"></label>
+                <input asp-for="BlogContent" class="form-control" />
+                <span asp-validation-for="BlogContent" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Güncelle</button>
+            </div>
+        </form>
+    </div>
+</div>
 
