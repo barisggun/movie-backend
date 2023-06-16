@@ -13,6 +13,7 @@ namespace MovieApp.EntityLayer.Entities
     {
         [Required(ErrorMessage = "Yönetmen adı boş geçilemez.")]
         [DisplayName("Yönetmen Adı")]
+        [StringLength(50, MinimumLength = 5, ErrorMessage = "max 60 min 3")]
         public string DirectorName { get; set; }
 
         public List<Movie> Movies { get; set; }

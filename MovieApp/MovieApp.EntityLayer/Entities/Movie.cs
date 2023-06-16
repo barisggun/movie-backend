@@ -13,10 +13,14 @@ namespace MovieApp.EntityLayer.Entities
     {
         [Required(ErrorMessage = "Film adı boş geçilemez.")]
         [DisplayName("Film Adı")]
+        [StringLength(100, MinimumLength = 5, ErrorMessage = "max 60 min 3")]
         public string MovieTitle { get; set; }
+
         [Required(ErrorMessage = "Film açıklaması boş geçilemez.")]
+        [StringLength(800, MinimumLength = 5, ErrorMessage = "max 60 min 3")]
         [DisplayName("Açıklama")]
         public string Description { get; set; }
+
         [Required(ErrorMessage = "Çıkış tarihi boş geçilemez.")]
         [DisplayName("Çıkış Tarihi")]
         public DateTime ReleaseDate { get; set; }

@@ -24,8 +24,11 @@ namespace MovieApp.Panel.UI.Controllers
         [HttpPost]
         public IActionResult Create(Actor actor)
         {
-            actorManager.Create(actor);
-            return RedirectToAction("Index");
+            
+                actorManager.Create(actor);
+                return RedirectToAction("Index");
+
+            
         }
         public IActionResult Delete(int id)
         {

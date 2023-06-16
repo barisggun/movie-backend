@@ -13,6 +13,7 @@ namespace MovieApp.EntityLayer.Entities
     {
         [Required(ErrorMessage = "Kategori adı boş geçilemez.")]
         [DisplayName("Kategori Adı")]
+        [StringLength(30, MinimumLength = 3, ErrorMessage = "max 60 min 3")]
         public string CategoryName { get; set; }
         public List<Movie> Movies { get; set; }
     }
