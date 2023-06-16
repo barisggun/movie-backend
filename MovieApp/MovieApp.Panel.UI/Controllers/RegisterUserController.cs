@@ -38,7 +38,7 @@ namespace MovieApp.Panel.UI.Controllers
 
                 if(result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Login");
+                    return RedirectToAction("Login", "Account");
                 }
                 else
                 {
