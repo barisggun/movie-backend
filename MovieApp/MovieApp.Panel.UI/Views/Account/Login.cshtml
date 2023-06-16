@@ -15,24 +15,24 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/main/assets/CSS/main.css">
-    <link rel="stylesheet" href="~/main/assets/CSS/main/reset.css">
+    <link rel="stylesheet" href="~/main/assets/CSS/reset.css">
     <title>Film Atlası Giriş Yap</title>
 </head>
 <body>
     <div class="entryContainer">
         <div class="register-form">
             <img class="logoSmall" src="~/main/assets/img/filmatlasi.png" alt="">
-            <form action="">
+            <form method="post" action="">
                 <div class="part">
-                    <h4>Email</h4>
-                    <input type="email" placeholder="thomas_shelby@example.com">
+                    <h4>Kullanıcı Adı</h4>
+                    <input type="text" asp-for="@Model.username" placeholder="kullanıcı adı">
                 </div>
 
                 <div class="part">
-                    <h4 for="password">Password </h4>
-                    <input type="password" placeholder="******************">
+                    <h4 for="password">Şifre </h4>
+                    <input type="password" asp-for="@Model.password" placeholder="******************">
                 </div>
-                <a id="submit" class="submit-btn" href="">Submit</a>
+                <button type="submit" id="submit" class="submit-btn" href="">Giriş Yap</button>
 
             </form>
         </div>

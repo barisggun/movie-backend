@@ -34,7 +34,7 @@ namespace MovieApp.Panel.UI.Controllers
                 if (result.Succeeded)
                 {
                   
-                        return RedirectToAction("Index", "Main");
+                        return RedirectToAction("Index", "Admin");
                 
                 }
                 else
