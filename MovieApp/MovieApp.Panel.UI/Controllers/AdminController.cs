@@ -6,7 +6,7 @@ using MovieApp.EntityLayer.Entities;
 
 namespace MovieApp.Panel.UI.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,Writer")]
     public class AdminController : Controller
     {
         private readonly IWebHostEnvironment webHostEnvironment;
@@ -17,7 +17,7 @@ namespace MovieApp.Panel.UI.Controllers
             this.webHostEnvironment = webHostEnvironment;
         }
 
-        [AllowAnonymous]
+        [Authorize(Roles ="Admin,Writer")]
         public IActionResult Index()
         {
             return View();
@@ -28,13 +28,14 @@ namespace MovieApp.Panel.UI.Controllers
             return PartialView();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult CreateCover(int id)
         {
             var values = homepageCoverManager.GetById(1);
             return View(values);  
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult CreateCover(HomepageCover homepageCover, IFormFile file)
         {
