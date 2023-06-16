@@ -12,12 +12,14 @@ namespace MovieApp.Panel.UI.Controllers
     [AllowAnonymous]
     public class AccountController : Controller
     {
+        private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         Context c = new Context();
 
-        public AccountController(SignInManager<AppUser> signInManager)
+        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
         {
-            this._signInManager = signInManager;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         public IActionResult Login()
@@ -33,9 +35,24 @@ namespace MovieApp.Panel.UI.Controllers
                 var result = await _signInManager.PasswordSignInAsync(p.username, p.password, false, true);
                 if (result.Succeeded)
                 {
-                  
+                    var user = await _userManager.FindByNameAsync(p.username);
+                    var roles = await _userManager.GetRolesAsync(user);
+
+                    if (roles.Contains("Admin"))
+                    {
                         return RedirectToAction("Index", "Admin");
-                
+                    }
+                    else if (roles.Contains("Member"))
+                    {
+                        return RedirectToAction("Index", "Main");
+                    }
+                    else if (roles.Contains("Writer"))
+                    {
+                        return RedirectToAction("Index", "Admin");
+                    }
+
+                    //return RedirectToAction("Index", "Admin");
+
                 }
                 else
                 {
