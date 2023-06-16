@@ -13,11 +13,13 @@ namespace MovieApp.EntityLayer.Entities
     {
         [Required(ErrorMessage = "Film adı boş geçilemez.")]
         [DisplayName("Film Adı")]
-        [StringLength(100, MinimumLength = 5, ErrorMessage = "max 60 min 3")]
+        [MaxLength(100, ErrorMessage = "Film adı maksimum 60 karakter olabilir")]
+        [MinLength(5, ErrorMessage = "Film adı minimum 5 karakter olabilir")]
         public string MovieTitle { get; set; }
 
         [Required(ErrorMessage = "Film açıklaması boş geçilemez.")]
-        [StringLength(800, MinimumLength = 5, ErrorMessage = "max 60 min 3")]
+        [MaxLength(800, ErrorMessage = "Film açıklaması maksimum 60 karakter olabilir")]
+        [MinLength(5, ErrorMessage = "Film açıklaması  minimum 5 karakter olabilir")]
         [DisplayName("Açıklama")]
         public string Description { get; set; }
 
@@ -43,6 +45,6 @@ namespace MovieApp.EntityLayer.Entities
         public List<Actor> Actors { get; set; } = new List<Actor>();
         public List<Category> Categories { get; set; } = new List<Category>();
 
-        public List<Blog> Blogs { get; set; } = new List<Blog>();
+        public List<Blog>? Blogs { get; set; } = new List<Blog>();
     }
 }

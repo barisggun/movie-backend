@@ -14,11 +14,12 @@ namespace MovieApp.EntityLayer.Entities
 
         [Required(ErrorMessage = "Ad ve soyad alanı boş geçilemez.")]
         [DisplayName("Ad ve Soyad")]
-        [StringLength(30, MinimumLength = 3, ErrorMessage = "max 60 min 3")]
+        [MaxLength(30, ErrorMessage = "Ad ve Soyad adı maksimum 60 karakter olabilir")]
+        [MinLength(3, ErrorMessage = "Ad ve Soyad minimum 3 karakter olabilir")]
         public string NameSurname { get; set; } 
         public string? ImageUrl { get; set; }
         public string? About { get; set; }
-        public List<Blog> Blogs { get; set; }
+        public List<Blog>? Blogs { get; set; }
 
     }
 

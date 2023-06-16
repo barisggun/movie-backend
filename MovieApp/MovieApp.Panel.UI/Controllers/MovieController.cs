@@ -9,6 +9,7 @@ using MovieApp.EntityLayer.Entities.ConnectionClasses;
 
 namespace MovieApp.Panel.UI.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class MovieController : Controller
     {
 

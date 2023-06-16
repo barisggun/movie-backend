@@ -14,12 +14,14 @@ namespace MovieApp.EntityLayer.Entities
     {
         [Required(ErrorMessage = "Blog Başlığı alanı boş geçilemez.")]
         [DisplayName("Blog Başlığı")]
-        [StringLength(50, MinimumLength = 5, ErrorMessage = "max 60 min 3")]
+        [MaxLength(50, ErrorMessage = "Blog başlığı maksimum 60 karakter olabilir")]
+        [MinLength(5, ErrorMessage = "Blog başlığı minimum 5 karakter olabilir")]
         public string BlogTitle { get; set; }
 
-        [Required(ErrorMessage = "Blog içeriği alanı boş geçilemez.")]
+        [Required(ErrorMessage = "Blog metni alanı boş geçilemez.")]
         [DisplayName("Blog İçeriği")]
-        [StringLength(450, MinimumLength = 100, ErrorMessage = "max 60 min 3")]
+        [MaxLength(450, ErrorMessage = "Blog metni maksimum 60 karakter olabilir")]
+        [MinLength(100, ErrorMessage = "Blog metni minimum 100 karakter olabilir")]
         public string BlogContent { get; set; }
         public string? BlogThumbnailImage { get; set; }
 
@@ -30,9 +32,9 @@ namespace MovieApp.EntityLayer.Entities
         public DateTime BlogCreateDate { get; set; }
         public bool? BlogStatus { get; set; }
         public int AppUserId { get; set; }
-        public AppUser AppUsers { get; set; }
+        public AppUser? AppUsers { get; set; }
         public int MovieId { get; set; }
-        public Movie Movies { get; set; }
+        public Movie? Movies { get; set; }
         public List<Comment>? Comments { get; set; }
     }
 }

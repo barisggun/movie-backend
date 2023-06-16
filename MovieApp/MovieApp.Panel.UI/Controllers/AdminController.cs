@@ -6,7 +6,7 @@ using MovieApp.EntityLayer.Entities;
 
 namespace MovieApp.Panel.UI.Controllers
 {
-    [AllowAnonymous]
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private readonly IWebHostEnvironment webHostEnvironment;
@@ -17,6 +17,7 @@ namespace MovieApp.Panel.UI.Controllers
             this.webHostEnvironment = webHostEnvironment;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return View();
@@ -37,29 +38,34 @@ namespace MovieApp.Panel.UI.Controllers
         [HttpPost]
         public IActionResult CreateCover(HomepageCover homepageCover, IFormFile file)
         {
-            homepageCover.ID = 1;
-            homepageCover.ImageUrl = "";
-            if (file != null)
+            if (ModelState.IsValid)
             {
-                string wwwrootPath = webHostEnvironment.WebRootPath;
-                string fileName = Path.GetFileNameWithoutExtension(file.FileName);
-                string extension = Path.GetExtension(file.FileName);
-
-                string yeniDosyaAdi = fileName + DateTime.Now.ToString("yymmssfff") + extension;
-                string path = Path.Combine(wwwrootPath + "/images/movie/", yeniDosyaAdi);
-
-                using (var fileStream = new FileStream(path, FileMode.Create))
+                homepageCover.ID = 1;
+                homepageCover.ImageUrl = "";
+                if (file != null)
                 {
-                    file.CopyTo(fileStream);
+                    string wwwrootPath = webHostEnvironment.WebRootPath;
+                    string fileName = Path.GetFileNameWithoutExtension(file.FileName);
+                    string extension = Path.GetExtension(file.FileName);
+
+                    string yeniDosyaAdi = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                    string path = Path.Combine(wwwrootPath + "/images/movie/", yeniDosyaAdi);
+
+                    using (var fileStream = new FileStream(path, FileMode.Create))
+                    {
+                        file.CopyTo(fileStream);
+                    }
+
+                    homepageCover.ImageUrl = yeniDosyaAdi;
                 }
 
-                homepageCover.ImageUrl = yeniDosyaAdi;
+
+                homepageCoverManager.Update(homepageCover);
+
+                return RedirectToAction("Index");
             }
 
-
-            homepageCoverManager.Update(homepageCover);
-
-            return RedirectToAction("Index");
+            return View(homepageCover);
         }
 
         

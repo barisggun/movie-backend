@@ -1,5 +1,4 @@
-﻿
-@*<nav class="sidebar sidebar-offcanvas" id="sidebar">
+﻿@*<nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
         <li class="nav-item nav-profile">
             <a href="#" class="nav-link">
@@ -117,81 +116,104 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="index.html">
+            <a class="nav-link" href="/Main/Index">
                 <span class="menu-title">Dashboard</span>
                 <i class="mdi mdi-home menu-icon"></i>
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#ui-film" aria-expanded="false" aria-controls="ui-film">
-                <span class="menu-title">Film</span>
-                <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="ui-film">
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/Movie/Index/">Film Listesi</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/Movie/Create/">Film Oluştur</a>
-                    </li>
-                </ul>
-            </div>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#ui-oyuncu" aria-expanded="false" aria-controls="ui-oyuncu">
-                <span class="menu-title">Oyuncu</span>
-                <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="ui-oyuncu">
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/Actor/Index/">Oyuncu Listesi</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/Actor/Create/">Oyuncu Oluştur</a>
-                    </li>
-                </ul>
-            </div>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#ui-yonetmen" aria-expanded="false" aria-controls="ui-yonetmen">
-                <span class="menu-title">Yönetmen</span>
-                <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="ui-yonetmen">
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/Director/Index/">Yönetmen Listesi</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/Director/Create/">Yönetmen Oluştur</a>
-                    </li>
-                </ul>
+
+        @if (User.IsInRole("Admin"))
+        {
+
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-film" aria-expanded="false" aria-controls="ui-film">
+                    <span class="menu-title">Film</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="ui-film">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Movie/Index/">Film Listesi</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Movie/Create/">Film Oluştur</a>
+                        </li>
+                    </ul>
                 </div>
-            <div class="collapse" id="ui-blog">
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/Blog/Index/">Blog Listesi</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/Blog/Create/">Blog Oluştur</a>
-                    </li>
-                </ul>
-            </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-oyuncu" aria-expanded="false" aria-controls="ui-oyuncu">
+                    <span class="menu-title">Oyuncu</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="ui-oyuncu">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Actor/Index/">Oyuncu Listesi</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Actor/Create/">Oyuncu Oluştur</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
 
-            <div class="collapse" id="ui-rol">
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/AdminRole/UserRoleList/">Kullanıcı Rol Listesi</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/AdminRole/Index/">Rol Listesi</a>
-                    </li>
-                </ul>
-            </div>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-yonetmen" aria-expanded="false" aria-controls="ui-yonetmen">
+                    <span class="menu-title">Yönetmen</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="ui-yonetmen">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Director/Index/">Yönetmen Listesi</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Director/Create/">Yönetmen Oluştur</a>
+                        </li>
+                    </ul>
+                </div>
 
-        <li class="nav-item"> <a class="nav-link" href="/Admin/CreateCover/">Anasayfa yazısını düzenle</a></li>
+
+                <div class="collapse" id="ui-rol">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/AdminRole/UserRoleList/">Kullanıcı Rol Listesi</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/AdminRole/Index/">Rol Listesi</a>
+                        </li>
+                    </ul>
+                </div>
+
+            <li class="nav-item"> <a class="nav-link" href="/Admin/CreateCover/">Anasayfa yazısını düzenle</a></li>
+            </li>
+
+        }
+
+
+        @**@
+        @if (User.IsInRole("Writer"))
+        {
+
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-blog" aria-expanded="false" aria-controls="ui-blog">
+                    <span class="menu-title">Blog</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="ui-blog">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Blog/Index/">BlogListesi</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Blog/Create/">Blog Oluştur</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+        }
 
 
         <li class="nav-item">
@@ -205,5 +227,5 @@
             </a>
         </li>
 
-
-                </nav>
+    </ul>
+</nav>

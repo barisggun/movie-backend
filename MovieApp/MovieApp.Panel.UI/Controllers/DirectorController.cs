@@ -6,6 +6,7 @@ using MovieApp.EntityLayer.Entities;
 
 namespace MovieApp.Panel.UI.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class DirectorController : Controller
     {
         DirectorManager directorManager = new DirectorManager(new EfDirectorRepository());
@@ -23,8 +24,12 @@ namespace MovieApp.Panel.UI.Controllers
         [HttpPost]
         public IActionResult Create(Director director)
         {
-            directorManager.Create(director);
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                directorManager.Create(director);
+                return RedirectToAction("Index");
+            }
+            return View(director);
         }
     }
 }

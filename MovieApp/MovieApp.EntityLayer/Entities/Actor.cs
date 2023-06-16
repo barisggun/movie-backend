@@ -13,8 +13,10 @@ namespace MovieApp.EntityLayer.Entities
     public class Actor : BaseEntity
     {
         [DisplayName("Oyuncu Adı")]
-       public string ActorName { get; set; }
-        public List<Movie> Movies { get; set; }
+        [MaxLength(60, ErrorMessage = "Oyuncu adı maksimum 60 karakter olabilir")]
+        [MinLength(5, ErrorMessage = "Oyuncu adı maksimum 60 karakter olabilir")]
+        public string ActorName { get; set; }
+        public List<Movie>? Movies { get; set; }
     }
 }
 
