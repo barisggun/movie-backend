@@ -24,9 +24,12 @@ namespace MovieApp.Panel.UI.Controllers
         [HttpPost]
         public IActionResult Create(Actor actor)
         {
-            
+            if (ModelState.IsValid)
+            {
                 actorManager.Create(actor);
                 return RedirectToAction("Index");
+            }
+            return View(actor);
 
             
         }
