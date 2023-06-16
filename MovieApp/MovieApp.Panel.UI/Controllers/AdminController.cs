@@ -46,7 +46,7 @@ namespace MovieApp.Panel.UI.Controllers
                 string extension = Path.GetExtension(file.FileName);
 
                 string yeniDosyaAdi = fileName + DateTime.Now.ToString("yymmssfff") + extension;
-                string path = Path.Combine(wwwrootPath + "/images/homepage/", yeniDosyaAdi);
+                string path = Path.Combine(wwwrootPath + "/images/movie/", yeniDosyaAdi);
 
                 using (var fileStream = new FileStream(path, FileMode.Create))
                 {
