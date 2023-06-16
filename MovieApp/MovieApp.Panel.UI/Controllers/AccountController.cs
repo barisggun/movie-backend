@@ -33,25 +33,15 @@ namespace MovieApp.Panel.UI.Controllers
                 var result = await _signInManager.PasswordSignInAsync(p.username, p.password, false, true);
                 if (result.Succeeded)
                 {
-                    var username = User.Identity.Name;
-                    var userId = c.Users.Where(x => x.UserName == username).Select(y => y.Id).FirstOrDefault();
-                    var userRole = c.RoleClaims.Where(x => x.Id == userId).Select(y => y.RoleId).FirstOrDefault();
-                    if (userRole == 1)
-                    {
-                        return RedirectToAction("Index", "Movie");
-                    }
-                    else
-                    {
+                  
                         return RedirectToAction("Index", "Main");
-                    }
-                    
+                
                 }
                 else
                 {
                     ModelState.AddModelError("password", "Kullanıcı adı veya şifre hatalı tekrar deneyiniz."); // Add error message  
                     return View(p); // Return the view with the updated model containing the error
 
-                    //return RedirectToAction("Login", "Account");
                 }
             }
             return View();

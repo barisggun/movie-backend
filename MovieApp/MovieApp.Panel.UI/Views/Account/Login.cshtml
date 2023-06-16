@@ -14,33 +14,28 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/CSS/main.css">
-    <link rel="stylesheet" href="assets/CSS/reset.css">
-    <script src="assets/script.js" defer></script>
+    <link rel="stylesheet" href="~/main/assets/CSS/main.css">
+    <link rel="stylesheet" href="~/main/assets/CSS/main/reset.css">
     <title>Film Atlası Giriş Yap</title>
 </head>
 <body>
     <div class="entryContainer">
         <div class="register-form">
-            <img class="logoSmall" src="~/main/img/filmatlasi.png" alt="">
-
-            <form method="post">
-
+            <img class="logoSmall" src="~/main/assets/img/filmatlasi.png" alt="">
+            <form action="">
                 <div class="part">
-                    <h4>Kullanıcı Adı</h4>
-                    <input type="text" asp-for="@Model.username" placeholder="Kullanıcı Adı">
+                    <h4>Email</h4>
+                    <input type="email" placeholder="thomas_shelby@example.com">
                 </div>
 
                 <div class="part">
-                    <h4 for="password">Şifre </h4>
-                    <input type="password" asp-for="@Model.password" placeholder="******************" required="">
-                    <span asp-validation-for="@Model.password" class="text-danger"></span>
+                    <h4 for="password">Password </h4>
+                    <input type="password" placeholder="******************">
                 </div>
-                <button type="submit" id="submit" class="submit-btn" href="">Giriş Yap</button>
+                <a id="submit" class="submit-btn" href="">Submit</a>
+
             </form>
         </div>
     </div>
 </body>
 </html>
-
-
