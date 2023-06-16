@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using MovieApp.DataAccess.Concrete;
 using MovieApp.EntityLayer.Entities;
 using MovieApp.Panel.UI.Models;
 
@@ -12,6 +13,7 @@ namespace MovieApp.Panel.UI.Controllers
     public class AccountController : Controller
     {
         private readonly SignInManager<AppUser> _signInManager;
+        Context c = new Context();
 
         public AccountController(SignInManager<AppUser> signInManager)
         {
@@ -31,7 +33,18 @@ namespace MovieApp.Panel.UI.Controllers
                 var result = await _signInManager.PasswordSignInAsync(p.username, p.password, false, true);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Movie");
+                    var username = User.Identity.Name;
+                    var userId = c.Users.Where(x => x.UserName == username).Select(y => y.Id).FirstOrDefault();
+                    var userRole = c.RoleClaims.Where(x => x.Id == userId).Select(y => y.RoleId).FirstOrDefault();
+                    if (userRole == 1)
+                    {
+                        return RedirectToAction("Index", "Movie");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Main");
+                    }
+                    
                 }
                 else
                 {
