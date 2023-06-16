@@ -11,6 +11,8 @@ namespace MovieApp.Panel.UI.Controllers
     public class MainController : Controller
     {
         HomepageCoverManager homepageCoverManager = new HomepageCoverManager(new EfHomepageCoverRepository());
+        MovieManager mm = new MovieManager(new EfMovieRepository());
+
         public IActionResult Index()
         {
             return View();

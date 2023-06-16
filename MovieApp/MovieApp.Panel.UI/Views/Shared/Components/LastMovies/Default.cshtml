@@ -1,0 +1,13 @@
+﻿@using MovieApp.EntityLayer.Entities
+@model List<Movie>
+
+<div class="onerilenFilmler">
+    <h6>Son Eklenen Filmler</h6>
+    @foreach (var item in Model)
+    {
+        <div class="cards">
+            <img src="~/images/movie/@item.Poster" alt="" />
+        </div>
+    }
+    
+</div>
