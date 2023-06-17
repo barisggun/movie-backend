@@ -7,7 +7,7 @@ using MovieApp.EntityLayer.Entities;
 
 namespace MovieApp.Panel.UI.Controllers
 {
-
+    [AllowAnonymous]
     public class MainController : Controller
     {
         HomepageCoverManager homepageCoverManager = new HomepageCoverManager(new EfHomepageCoverRepository());
