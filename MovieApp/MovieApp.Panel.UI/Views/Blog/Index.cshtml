@@ -6,33 +6,27 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<h1>Blog Listesi</h1>
 
 <table class="table">
     <thead>
         <tr>
             <th>
+                ID
+            </th>
+            <th>
                 Blog Başlığı
             </th>
             <th>
-                Blog Content
-            </th>
-            <th>
                 Yayın Tarihi
+            </th>         
+            <th>
+                Film Adı
             </th>
             <th>
                 Yazar ID
             </th>
-            <th>
-                Film ID
-            </th>
-            <th>
-                ID
-            </th>
+
             <th></th>
         </tr>
     </thead>
@@ -41,27 +35,24 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.BlogTitle)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.BlogContent)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.BlogCreateDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AppUserId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MovieId)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.ID)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    @Html.DisplayFor(modelItem => item.BlogTitle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BlogCreateDate)
+                </td>             
+                <td>
+                    @Html.DisplayFor(modelItem => item.Movies.MovieTitle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AppUsers.NameSurname)
+                </td>
+
+                <td>
+                    <a href="/Blog/AdminBlogListDetail/@item.ID" class="btn btn-warning">Detay</a>
+                    <a href="/Blog/AdminBlogListDelete/@item.ID" class="btn btn-danger">Sil</a>
                 </td>
             </tr>
         }

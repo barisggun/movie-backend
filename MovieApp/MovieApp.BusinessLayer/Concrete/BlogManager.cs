@@ -1,5 +1,7 @@
-﻿using MovieApp.BusinessLayer.Abstract;
+﻿using Microsoft.EntityFrameworkCore;
+using MovieApp.BusinessLayer.Abstract;
 using MovieApp.DataAccess.Abstract;
+using MovieApp.DataAccess.Concrete;
 using MovieApp.EntityLayer.Entities;
 using System;
 using System.Collections.Generic;
@@ -13,6 +15,7 @@ namespace MovieApp.BusinessLayer.Concrete
     public class BlogManager:IBlogService
     {
         IBlogDal _blogDal;
+        Context c = new Context();
 
         public BlogManager(IBlogDal blogDal)
         {
@@ -52,6 +55,13 @@ namespace MovieApp.BusinessLayer.Concrete
         public List<Blog> GetBlogListWithMovie()
         {
             return _blogDal.GetListWithMovie();
+        }
+        public List<Blog> GetBlogListWithMovieAndWriter()
+        {
+            var blogs = c.Blogs.Include(b => b.Movies)
+                .Include(b => b.AppUsers)
+                .ToList();
+            return blogs;
         }
 
         public List<Blog> GetBlogListByWriter(int id)

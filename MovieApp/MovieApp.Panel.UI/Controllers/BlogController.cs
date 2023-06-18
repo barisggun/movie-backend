@@ -11,6 +11,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Configuration;
 using MovieApp.DataAccess.Concrete;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 
 namespace MovieApp.Panel.UI.Controllers
 {
@@ -32,7 +33,7 @@ namespace MovieApp.Panel.UI.Controllers
 
         public IActionResult Index()
         {
-            var values = bm.GetBlogListWithMovie();
+            var values = bm.GetBlogListWithMovieAndWriter();
             return View(values);
         }
         public IActionResult BlogListByWriter()
@@ -140,6 +141,21 @@ namespace MovieApp.Panel.UI.Controllers
             b.BlogStatus = true;
             bm.Update(b);
             return RedirectToAction("BlogListByWriter");
+        }
+
+        [Authorize(Roles ="Admin")]
+        public IActionResult AdminBlogListDelete(int id)
+        {
+            var blogvalue = bm.GetById(id);
+            bm.Delete(blogvalue);
+            return RedirectToAction("Index");
+        }
+
+        [Authorize(Roles = "Admin")]
+        public IActionResult AdminBlogListDetail(int id)
+        {
+            var blog = c.Blogs.Include(x=>x.Movies).Include(c=>c.AppUsers).FirstOrDefault(y=>y.ID == id);
+            return View(blog);
         }
     }
 }

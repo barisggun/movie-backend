@@ -1,0 +1,16 @@
+﻿@using MovieApp.EntityLayer.Entities
+@model Blog
+@{
+    ViewData["Title"] = "AdminBlogListDetail";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Blog Detay Sayfası</h1>
+
+<h2>@Model.BlogTitle</h2>
+<p>@Model.BlogContent</p>
+<p>Film Adı: @Model.Movies.MovieTitle</p>
+<p>Yazar Adı: @Model.AppUsers.NameSurname</p>
+
+<a href="/Blog/Index/">Geri Dön</a>
+

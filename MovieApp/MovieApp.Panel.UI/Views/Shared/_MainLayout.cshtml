@@ -28,62 +28,25 @@
                         <li>Listeler</li>
                     </ul>
                     <input class="filter" type="text" placeholder="Ara" />
-                    <ul>
-                        <li>
-                            <a href="/Account/Login/">Giriş Yap</a>
-                        </li>
-                        <li>
-                            <a href="/RegisterUser/Index/">Üye Ol</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="menu-wrap">
-                    <ul class="menu">
-                        <li class="menu-item">
-                            <a href="#">
-                                <img class="icon" src="~/main/assets/img/user.svg" alt="" />
-                            </a>
-                            <ul class="drop-menu">
-                                <li class="drop-menu-item">
-                                    <a target="_blank" href="http://emirhankadiroglu.me/">Profile</a>
-                                </li>
-                                <li class="drop-menu-item">
-                                    <a target="_blank" href="https://github.com/huseyincengizz">Settings</a>
-                                </li>
-                                <li class="drop-menu-item">
-                                    <a href="#">Help</a>
-                                </li>
-                                <li class="drop-menu-item">
-                                    <a href="#">Sign Out</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <ul>
 
-                    <ul class="menu">
-                        <li class="menu-item">
-                            <a href="#">
-                                <img class="icon"
-                                     src="~/main/assets/img/github-mark-white.png"
-                                     alt="" />
-                            </a>
-                            <ul class="drop-menu">
-                                <li class="drop-menu-item">
-                                    <a target="_blank" href="https://github.com/thekadiroglu">emirhan</a>
-                                </li>
-                                <li class="drop-menu-item">
-                                    <a target="_blank" href="https://github.com/huseyincengizz">Hüseyin</a>
-                                </li>
-                                <li class="drop-menu-item">
-                                    <a href="#">Barış</a>
-                                </li>
-                                <li class="drop-menu-item">
-                                    <a href="#">Işılay</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
+                            <li>
+                                <a href="/Account/Login/">Giriş Yap</a>
+                            </li>
+                            <li>
+                                <a href="/RegisterUser/Index/">Üye Ol</a>
+                            </li>
+
+                        </ul>
+                    }
                 </div>
+
+
+                @await Component.InvokeAsync("HomePageUsername")
+
+
             </div>
         </div>
         <!-- Header Finish-->
