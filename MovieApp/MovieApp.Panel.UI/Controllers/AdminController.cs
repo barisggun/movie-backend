@@ -39,8 +39,7 @@ namespace MovieApp.Panel.UI.Controllers
         [HttpPost]
         public IActionResult CreateCover(HomepageCover homepageCover, IFormFile file)
         {
-            if (ModelState.IsValid)
-            {
+
                 homepageCover.ID = 1;
                 homepageCover.ImageUrl = "";
                 if (file != null)
@@ -64,9 +63,7 @@ namespace MovieApp.Panel.UI.Controllers
                 homepageCoverManager.Update(homepageCover);
 
                 return RedirectToAction("Index");
-            }
 
-            return View(homepageCover);
         }
 
         
