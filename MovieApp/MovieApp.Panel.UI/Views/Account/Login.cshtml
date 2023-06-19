@@ -23,6 +23,7 @@
         <div class="register-form">
             <img class="logoSmall" src="~/main/assets/img/filmatlasi.png" alt="">
             <form method="post" action="">
+
                 <div class="part">
                     <h4>Kullanıcı Adı</h4>
                     <input type="text" asp-for="@Model.username" placeholder="kullanıcı adı">
@@ -33,6 +34,10 @@
                     <input type="password" asp-for="@Model.password" placeholder="******************">
                 </div>
                 <button type="submit" id="submit" class="submit-btn" href="">Giriş Yap</button>
+                <div class="part">
+                    <h4>Hesabınız yok mu?</h4>
+                    <a href="/RegisterUser/Index" class="loginFont">Üyelik oluştur</a>
+                </div>
 
             </form>
         </div>
