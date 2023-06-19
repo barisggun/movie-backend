@@ -14,14 +14,14 @@ namespace MovieApp.EntityLayer.Entities
     {
         [Required(ErrorMessage = "Blog Başlığı alanı boş geçilemez.")]
         [DisplayName("Blog Başlığı")]
-        [MaxLength(50, ErrorMessage = "Blog başlığı maksimum 60 karakter olabilir")]
+        [MaxLength(80, ErrorMessage = "Blog başlığı maksimum 60 karakter olabilir")]
         [MinLength(5, ErrorMessage = "Blog başlığı minimum 5 karakter olabilir")]
         public string BlogTitle { get; set; }
 
         [Required(ErrorMessage = "Blog metni alanı boş geçilemez.")]
         [DisplayName("Blog İçeriği")]
         [MaxLength(450, ErrorMessage = "Blog metni maksimum 60 karakter olabilir")]
-        [MinLength(100, ErrorMessage = "Blog metni minimum 100 karakter olabilir")]
+        [MinLength(105, ErrorMessage = "Blog metni minimum 100 karakter olabilir")]
         public string BlogContent { get; set; }
         public string? BlogThumbnailImage { get; set; }
 

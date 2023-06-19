@@ -44,11 +44,11 @@
                     <li class="nav-item nav-profile dropdown">
                         <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
                             <div class="nav-profile-img">
-                                <img src="~/admin/assets/images/faces/face1.jpg" alt="image">
+                                <img src="~/images/png/user.png" alt="image">
                                 <span class="availability-status online"></span>
                             </div>
                             <div class="nav-profile-text">
-                                <p class="mb-1 text-black">David Greymaax</p>
+                                @await Component.InvokeAsync("AdminNavbarProfileTop")
                             </div>
                         </a>
                         <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
@@ -60,7 +60,7 @@
                                 <i class="mdi mdi-logout mr-2 text-primary"></i> Signout
                             </a>*@
                             <form method="post" action="#">
-                                <button type="submit" class="mdi mdi-logout mr-2 text-primary">Çıkış Yap</button>
+                                <a href="/Account/Logout" class="mdi mdi-logout mr-2 text-primary">Çıkış Yap</a>
                             </form>
                         </div>
                     </li>

@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MovieApp.BusinessLayer.Concrete;
+using MovieApp.DataAccess.Concrete;
 using MovieApp.DataAccess.EntityFramework;
 using MovieApp.EntityLayer.Entities;
 
@@ -11,17 +13,32 @@ namespace MovieApp.Panel.UI.Controllers
     {
         private readonly IWebHostEnvironment webHostEnvironment;
         HomepageCoverManager homepageCoverManager = new HomepageCoverManager(new EfHomepageCoverRepository());
+        UserManager userManager = new UserManager(new EfUserRepository());
 
         public AdminController(IWebHostEnvironment webHostEnvironment)
         {
             this.webHostEnvironment = webHostEnvironment;
         }
 
-        [Authorize(Roles ="Admin,Writer")]
+        [Authorize(Roles = "Admin,Writer")]
         public IActionResult Index()
         {
+            Context c = new Context();
+
+            var username = User.Identity.Name;
+            var userID = c.Users.Where(x => x.UserName == username).Select(y => y.Id).FirstOrDefault();
+            var user = userManager.GetById(userID);
+
+            var blogCount = c.Blogs.Where(x => x.AppUserId == user.Id).Count();
+
+            ViewBag.v2 = blogCount.ToString();
+            ViewBag.v1 = c.Blogs.Count().ToString();
+            ViewBag.v3 = c.Movies.Count().ToString();
+            ViewBag.v4 = c.Users.Count().ToString();
+
             return View();
         }
+
 
         public PartialViewResult AdminNavbarPartial()
         {
