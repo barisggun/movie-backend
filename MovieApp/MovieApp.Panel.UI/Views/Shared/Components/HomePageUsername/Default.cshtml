@@ -4,7 +4,7 @@
 
 <div class="menu-wrap">
 
-    @if (User.IsInRole("Member"))
+    @if (User.IsInRole("Member") || User.IsInRole("Admin") || User.IsInRole("Writer"))
     {
         <ul class="menu">
             <li class="menu-item">
