@@ -9,6 +9,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap"
           rel="stylesheet" />
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="~/main/assets/CSS/reset.css" />
     <link rel="stylesheet" href="~/main/assets/CSS/main.css" />
     <script src="~/main/assets/JS/main.js" defer></script>
@@ -41,10 +46,34 @@
 
                         </ul>
                     }
+
                 </div>
 
-
                 @await Component.InvokeAsync("HomePageUsername")
+
+                <ul class="menu">
+                    <li class="menu-item">
+                        <a href="#">
+                            <img class="icon"
+                                 src="~/main/assets/img/github-mark-white.png"
+                                 alt="" />
+                        </a>
+                        <ul class="drop-menu">
+                            <li class="drop-menu-item">
+                                <a target="_blank" href="https://github.com/isilaycakar">Işılay [Backend]</a>
+                            </li>
+                            <li class="drop-menu-item">
+                                <a target="_blank" href="https://github.com/barisggun">Barış [Backend] </a>
+                            </li>
+                            <li class="drop-menu-item">
+                                <a target="_blank" href="https://github.com/huseyincengizz">Hüseyin [Frontend] </a>
+                            </li>
+                            <li class="drop-menu-item">
+                                <a target="_blank" href="https://github.com/thekadiroglu">Emirhan [Frontend] </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
 
 
             </div>
