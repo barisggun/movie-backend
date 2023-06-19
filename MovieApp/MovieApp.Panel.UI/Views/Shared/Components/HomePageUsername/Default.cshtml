@@ -14,17 +14,28 @@
 
                 <ul class="drop-menu">
                     <li class="drop-menu-item">
-                        <a target="_blank" href="http://emirhankadiroglu.me/">Profile</a>
+                        <a target="_blank" href="#">Profil</a>
                     </li>
                     <li class="drop-menu-item">
-                        <a target="_blank" href="https://github.com/huseyincengizz">Settings</a>
+                        <a target="_blank" href="#">Profil Ayarları</a>
                     </li>
                     <li class="drop-menu-item">
-                        <a href="#">Help</a>
+                        <a href="#">Yardım</a>
                     </li>
+
+                    @if (User.IsInRole("Admin") || User.IsInRole("Writer"))
+                    {
+                        <li class="drop-menu-item">
+                            <a href="/Admin/Index">Admin paneli</a>
+                        </li>
+                    }
+
                     <li class="drop-menu-item">
-                        <a href="/Account/Logout">Sign Out</a>
+                        <a href="/Account/Logout">Çıkış Yap</a>
                     </li>
+                    
+                
+                    
                 </ul>
 
             </li>
@@ -39,16 +50,16 @@
                 </a>
                 <ul class="drop-menu">
                     <li class="drop-menu-item">
-                        <a target="_blank" href="https://github.com/thekadiroglu">emirhan</a>
+                        <a target="_blank" href="https://github.com/isilaycakar">Işılay [Backend]</a>
                     </li>
                     <li class="drop-menu-item">
-                        <a target="_blank" href="https://github.com/huseyincengizz">Hüseyin</a>
+                        <a target="_blank" href="https://github.com/barisggun">Barış [Backend] </a>
                     </li>
                     <li class="drop-menu-item">
-                        <a href="#">Barış</a>
+                        <a target="_blank" href="https://github.com/huseyincengizz">Hüseyin [Frontend] </a>
                     </li>
                     <li class="drop-menu-item">
-                        <a href="#">Işılay</a>
+                        <a target="_blank" href="https://github.com/thekadiroglu">Emirhan [Frontend] </a>
                     </li>
                 </ul>
             </li>
