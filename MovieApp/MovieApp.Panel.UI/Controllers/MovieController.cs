@@ -9,7 +9,6 @@ using MovieApp.EntityLayer.Entities.ConnectionClasses;
 
 namespace MovieApp.Panel.UI.Controllers
 {
-    [Authorize(Roles = "Admin")]
     public class MovieController : Controller
     {
 
@@ -23,17 +22,23 @@ namespace MovieApp.Panel.UI.Controllers
         DirectorMovieManager directorMovieManager = new DirectorMovieManager(new EfDirectorMovieRepository());
         CategoryMovieManager categoryMovieManager = new CategoryMovieManager(new EfCategoryMovieRepository());
 
+        public List<DirectorMovie> DirectorMovies { get; set; } = new List<DirectorMovie>();
+        public List<ActorMovie> ActorMovies { get; set; } = new List<ActorMovie>();
+
+
         public MovieController(IWebHostEnvironment webHostEnvironment)
         {
             this.webHostEnvironment = webHostEnvironment;
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult Index()
         {
             List<Movie> list = movieManager.GetAll();
             return View(list);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult Create()
         {
@@ -51,7 +56,7 @@ namespace MovieApp.Panel.UI.Controllers
 
             return View(new Movie());
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult Create(Movie movie, IFormFile file, List<int> selectedActorIds, List<int> selectedDirectorIds, List<int> selectedCategoryIds)
         {
@@ -100,6 +105,13 @@ namespace MovieApp.Panel.UI.Controllers
             return RedirectToAction("Index");
         }
 
+        [AllowAnonymous]
+        public IActionResult Detail(int id)
+        {
+            var movieValue = movieManager.GetById(id);
+           
+            return View(movieValue);
+        }
 
 
 

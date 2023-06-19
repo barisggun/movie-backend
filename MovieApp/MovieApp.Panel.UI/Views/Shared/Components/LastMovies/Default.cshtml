@@ -6,7 +6,7 @@
     @foreach (var item in Model)
     {
         <div class="cards">
-            <img src="~/images/movie/@item.Poster" alt="" />
+            <a href="/Movie/Detail/@item.ID"><img src="~/images/movie/@item.Poster" alt="" /></a>
         </div>
     }
     
