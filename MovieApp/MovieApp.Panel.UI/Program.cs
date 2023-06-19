@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.Extensions.Options;
 using MovieApp.DataAccess.Concrete;
 using MovieApp.EntityLayer.Entities;
 
@@ -43,6 +44,10 @@ namespace MovieApp.Panel.UI
                 );
             //Cookie end
 
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                options.AccessDeniedPath = new PathString("/Account/AccessDenied");
+            });
 
             var app = builder.Build();
 

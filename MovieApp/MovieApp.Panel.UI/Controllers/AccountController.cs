@@ -71,5 +71,10 @@ namespace MovieApp.Panel.UI.Controllers
             return RedirectToAction("Index", "Main");
         }
 
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
+
     }
 }
