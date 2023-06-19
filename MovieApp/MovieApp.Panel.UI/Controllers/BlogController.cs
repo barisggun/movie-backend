@@ -157,5 +157,12 @@ namespace MovieApp.Panel.UI.Controllers
             var blog = c.Blogs.Include(x=>x.Movies).Include(c=>c.AppUsers).FirstOrDefault(y=>y.ID == id);
             return View(blog);
         }
+
+        [Authorize(Roles = "Writer")]
+        public IActionResult WriterBlogListDetail(int id)
+        {
+            var blog = c.Blogs.Include(x => x.Movies).Include(c => c.AppUsers).FirstOrDefault(y => y.ID == id);
+            return View(blog);
+        }
     }
 }
