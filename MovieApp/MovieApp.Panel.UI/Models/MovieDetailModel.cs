@@ -10,5 +10,6 @@
         public string MovieDetailPoster { get; set; }
         public string MovieDescription { get; set; }
         public DateTime ReleaseDate { get; set; }
+        public float AverageRating { get; set; }
     }
 }

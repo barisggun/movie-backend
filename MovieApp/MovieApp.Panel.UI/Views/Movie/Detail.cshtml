@@ -42,13 +42,37 @@
                 Model.ReleaseDate).ToString("dd-MMM-yyyy"))
             </div>
             <div class="star-wrapper">
-                <a href="#" class="fas fa-star s1"></a>
-                <a href="#" class="fas fa-star s2"></a>
-                <a href="#" class="fas fa-star s3"></a>
-                <a href="#" class="fas fa-star s4"></a>
-                <a href="#" class="fas fa-star s5"></a>
+                <a href="#" class="fas fa-star s1" onclick="rate(5)"></a>
+                <a href="#" class="fas fa-star s2" onclick="rate(4)"></a>
+                <a href="#" class="fas fa-star s3" onclick="rate(3)"></a>
+                <a href="#" class="fas fa-star s4" onclick="rate(2)"></a>
+                <a href="#" class="fas fa-star s5" onclick="rate(1)"></a>
+            </div>
+            <div id="notification-container"></div>
+            <div class="director">
+                <h4> Ortalama Puan:  </h4>
             </div>
             <script src="https://kit.fontawesome.com/5ea815c1d0.js"></script>
+            <script>
+                function rate(score) {
+                    $.ajax({
+                        url: '@Url.Action("SaveRating", "Movie")',
+                        type: 'POST',
+                        data: { movieId: @Model.MovieId, score: score },
+                        success: function (result) {
+                            if (result.success) {
+                                console.log(result.message);
+                                $(".star-wrapper a:lt(" + score + ")").addClass("selected");
+                            } else {
+                                console.log(result.message);
+                            }
+                        },
+                        error: function (xhr) {
+                            $("#notification-container").html(xhr.responseText).addClass("error");
+                        }
+                    });
+                }
+            </script>
             <div class="wraper"></div>
             <a href="#" class="addMyWatch">
                 <img src="~/main/assets/img/png/addIcon.png" alt="" class="addIcon" />
@@ -65,5 +89,5 @@
 <br />
 <br />
 <br />
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 @await Component.InvokeAsync("MovieComments")

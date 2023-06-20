@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using MovieApp.BusinessLayer.Concrete;
 using MovieApp.DataAccess.Concrete;
 using MovieApp.DataAccess.EntityFramework;
@@ -22,6 +23,8 @@ namespace MovieApp.Panel.UI.Controllers
         ActorMovieManager actorMovieManager = new ActorMovieManager(new EfActorMovieRepository());
         DirectorMovieManager directorMovieManager = new DirectorMovieManager(new EfDirectorMovieRepository());
         CategoryMovieManager categoryMovieManager = new CategoryMovieManager(new EfCategoryMovieRepository());
+        Context c = new Context();
+
 
         public List<DirectorMovie> DirectorMovies { get; set; } = new List<DirectorMovie>();
         public List<ActorMovie> ActorMovies { get; set; } = new List<ActorMovie>();
@@ -46,8 +49,8 @@ namespace MovieApp.Panel.UI.Controllers
             ViewBag.Directors = directorManager.GetAll()
         .Select(s => new SelectListItem { Value = s.ID.ToString(), Text = s.DirectorName }).ToList();
 
-        //    ViewBag.Categories = categoryManager.GetAll()
-        //.Select(s => new SelectListItem { Value = s.ID.ToString(), Text = s.CategoryName }).ToList();
+            //    ViewBag.Categories = categoryManager.GetAll()
+            //.Select(s => new SelectListItem { Value = s.ID.ToString(), Text = s.CategoryName }).ToList();
 
             List<Actor> actors = actorManager.GetAll();
             ViewBag.Actors = new SelectList(actors, "ID", "ActorName");
@@ -87,7 +90,7 @@ namespace MovieApp.Panel.UI.Controllers
             int movieId = movie.ID;
 
             foreach (int actorId in selectedActorIds)
-            { 
+            {
                 ActorMovie actorMovie = new ActorMovie { ActorId = actorId, MovieId = movieId };
                 actorMovieManager.Create(actorMovie);
             }
@@ -124,8 +127,37 @@ namespace MovieApp.Panel.UI.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        public IActionResult SaveRating(int movieId, int score)
+        {
+            var username = User.Identity.Name;
+            var userId = c.Users.Where(x => x.UserName == username).Select(y => y.Id).FirstOrDefault();
 
+            bool hasRated = c.Ratings.Any(x => x.MovieId == movieId && x.AppUserId == userId);
 
+            if (hasRated)
+            {
+                TempData["NotificationMessage"] = "Zaten bu filme oy verdiniz.";
+                TempData["NotificationType"] = "error";
+                return Json(new { success = false });
+            }
+            else
+            {
+                Rating newRating = new Rating
+                {
+                    MovieId = movieId,
+                    AppUserId = userId,
+                    Score = score
+                };
+
+                c.Ratings.Add(newRating);
+                c.SaveChanges();
+
+                TempData["NotificationMessage"] = "Oyunuz başarıyla kaydedildi.";
+                TempData["NotificationType"] = "success";
+                return Json(new { success = true });
+            }
+        }
 
     }
 }

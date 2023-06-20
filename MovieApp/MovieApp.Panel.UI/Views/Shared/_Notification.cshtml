@@ -1,0 +1,23 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>_Notification</title>
+</head>
+<body>
+    <div id="notification-container">
+        @if (!string.IsNullOrEmpty(ViewBag.NotificationMessage))
+        {
+            <div class="notification @ViewBag.NotificationType">
+                <span>@ViewBag.NotificationMessage</span>
+            </div>
+        }
+    </div>
+</body>
+</html>
