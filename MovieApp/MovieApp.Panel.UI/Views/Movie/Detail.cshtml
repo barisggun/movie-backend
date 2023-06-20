@@ -5,10 +5,10 @@
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 
-<div class="detailBanner " style="background-image: linear-gradient( 33deg, #1a1a1a 24.97%, #1a1a1a 38.3%, rgba(26, 26, 26, 0.0409746) 97.47%, #1a1a1a 100% ), url(.../images/movie/@Model.MovieDetailPoster);
+<div style="background-image: linear-gradient( 33deg, #1a1a1a 24.97%, #1a1a1a 38.3%, rgba(26, 26, 26, 0.0409746) 97.47%, #1a1a1a 100% ), url(/images/movie/@Model.MovieDetailPoster);
      background-repeat: no-repeat;
      width: 1066px;
-     height: 600px;
+     height: 700px;
      background-position: top;
      margin: 0 auto;
      margin-bottom: 80px;">
@@ -32,7 +32,7 @@
                 }
             </div>
             <div class="director">
-                Oyuncu : @foreach (var actorName in Model.ActorNames)
+                Oyuncular : @foreach (var actorName in Model.ActorNames)
                 {
                     <span>@actorName |</span>
                 }
@@ -65,65 +65,5 @@
 <br />
 <br />
 <br />
-<div class="popularReviews">
-    <div class="title">
-        <h4>Yorumlar</h4>
-    </div>
-    <div class="reviews">
-        <div class="review-input">
-            <input type="text" placeholder="Yorum ekle" />
-        </div>
-        <div class="review">
-            <div class="image2">
-                <img src="~/main/assets/img/user.png" alt="" />
-            </div>
-            <div class="write">
-                <h2>Name Surname</h2>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam
-                    harum dignissimos, voluptatem architecto inventore ipsum
-                    cupiditate totam iusto dolores quos dolorum illo rem
-                    necessitatibus sunt.
-                </p>
-            </div>
-        </div>
-        <div class="review">
-            <div class="image2">
-                <img src="~/main/assets/img/png/harrypotter.jpg" alt="" />
-            </div>
-            <div class="write">
-                <h2>Name Surname</h2>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam
-                    harum dignissimos, voluptatem architecto inventore ipsum
-                    cupiditate totam iusto dolores quos dolorum illo rem
-                    necessitatibus sunt.
-                </p>
-            </div>
-        </div>
-        <div class="review">
-            <div class="image2"><img src="~/main/assets/img/png/harrypotter.jpg" alt="" /></div>
-            <div class="write">
-                <h2>Name Surname</h2>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam
-                    harum dignissimos, voluptatem architecto inventore ipsum
-                    cupiditate totam iusto dolores quos dolorum illo rem
-                    necessitatibus sunt.
-                </p>
-            </div>
-        </div>
-        <div class="review">
-            <div class="image2"><img src="~/main/assets/img/png/harrypotter.jpg" alt="" /></div>
-            <div class="write">
-                <h2>Name Surname</h2>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam
-                    harum dignissimos, voluptatem architecto inventore ipsum
-                    cupiditate totam iusto dolores quos dolorum illo rem
-                    necessitatibus sunt.
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
+
+@await Component.InvokeAsync("MovieComments")

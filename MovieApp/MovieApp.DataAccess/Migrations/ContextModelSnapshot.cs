@@ -135,12 +135,11 @@ namespace MovieApp.DataAccess.Migrations
 
                     b.Property<string>("ActorName")
                         .IsRequired()
-                        .HasMaxLength(60)
-                        .HasColumnType("nvarchar(60)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
 
-                    b.ToTable("Actors");
+                    b.ToTable("Actors", (string)null);
                 });
 
             modelBuilder.Entity("MovieApp.EntityLayer.Entities.AppRole", b =>
@@ -209,8 +208,7 @@ namespace MovieApp.DataAccess.Migrations
 
                     b.Property<string>("NameSurname")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
@@ -264,15 +262,12 @@ namespace MovieApp.DataAccess.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("BlogContent")
-                        .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("BlogCreateDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("BlogImage")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool?>("BlogStatus")
@@ -282,9 +277,7 @@ namespace MovieApp.DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("BlogTitle")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("MovieId")
                         .HasColumnType("int");
@@ -295,7 +288,7 @@ namespace MovieApp.DataAccess.Migrations
 
                     b.HasIndex("MovieId");
 
-                    b.ToTable("Blogs");
+                    b.ToTable("Blogs", (string)null);
                 });
 
             modelBuilder.Entity("MovieApp.EntityLayer.Entities.Category", b =>
@@ -308,12 +301,11 @@ namespace MovieApp.DataAccess.Migrations
 
                     b.Property<string>("CategoryName")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("MovieApp.EntityLayer.Entities.Comment", b =>
@@ -349,7 +341,7 @@ namespace MovieApp.DataAccess.Migrations
 
                     b.HasIndex("BlogID");
 
-                    b.ToTable("Comments");
+                    b.ToTable("Comments", (string)null);
                 });
 
             modelBuilder.Entity("MovieApp.EntityLayer.Entities.ConnectionClasses.ActorMovie", b =>
@@ -407,12 +399,11 @@ namespace MovieApp.DataAccess.Migrations
 
                     b.Property<string>("DirectorName")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
 
-                    b.ToTable("Directors");
+                    b.ToTable("Directors", (string)null);
                 });
 
             modelBuilder.Entity("MovieApp.EntityLayer.Entities.HomepageCover", b =>
@@ -429,12 +420,11 @@ namespace MovieApp.DataAccess.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasMaxLength(80)
-                        .HasColumnType("nvarchar(80)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
 
-                    b.ToTable("HomepageCovers");
+                    b.ToTable("HomepageCovers", (string)null);
                 });
 
             modelBuilder.Entity("MovieApp.EntityLayer.Entities.Movie", b =>
@@ -447,16 +437,14 @@ namespace MovieApp.DataAccess.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(800)
-                        .HasColumnType("nvarchar(800)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DetailPoster")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MovieTitle")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Poster")
                         .HasColumnType("nvarchar(max)");
@@ -466,7 +454,7 @@ namespace MovieApp.DataAccess.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Movies");
+                    b.ToTable("Movies", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>

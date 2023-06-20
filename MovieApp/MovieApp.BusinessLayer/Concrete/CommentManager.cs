@@ -24,5 +24,29 @@ namespace MovieApp.BusinessLayer.Concrete
             _commentDal.Create(comment);
         }
 
+        public void Delete(Comment comment)
+        {
+            _commentDal.Delete(comment);
+        }
+
+        public List<Comment> GetAll()
+        {
+            return _commentDal.GetAll();
+        }
+
+        public Comment GetById(int id)
+        {
+            return _commentDal.GetById(id);
+        }
+
+        public List<Comment> GetListByFilter(Expression<Func<Comment, bool>> filter)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Comment comment)
+        {
+            _commentDal.Update(comment);
+        }
     }
     }
