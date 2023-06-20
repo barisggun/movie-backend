@@ -35,6 +35,5 @@ namespace MovieApp.EntityLayer.Entities
         public AppUser? AppUsers { get; set; }
         public int MovieId { get; set; }
         public Movie? Movies { get; set; }
-        public List<Comment>? Comments { get; set; }
     }
 }
