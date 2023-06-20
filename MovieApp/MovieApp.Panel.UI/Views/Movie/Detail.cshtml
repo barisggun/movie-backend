@@ -5,13 +5,13 @@
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 
-<div style="background-image: linear-gradient( 33deg, #1a1a1a 24.97%, #1a1a1a 38.3%, rgba(26, 26, 26, 0.0409746) 97.47%, #1a1a1a 100% ), url('../images/movie/@Model.MovieDetailPoster);
-    background-repeat: no-repeat;
-    width: 1066px;
-    height: 600px;
-    background-position: top;
-    margin: 0 auto;
-    margin-bottom: 80px;">
+<div class="detailBanner " style="background-image: linear-gradient( 33deg, #1a1a1a 24.97%, #1a1a1a 38.3%, rgba(26, 26, 26, 0.0409746) 97.47%, #1a1a1a 100% ), url(.../images/movie/@Model.MovieDetailPoster);
+     background-repeat: no-repeat;
+     width: 1066px;
+     height: 600px;
+     background-position: top;
+     margin: 0 auto;
+     margin-bottom: 80px;">
     @*BURADA POSTERİ GETİREMİYORUM ^^^^*@
 
     <div class="movieDetail">
@@ -22,8 +22,9 @@
         </div>
         <div class="movieTitleDetails">
             <h1>@Model.MovieTitle</h1>
-            <pre>
-                @Model.MovieDescription</pre>
+            <p>
+                @Model.MovieDescription</p>
+            <br />
             <div class="director">
                 Yönetmen: @foreach (var directorName in Model.DirectorNames)
                 {
@@ -35,6 +36,10 @@
                 {
                     <span>@actorName |</span>
                 }
+            </div>
+            <div class="director">
+                Çıkış Tarihi: @(((DateTime)
+                Model.ReleaseDate).ToString("dd-MMM-yyyy"))
             </div>
             <div class="star-wrapper">
                 <a href="#" class="fas fa-star s1"></a>
@@ -50,13 +55,16 @@
                 <span class="text">İzleyeceklerime Ekle</span>
             </a>
             <a href="#" class="addToWatch">
-                <img src="~/main/assets/img/png/addIcon.png"
+                <img src="~/main/assets/img/png/favIcon.png"
                      alt=""
                      class="addIcon" /><span class="text">İzlenenlere Ekle</span>
             </a>
         </div>
     </div>
 </div>
+<br />
+<br />
+<br />
 <div class="popularReviews">
     <div class="title">
         <h4>Yorumlar</h4>

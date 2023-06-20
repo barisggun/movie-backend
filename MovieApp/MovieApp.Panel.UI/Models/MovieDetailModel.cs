@@ -9,5 +9,6 @@
         public string MoviePoster { get; set; }
         public string MovieDetailPoster { get; set; }
         public string MovieDescription { get; set; }
+        public DateTime ReleaseDate { get; set; }
     }
 }

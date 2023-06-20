@@ -117,7 +117,9 @@ namespace MovieApp.Panel.UI.Controllers
                 ActorNames = movieValue.Actors.Select(a => a.ActorName).ToList(),
                 MovieTitle = movieValue.MovieTitle,
                 MoviePoster = movieValue.Poster,
-                MovieDetailPoster = movieValue.Description
+                MovieDetailPoster = movieValue.DetailPoster,
+                MovieDescription = movieValue.Description,
+                ReleaseDate = movieValue.ReleaseDate
             };
             return View(model);
         }
