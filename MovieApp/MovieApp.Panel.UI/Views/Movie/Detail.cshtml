@@ -1,30 +1,41 @@
-﻿@model Movie
+﻿@model MovieDetailModel
 
 @{
     ViewData["Title"] = "Movie";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 
-<div style="background-image: linear-gradient( 33deg, #1a1a1a 24.97%, #1a1a1a 38.3%, rgba(26, 26, 26, 0.0409746) 97.47%, #1a1a1a 100% ), url('../images/movie/@Model.DetailPoster);
+<div style="background-image: linear-gradient( 33deg, #1a1a1a 24.97%, #1a1a1a 38.3%, rgba(26, 26, 26, 0.0409746) 97.47%, #1a1a1a 100% ), url('../images/movie/@Model.MovieDetailPoster);
     background-repeat: no-repeat;
     width: 1066px;
     height: 600px;
     background-position: top;
     margin: 0 auto;
     margin-bottom: 80px;">
-@*BURADA POSTERİ GETİREMİYORUM ^^^^*@
+    @*BURADA POSTERİ GETİREMİYORUM ^^^^*@
 
     <div class="movieDetail">
         <div>
-            <img src="~/images/movie/@Model.Poster"
+            <img src="~/images/movie/@Model.MoviePoster"
                  class="avengersPoster"
                  alt="MoonLight Poster" />
         </div>
         <div class="movieTitleDetails">
             <h1>@Model.MovieTitle</h1>
             <pre>
-@Model.Description</pre>
-            <div class="director">Yönetmen : </div>
+                @Model.MovieDescription</pre>
+            <div class="director">
+                Yönetmen: @foreach (var directorName in Model.DirectorNames)
+                {
+                    <span>@directorName</span>
+                }
+            </div>
+            <div class="director">
+                Oyuncu : @foreach (var actorName in Model.ActorNames)
+                {
+                    <span>@actorName |</span>
+                }
+            </div>
             <div class="star-wrapper">
                 <a href="#" class="fas fa-star s1"></a>
                 <a href="#" class="fas fa-star s2"></a>

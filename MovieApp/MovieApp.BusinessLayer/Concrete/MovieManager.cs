@@ -1,5 +1,7 @@
-﻿using MovieApp.BusinessLayer.Abstract;
+﻿using Microsoft.EntityFrameworkCore;
+using MovieApp.BusinessLayer.Abstract;
 using MovieApp.DataAccess.Abstract;
+using MovieApp.DataAccess.Concrete;
 using MovieApp.EntityLayer.Entities;
 using System;
 using System.Collections.Generic;
@@ -12,6 +14,8 @@ namespace MovieApp.BusinessLayer.Concrete
     public class MovieManager : IMovieService
     {
         private IMovieDal _movieDal;
+        Context c = new Context();
+
 
         public MovieManager(IMovieDal movieDal)
         {
@@ -33,7 +37,12 @@ namespace MovieApp.BusinessLayer.Concrete
 
         public Movie GetById(int id)
         {
-            return _movieDal.GetById(id);
+            var movie = c.Movies
+        .Include(m => m.Directors)
+        .Include(m => m.Actors)
+        .FirstOrDefault(m => m.ID == id);
+
+            return movie;
         }
 
         public void Update(Movie movie)

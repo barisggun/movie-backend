@@ -6,6 +6,7 @@ using MovieApp.DataAccess.Concrete;
 using MovieApp.DataAccess.EntityFramework;
 using MovieApp.EntityLayer.Entities;
 using MovieApp.EntityLayer.Entities.ConnectionClasses;
+using MovieApp.Panel.UI.Models;
 
 namespace MovieApp.Panel.UI.Controllers
 {
@@ -109,8 +110,16 @@ namespace MovieApp.Panel.UI.Controllers
         public IActionResult Detail(int id)
         {
             var movieValue = movieManager.GetById(id);
-           
-            return View(movieValue);
+            var model = new MovieDetailModel
+            {
+                MovieId = movieValue.ID,
+                DirectorNames = movieValue.Directors.Select(d => d.DirectorName).ToList(),
+                ActorNames = movieValue.Actors.Select(a => a.ActorName).ToList(),
+                MovieTitle = movieValue.MovieTitle,
+                MoviePoster = movieValue.Poster,
+                MovieDetailPoster = movieValue.Description
+            };
+            return View(model);
         }
 
 
