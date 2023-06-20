@@ -112,6 +112,7 @@ namespace MovieApp.Panel.UI.Controllers
         [AllowAnonymous]
         public IActionResult Detail(int id)
         {
+            ViewBag.i = id;
             var movieValue = movieManager.GetById(id);
             var model = new MovieDetailModel
             {

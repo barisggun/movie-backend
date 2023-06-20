@@ -39,9 +39,9 @@ namespace MovieApp.BusinessLayer.Concrete
             return _commentDal.GetById(id);
         }
 
-        public List<Comment> GetListByFilter(Expression<Func<Comment, bool>> filter)
+        public List<Comment> GetCommentById(int id)
         {
-            throw new NotImplementedException();
+            return _commentDal.GetListByFilter(x=> x.MovieId == id);
         }
 
         public void Update(Comment comment)

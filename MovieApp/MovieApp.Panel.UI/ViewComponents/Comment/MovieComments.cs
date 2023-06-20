@@ -1,13 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MovieApp.BusinessLayer.Concrete;
+using MovieApp.DataAccess.EntityFramework;
 
 namespace MovieApp.Panel.UI.ViewComponents.Comment
 {
     public class MovieComments:ViewComponent
     {
-        public IViewComponentResult Invoke()
+        CommentManager commentManager = new CommentManager(new EfCommentRepository());
+        public IViewComponentResult Invoke(int id)
         {
-            return View();
+            var values = commentManager.GetCommentById(id);
+            return View(values);
         }
     }
 }
