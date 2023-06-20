@@ -15,7 +15,6 @@ namespace MovieApp.BusinessLayer.Abstract
         void Create(Comment comment);
         void Update(Comment comment);
         void Delete(Comment comment);
-
-        List<Comment> GetListByFilter(Expression<Func<Comment, bool>> filter);
+        List<Comment> GetCommentById(int id);   
     }
 }
