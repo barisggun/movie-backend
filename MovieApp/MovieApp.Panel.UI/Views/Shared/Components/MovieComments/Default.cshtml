@@ -5,9 +5,15 @@
         <h4>Yorumlar</h4>
     </div>
     <div class="reviews">
+
+     @*   <form method="post">
         <div class="review-input">
-            <input type="text" placeholder="Yorum ekle" />
+            <input type="text" placeholder="Yorumunuz" />
+                <button>Yorum ekle</button>
         </div>
+        </form>*@
+     
+
         @foreach (var item in Model)
         {
             <div class="review">
