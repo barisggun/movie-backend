@@ -84,7 +84,7 @@
 
 <script>
     function rate(score) {
-        var movieId = @Model.MovieId; // Get the movie ID from your model
+        var movieId = @Model.MovieId;
 
         $.ajax({
             url: '/Movie/SaveRating',
@@ -93,16 +93,18 @@
             success: function (response) {
                 if (response.success) {
                     var averageRating = response.averageRating;
-                    // Update the UI to reflect the new average rating
+                    
                     $('#notification-container').text('Oyunuz başarıyla kaydedildi.');
                     $('#notification-container').addClass('success');
+
+                    $('.director h4').text('Ortalama Puan: ' + averageRating);
                 } else {
                     $('#notification-container').text('Zaten bu filme oy verdiniz.');
                     $('#notification-container').addClass('error');
                 }
             },
             error: function () {
-                // Handle the error case
+                
             }
         });
     }

@@ -123,29 +123,11 @@ namespace MovieApp.Panel.UI.Controllers
                 MoviePoster = movieValue.Poster,
                 MovieDetailPoster = movieValue.DetailPoster,
                 MovieDescription = movieValue.Description,
-                ReleaseDate = movieValue.ReleaseDate
+                ReleaseDate = movieValue.ReleaseDate,
+                AverageRating = (float)movieValue.AverageRating
             };
             return View(model);
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         //[HttpPost]
         //public IActionResult SaveRating(int movieId, int score)
