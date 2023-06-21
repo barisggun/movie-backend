@@ -50,5 +50,6 @@ namespace MovieApp.EntityLayer.Entities
         public List<Comment>? Comments { get;}
 
         public List<Rating>? Ratings { get; set; }
+        public float? AverageRating { get; set; }
     }
 }

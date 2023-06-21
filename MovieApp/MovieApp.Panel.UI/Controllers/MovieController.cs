@@ -154,6 +154,13 @@ namespace MovieApp.Panel.UI.Controllers
                 c.Ratings.Add(newRating);
                 c.SaveChanges();
 
+                var movie = c.Movies.FirstOrDefault(x => x.ID == movieId);
+                var ratings = c.Ratings.Where(x => x.MovieId == movieId).Select(x => x.Score).ToList();
+                var averageRating = ratings.Count > 0 ? ratings.Average() : 0;
+
+                movie.AverageRating = (float?)averageRating;
+                c.SaveChanges();
+
                 TempData["NotificationMessage"] = "Oyunuz başarıyla kaydedildi.";
                 TempData["NotificationType"] = "success";
                 return Json(new { success = true });

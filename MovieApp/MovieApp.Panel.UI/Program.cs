@@ -26,6 +26,7 @@ namespace MovieApp.Panel.UI
             builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
             builder.Services.AddSession();
+            builder.Services.AddHttpContextAccessor();
             builder.Services.AddMvc(config =>
             {
                 var policy = new AuthorizationPolicyBuilder()

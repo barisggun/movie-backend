@@ -23,7 +23,8 @@
         <div class="movieTitleDetails">
             <h1>@Model.MovieTitle</h1>
             <p>
-                @Model.MovieDescription</p>
+                @Model.MovieDescription
+            </p>
             <br />
             <div class="director">
                 Yönetmen: @foreach (var directorName in Model.DirectorNames)
@@ -42,17 +43,21 @@
                 Model.ReleaseDate).ToString("dd-MMM-yyyy"))
             </div>
             <div class="star-wrapper">
-                <a href="#" class="fas fa-star s1" onclick="rate(5)"></a>
-                <a href="#" class="fas fa-star s2" onclick="rate(4)"></a>
-                <a href="#" class="fas fa-star s3" onclick="rate(3)"></a>
-                <a href="#" class="fas fa-star s4" onclick="rate(2)"></a>
-                <a href="#" class="fas fa-star s5" onclick="rate(1)"></a>
+                <a href="#" class="fas fa-star s1" id="s5" onclick="rate(5)"></a>
+                <a href="#" class="fas fa-star s2" id="s4" onclick="rate(4)"></a>
+                <a href="#" class="fas fa-star s3" id="s3" onclick="rate(3)"></a>
+                <a href="#" class="fas fa-star s4" id="s2" onclick="rate(2)"></a>
+                <a href="#" class="fas fa-star s5" id="s1" onclick="rate(1)"></a>
+            </div>
+            <div id="notification-container" class="@TempData["NotificationType"]">
+                @TempData["NotificationMessage"]
             </div>
             <div id="notification-container"></div>
             <div class="director">
-                <h4> Ortalama Puan:  </h4>
+                <h4> Ortalama Puan: @Model.AverageRating </h4>
             </div>
             <script src="https://kit.fontawesome.com/5ea815c1d0.js"></script>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
             <script>
                 function rate(score) {
                     $.ajax({
@@ -63,6 +68,7 @@
                             if (result.success) {
                                 console.log(result.message);
                                 $(".star-wrapper a:lt(" + score + ")").addClass("selected");
+                                $("#notification-container").removeClass().addClass(result.notificationType).text(result.notificationMessage);
                             } else {
                                 console.log(result.message);
                             }
@@ -71,7 +77,23 @@
                             $("#notification-container").html(xhr.responseText).addClass("error");
                         }
                     });
+
+                    for (let i = 1; i <= 5; i++) {
+                        const star = document.getElementById('s' + i);
+                        if (i <= score) {
+                            star.classList.add('colored');
+                        } else {
+                            star.classList.remove('colored');
+                        }
+                    }
                 }
+
+                $(document).ready(function () {
+                    var userRating = @Json.Serialize(ViewBag.UserRating);
+                    if (userRating) {
+                        $(".star-wrapper a:lt(" + userRating + ")").addClass("selected");
+                    }
+                });
             </script>
             <div class="wraper"></div>
             <a href="#" class="addMyWatch">
