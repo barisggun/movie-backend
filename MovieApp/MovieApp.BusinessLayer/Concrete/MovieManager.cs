@@ -53,11 +53,5 @@ namespace MovieApp.BusinessLayer.Concrete
         {
             return _movieDal.GetAll();
         }
-
-        public void GetRatingForMovie(int id)
-        {
-
-            return;
-        }
     }
 }

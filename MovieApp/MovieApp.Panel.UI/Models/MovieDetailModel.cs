@@ -11,5 +11,6 @@
         public string MovieDescription { get; set; }
         public DateTime ReleaseDate { get; set; }
         public float AverageRating { get; set; }
+        public int UserRating { get; set; }
     }
 }

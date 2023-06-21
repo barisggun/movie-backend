@@ -109,11 +109,45 @@ namespace MovieApp.Panel.UI.Controllers
             return RedirectToAction("Index");
         }
 
+        //[AllowAnonymous]
+        //public IActionResult Detail(int id)
+        //{
+        //    ViewBag.i = id;
+        //    var movieValue = movieManager.GetById(id);
+
+
+        //    var model = new MovieDetailModel
+        //    {
+        //        MovieId = movieValue.ID,
+        //        DirectorNames = movieValue.Directors.Select(d => d.DirectorName).ToList(),
+        //        ActorNames = movieValue.Actors.Select(a => a.ActorName).ToList(),
+        //        MovieTitle = movieValue.MovieTitle,
+        //        MoviePoster = movieValue.Poster,
+        //        MovieDetailPoster = movieValue.DetailPoster,
+        //        MovieDescription = movieValue.Description,
+        //        ReleaseDate = movieValue.ReleaseDate
+        //    };
+
+        //    // Get the current user ID
+        //    var username = User.Identity.Name;
+        //    var userId = c.Users.Where(x => x.UserName == username).Select(y => y.Id).FirstOrDefault();
+
+        //    var userRating = c.Ratings.FirstOrDefault(x => x.MovieId == id && x.AppUserId == userId);
+        //    if (userRating != null)
+        //    {
+        //        model.UserRating = userRating.Score; // Set the user's rating in the model
+        //    }
+
+
+        //    return View(model);
+        //}
+
         [AllowAnonymous]
         public IActionResult Detail(int id)
         {
             ViewBag.i = id;
             var movieValue = movieManager.GetById(id);
+
             var model = new MovieDetailModel
             {
                 MovieId = movieValue.ID,
@@ -125,11 +159,30 @@ namespace MovieApp.Panel.UI.Controllers
                 MovieDescription = movieValue.Description,
                 ReleaseDate = movieValue.ReleaseDate
             };
+
+            // Get the current user ID
+            var userId = 0; // Set a default value for the user ID
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var username = User.Identity.Name;
+
+                // Retrieve the user ID based on the username
+                var user = c.Users.FirstOrDefault(x => x.UserName == username);
+                if (user != null)
+                {
+                    userId = user.Id;
+                }
+            }
+
+            var userRating = c.Ratings.FirstOrDefault(x => x.MovieId == id && x.AppUserId == userId);
+            if (userRating != null)
+            {
+                model.UserRating = userRating.Score; // Set the user's rating in the model
+            }
+
             return View(model);
         }
-
-
-
 
 
 
@@ -232,13 +285,6 @@ namespace MovieApp.Panel.UI.Controllers
             }
         }
 
-
-
-        [HttpGet]
-        public IActionResult CheckRating(int movieId)
-        {
-            return RedirectToAction();
-        }
 
 
 
