@@ -48,6 +48,8 @@ namespace MovieApp.BusinessLayer.Concrete
             return comments;
         }
 
+
+
         public void Update(Comment comment)
         {
             _commentDal.Update(comment);

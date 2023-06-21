@@ -1,18 +1,10 @@
-﻿@model List<Comment>
+﻿@*@model List<Comment>
 
 <div class="popularReviews">
     <div class="title">
         <h4>Yorumlar</h4>
     </div>
     <div class="reviews">
-
-     @*   <form method="post">
-        <div class="review-input">
-            <input type="text" placeholder="Yorumunuz" />
-                <button>Yorum ekle</button>
-        </div>
-        </form>*@
-     
 
         @foreach (var item in Model)
         {
@@ -32,6 +24,44 @@
             </div>
         }
 
+
+
+
+    </div>
+</div>
+*@
+
+
+@model List<Comment>
+
+<div class="popularReviews">
+    <div class="title">
+        <h4>Yorumlar</h4>
+    </div>
+    <div class="reviews">
+        @foreach (var item in Model)
+        {
+            <div class="review">
+                <div class="image2">
+                    <img src="~/main/assets/img/png/commentUser.png" alt="" />
+                </div>
+                <div class="write">
+                    <h2>@item.CommentUserName</h2>
+                    <br />
+                    <small>@(((DateTime)item.CommentDate).ToString("dd-MMM-yyyy"))</small>
+                    <p>@item.CommentContent</p>
+
+                    @if (User.Identity.Name == item.CommentUserName)
+                    {
+                        <form method="post" asp-action="Delete" asp-controller="Comment">
+                            <input type="hidden" name="commentId" value="@item.ID" />
+                            <input type="hidden" name="movieId" value="@item.MovieId" />
+                            <button class="deleteComment" type="submit">Yorumu Sil</button>
+                        </form>
+                    }
+                </div>
+            </div>
+        }
 
     </div>
 </div>

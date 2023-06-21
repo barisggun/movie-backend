@@ -128,12 +128,73 @@ namespace MovieApp.Panel.UI.Controllers
             return View(model);
         }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //[HttpPost]
+        //public IActionResult SaveRating(int movieId, int score)
+        //{
+        //    var username = User.Identity.Name;
+        //    var userId = c.Users.Where(x => x.UserName == username).Select(y => y.Id).FirstOrDefault();
+
+        //    bool hasRated = c.Ratings.Any(x => x.MovieId == movieId && x.AppUserId == userId);
+
+        //    if (hasRated)
+        //    {
+        //        TempData["NotificationMessage"] = "Zaten bu filme oy verdiniz.";
+        //        TempData["NotificationType"] = "error";
+        //        return Json(new { success = false });
+        //    }
+        //    else
+        //    {
+        //        Rating newRating = new Rating
+        //        {
+        //            MovieId = movieId,
+        //            AppUserId = userId,
+        //            Score = score
+        //        };
+
+        //        c.Ratings.Add(newRating);
+        //        c.SaveChanges();
+
+        //        var movie = c.Movies.FirstOrDefault(x => x.ID == movieId);
+        //        var ratings = c.Ratings.Where(x => x.MovieId == movieId).Select(x => x.Score).ToList();
+        //        var averageRating = ratings.Count > 0 ? ratings.Average() : 0;
+
+        //        movie.AverageRating = (float?)averageRating;
+        //        c.SaveChanges();
+
+        //        TempData["NotificationMessage"] = "Oyunuz başarıyla kaydedildi.";
+        //        TempData["NotificationType"] = "success";
+
+        //        return Json(new { success = true, averageRating });
+        //    }
+        //}
+
         [HttpPost]
         public IActionResult SaveRating(int movieId, int score)
         {
+            // Get the current user ID
             var username = User.Identity.Name;
             var userId = c.Users.Where(x => x.UserName == username).Select(y => y.Id).FirstOrDefault();
 
+            // Check if the user has already rated the movie
             bool hasRated = c.Ratings.Any(x => x.MovieId == movieId && x.AppUserId == userId);
 
             if (hasRated)
@@ -144,6 +205,7 @@ namespace MovieApp.Panel.UI.Controllers
             }
             else
             {
+                // Create a new Rating object
                 Rating newRating = new Rating
                 {
                     MovieId = movieId,
@@ -151,9 +213,11 @@ namespace MovieApp.Panel.UI.Controllers
                     Score = score
                 };
 
+                // Add the new rating to the database
                 c.Ratings.Add(newRating);
                 c.SaveChanges();
 
+                // Update the average rating for the movie
                 var movie = c.Movies.FirstOrDefault(x => x.ID == movieId);
                 var ratings = c.Ratings.Where(x => x.MovieId == movieId).Select(x => x.Score).ToList();
                 var averageRating = ratings.Count > 0 ? ratings.Average() : 0;
@@ -163,9 +227,23 @@ namespace MovieApp.Panel.UI.Controllers
 
                 TempData["NotificationMessage"] = "Oyunuz başarıyla kaydedildi.";
                 TempData["NotificationType"] = "success";
-                return Json(new { success = true });
+
+                return Json(new { success = true, averageRating });
             }
         }
 
+
+
+        [HttpGet]
+        public IActionResult CheckRating(int movieId)
+        {
+            return RedirectToAction();
+        }
+
+
+
+
     }
+
 }
+

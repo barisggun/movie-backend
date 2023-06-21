@@ -41,5 +41,49 @@ namespace MovieApp.Panel.UI.Controllers
             commentManager.Create(p);
             return RedirectToAction("Detail", "Movie", new { id = p.MovieId });
         }
+
+
+        //[HttpPost]
+        //public IActionResult Delete(int commentId, MovieDetailModel m)
+        //{
+
+        //    Comment comment = commentManager.GetById(commentId);
+
+        //    if (comment != null)
+        //    {
+
+        //        commentManager.Delete(comment);
+        //    }
+
+
+        //    return RedirectToAction("Detail", "Movie",new { id = m.MovieId }); 
+        //}
+
+        [HttpPost]
+        public IActionResult Delete(int commentId, int movieId)
+        {
+        
+            Comment comment = commentManager.GetById(commentId);
+
+            if (comment != null)
+            {
+                
+                var username = User.Identity.Name;
+
+                if (comment.CommentUserName == username)
+                {
+                    commentManager.Delete(comment);
+                }
+                else
+                {
+                   
+                    return RedirectToAction("Unauthorized", "Error");
+                }
+            }
+
+
+            return RedirectToAction("Detail", "Movie", new { id = movieId }); 
+        }
+
     }
 }
