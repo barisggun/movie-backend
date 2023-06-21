@@ -7,6 +7,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace MovieApp.BusinessLayer.Concrete
 {
@@ -41,7 +42,10 @@ namespace MovieApp.BusinessLayer.Concrete
 
         public List<Comment> GetCommentById(int id)
         {
-            return _commentDal.GetListByFilter(x=> x.MovieId == id);
+            var comments= _commentDal.GetListByFilter(x=> x.MovieId == id);
+            comments = comments.OrderBy(c => c.CommentDate).ToList();
+            comments.Reverse();
+            return comments;
         }
 
         public void Update(Comment comment)

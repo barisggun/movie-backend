@@ -47,7 +47,7 @@ namespace MovieApp.EntityLayer.Entities
 
         public List<Blog>? Blogs { get; set; } = new List<Blog>();
 
-        public List<Comment>? Comments { get;}
+        public List<Comment>? Comments { get; set; } = new List<Comment>();
 
         public List<Rating>? Ratings { get; set; }
     }
