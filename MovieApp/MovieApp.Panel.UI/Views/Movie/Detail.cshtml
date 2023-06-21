@@ -43,11 +43,11 @@
                 Model.ReleaseDate).ToString("dd-MMM-yyyy"))
             </div>
             <div class="star-wrapper">
-                <a href="#" class="fas fa-star s1 @(Model.UserRating >= 5 ? "selected" : "")" id="s5" onclick="rate(5)"></a>
-                <a href="#" class="fas fa-star s2 @(Model.UserRating >= 4 ? "selected" : "")" id="s4" onclick="rate(4)"></a>
+                <a href="#" class="fas fa-star s5 @(Model.UserRating >= 5 ? "selected" : "")" id="s5" onclick="rate(5)"></a>
+                <a href="#" class="fas fa-star s4 @(Model.UserRating >= 4 ? "selected" : "")" id="s4" onclick="rate(4)"></a>
                 <a href="#" class="fas fa-star s3 @(Model.UserRating >= 3 ? "selected" : "")" id="s3" onclick="rate(3)"></a>
-                <a href="#" class="fas fa-star s4 @(Model.UserRating >= 2 ? "selected" : "")" id="s2" onclick="rate(2)"></a>
-                <a href="#" class="fas fa-star s5 @(Model.UserRating >= 1 ? "selected" : "")" id="s1" onclick="rate(1)"></a>
+                <a href="#" class="fas fa-star s2 @(Model.UserRating >= 2 ? "selected" : "")" id="s2" onclick="rate(2)"></a>
+                <a href="#" class="fas fa-star s1 @(Model.UserRating >= 1 ? "selected" : "")" id="s1" onclick="rate(1)"></a>
             </div>
  
 
@@ -85,7 +85,7 @@
 <script src="https://kit.fontawesome.com/5ea815c1d0.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<script>
+@*<script>
     function rate(score) {
         var movieId = @Model.MovieId; 
         var userRating = @Model.UserRating;
@@ -100,7 +100,7 @@
                    
                     $('#notification-container').text('Oyunuz başarıyla kaydedildi.');
                     $('#notification-container').addClass('success');
-
+                    $('.director h4').text('Ortalama Puan: ' + averageRating);
                 } else {
                     $('#notification-container').text('Zaten bu filme oy verdiniz.');
                     $('#notification-container').addClass('error');
@@ -113,63 +113,43 @@
         });
 
     }
-
-    var userRating = @Model.UserRating; 
-    if (userRating) {
-       
-        for (var i = 1; i <= userRating; i++) {
-            $('#s' + i).addClass('selected');
-        }
-    }
-   
 </script>
 
-              
+            *@  
 
-@*<script>
-    $(document).ready(function () {
-        var userRating = @Model.UserRating; 
+<script>
+    function rate(score) {
+        var movieId = @Model.MovieId;
+        var userRating = @Model.UserRating;
 
-        function setRatingStars() {
-            for (var i = 1; i <= userRating; i++) {
-                $('#s' + i).addClass('selected');
-            }
-        }
+        $.ajax({
+            url: '/Movie/SaveRating',
+            type: 'POST',
+            data: { movieId: movieId, score: score },
+            success: function (response) {
+                if (response.success) {
+                    var averageRating = response.averageRating;
 
-  
-        setRatingStars();
+                    $('#notification-container').text('Oyunuz başarıyla kaydedildi.');
+                    $('#notification-container').addClass('success');
+                    $('.director h4').text('Ortalama Puan: ' + averageRating);
 
-        
-        function rate(score) {
-            var movieId = @Model.MovieId; 
-
-            $.ajax({
-                url: '/Movie/SaveRating',
-                type: 'POST',
-                data: { movieId: movieId, score: score },
-                success: function (response) {
-                    if (response.success) {
-                        var averageRating = response.averageRating;
-              
-                        $('#notification-container').text('Oyunuz başarıyla kaydedildi.');
-                        $('#notification-container').addClass('success');
-                    } else {
-                        $('#notification-container').text('Zaten bu filme oy verdiniz.');
-                        $('#notification-container').addClass('error');
+                    for (var i = 1; i <= 5; i++) {
+                        if (i <= score) {
+                            $('.star-wrapper .s' + i).addClass('selected');
+                        } else {
+                            $('.star-wrapper .s' + i).removeClass('selected');
+                        }
                     }
-                },
-                error: function () {
-                    $('#notification-container').text('Filme oy vermek için giriş yapmalısınız.');
+                } else {
+                    $('#notification-container').text('Zaten bu filme oy verdiniz.');
                     $('#notification-container').addClass('error');
                 }
-            });
-        }
-
-
-        $('.star-wrapper a').click(function () {
-            var score = parseInt($(this).attr('id').replace('s', ''));
-            rate(score);
+            },
+            error: function () {
+                $('#notification-container').text('Filme oy vermek için giriş yapmalısınız.');
+                $('#notification-container').addClass('error');
+            }
         });
-    });
-</script>*@
-
+    }
+</script>

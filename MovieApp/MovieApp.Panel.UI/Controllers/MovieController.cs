@@ -161,20 +161,19 @@ namespace MovieApp.Panel.UI.Controllers
                 AverageRating = (float)movieValue.AverageRating
             };
 
-            // Get the current user ID
-            var userId = 0; // Set a default value for the user ID
+           
+               var username = User.Identity.Name;
+            var userId = c.Users.Where(x => x.UserName == username).Select(y => y.Id).FirstOrDefault();
 
-            if (User.Identity.IsAuthenticated)
+            var userRating = c.Ratings.FirstOrDefault(x => x.MovieId == id && x.AppUserId == userId);
+            if (userRating != null)
             {
-                var username = User.Identity.Name;
-
-                // Retrieve the user ID based on the username
-                var user = c.Users.FirstOrDefault(x => x.UserName == username);
-                if (user != null)
-                {
-                    userId = user.Id;
-                }
+                model.UserRating = userRating.Score; 
             }
+
+
+            return View(model);
+        }
 
 
 
