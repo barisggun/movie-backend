@@ -157,7 +157,8 @@ namespace MovieApp.Panel.UI.Controllers
                 MoviePoster = movieValue.Poster,
                 MovieDetailPoster = movieValue.DetailPoster,
                 MovieDescription = movieValue.Description,
-                ReleaseDate = movieValue.ReleaseDate
+                ReleaseDate = movieValue.ReleaseDate,
+                AverageRating = (float)movieValue.AverageRating
             };
 
             // Get the current user ID
@@ -175,14 +176,8 @@ namespace MovieApp.Panel.UI.Controllers
                 }
             }
 
-            var userRating = c.Ratings.FirstOrDefault(x => x.MovieId == id && x.AppUserId == userId);
-            if (userRating != null)
-            {
-                model.UserRating = userRating.Score; // Set the user's rating in the model
-            }
 
-            return View(model);
-        }
+
 
 
 
