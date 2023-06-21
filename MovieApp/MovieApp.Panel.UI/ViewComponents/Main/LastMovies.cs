@@ -10,6 +10,7 @@ namespace MovieApp.Panel.UI.ViewComponents.Main
         public IViewComponentResult Invoke()
         {
             var values = mm.GetAll().Take(2).ToList();
+            values.Reverse();
             return View(values);
         }
     }

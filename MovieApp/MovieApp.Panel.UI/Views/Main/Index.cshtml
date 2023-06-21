@@ -1,4 +1,4 @@
-﻿
+﻿@model Movie
 
 @{
     ViewData["Title"] = "Index";
@@ -30,82 +30,11 @@
         <img class="movie" src="" alt="" />
     </div>
 </div>
+
 <!--Popular Yorumlar Başlagıcı-->
-<div class="popularReviews">
-    <div class="title">
-        <h4>Popular Reviews</h4>
-    </div>
-    <div class="reviews">
-        <div class="review">
-            <div class="image">
-                <img src="assets/img/png/interstellarsmall.jpg" alt="" />
-            </div>
-            <div class="write">
-                <h2>Title</h2>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam
-                    harum dignissimos, voluptatem architecto inventore ipsum
-                    cupiditate totam iusto dolores quos dolorum illo rem
-                    necessitatibus sunt.
-                </p>
-            </div>
-        </div>
-        <div class="review">
-            <div class="image">
-                <img src="assets/img/png/harrypotter.jpg" alt="" />
-            </div>
-            <div class="write">
-                <h2>Title</h2>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam
-                    harum dignissimos, voluptatem architecto inventore ipsum
-                    cupiditate totam iusto dolores quos dolorum illo rem
-                    necessitatibus sunt.
-                </p>
-            </div>
-        </div>
-        <div class="review">
-            <div class="image"><img src="assets/img/" alt="" /></div>
-            <div class="write">
-                <h2>Title</h2>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam
-                    harum dignissimos, voluptatem architecto inventore ipsum
-                    cupiditate totam iusto dolores quos dolorum illo rem
-                    necessitatibus sunt.
-                </p>
-            </div>
-        </div>
-        <div class="review">
-            <div class="image"><img src="" alt="" /></div>
-            <div class="write">
-                <h2>Title</h2>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam
-                    harum dignissimos, voluptatem architecto inventore ipsum
-                    cupiditate totam iusto dolores quos dolorum illo rem
-                    necessitatibus sunt.
-                </p>
-            </div>
-        </div>
-    </div>
-    <div class="popularList">
-        <div class="review">
-            <div class="image">
-                <img src="assets/img/png/terim.jpg" alt="" />
-            </div>
-            <div class="write">
-                <h2>Title</h2>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam
-                    harum dignissimos, voluptatem architecto inventore ipsum
-                    cupiditate totam iusto dolores quos dolorum illo rem
-                    necessitatibus sunt.
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
+@await Component.InvokeAsync("Last4Comment")
+
+
 <!--Popular Yorumlar Bitişi-->
 
 @await Component.InvokeAsync("LastBlogs")

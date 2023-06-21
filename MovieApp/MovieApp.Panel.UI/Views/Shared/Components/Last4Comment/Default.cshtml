@@ -1,0 +1,47 @@
+﻿@model List<Comment>
+@{
+    Layout = null;
+}
+
+
+<div class="popularReviews">
+    <div class="title">
+        <h4>Son Yorumlar</h4>
+    </div>
+    <div class="reviews">
+        @foreach (var item in Model)
+        {
+            <div class="review">
+                <div class="image">
+                    <img src="~/images/movie/@item.Movie.Poster" alt="" />
+                </div>
+                <div class="write">
+                    <h2>@item.CommentUserName</h2>
+                    <p>
+                        @item.CommentContent
+                    </p>
+                </div>
+            </div>
+        }
+       
+    </div>
+
+
+   @* <div class="popularList">
+        <div class="review">
+            <div class="image">
+                <img src="assets/img/png/terim.jpg" alt="" />
+            </div>
+            <div class="write">
+                <h2>Title</h2>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam
+                    harum dignissimos, voluptatem architecto inventore ipsum
+                    cupiditate totam iusto dolores quos dolorum illo rem
+                    necessitatibus sunt.
+                </p>
+            </div>
+        </div>
+    </div>*@
+</div>
+
