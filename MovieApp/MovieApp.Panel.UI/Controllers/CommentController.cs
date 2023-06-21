@@ -33,8 +33,11 @@ namespace MovieApp.Panel.UI.Controllers
             var username = User.Identity.Name;
             var userID = c.Users.Where(x => x.UserName == username).Select(y => y.Id).FirstOrDefault();
             var values = userManager.GetById(userID);
+            DateTime now = DateTime.Now;
+            DateTime commentDate = new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, now.Second);
 
-            p.CommentDate=Convert.ToDateTime(DateTime.Now.ToShortDateString());
+
+            p.CommentDate = commentDate;
             p.CommentStatus = true;
             p.CommentUserName=username;
             p.MovieId = m.MovieId;

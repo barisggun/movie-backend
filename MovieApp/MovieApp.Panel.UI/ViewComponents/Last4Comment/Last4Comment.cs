@@ -15,8 +15,8 @@ namespace MovieApp.Panel.UI.ViewComponents.Last4Comment
 
         public IViewComponentResult Invoke()
         {
-            var values = cm.GetCommentListWithMovie();
-            values.Reverse();
+            var values = cm.GetCommentListWithMovie();        
+            //values.Reverse();
             return View(values);
         }
     }
