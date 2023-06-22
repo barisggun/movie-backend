@@ -446,8 +446,8 @@ namespace MovieApp.DataAccess.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(67)
-                        .HasColumnType("nvarchar(67)");
+                        .HasMaxLength(120)
+                        .HasColumnType("nvarchar(120)");
 
                     b.Property<string>("DetailPoster")
                         .HasColumnType("nvarchar(max)");

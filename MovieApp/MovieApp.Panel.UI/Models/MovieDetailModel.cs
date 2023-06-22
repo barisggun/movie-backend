@@ -11,7 +11,7 @@
         public string MovieDescription { get; set; }
         public DateTime ReleaseDate { get; set; }
         public float? AverageRating { get; set; }
-        public int? UserRating { get; set; }
-        public bool? UserWatchList { get; set; }
+        public int UserRating { get; set; }
+        public bool IsMovieAdded { get; set; }
     }
 }

@@ -12,8 +12,8 @@ using MovieApp.DataAccess.Concrete;
 namespace MovieApp.DataAccess.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20230620191908_RatingDeneme")]
-    partial class RatingDeneme
+    [Migration("20230622153302_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -449,8 +449,8 @@ namespace MovieApp.DataAccess.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(67)
-                        .HasColumnType("nvarchar(67)");
+                        .HasMaxLength(120)
+                        .HasColumnType("nvarchar(120)");
 
                     b.Property<string>("DetailPoster")
                         .HasColumnType("nvarchar(max)");
@@ -495,6 +495,29 @@ namespace MovieApp.DataAccess.Migrations
                     b.HasIndex("MovieId");
 
                     b.ToTable("Ratings");
+                });
+
+            modelBuilder.Entity("MovieApp.EntityLayer.Entities.WatchList", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<int>("AppUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MovieId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("AppUserId");
+
+                    b.HasIndex("MovieId");
+
+                    b.ToTable("WatchLists");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -654,6 +677,25 @@ namespace MovieApp.DataAccess.Migrations
                     b.Navigation("Movie");
                 });
 
+            modelBuilder.Entity("MovieApp.EntityLayer.Entities.WatchList", b =>
+                {
+                    b.HasOne("MovieApp.EntityLayer.Entities.AppUser", "AppUser")
+                        .WithMany()
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MovieApp.EntityLayer.Entities.Movie", "Movie")
+                        .WithMany("WatchLists")
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+
+                    b.Navigation("Movie");
+                });
+
             modelBuilder.Entity("MovieApp.EntityLayer.Entities.AppUser", b =>
                 {
                     b.Navigation("Blogs");
@@ -666,6 +708,8 @@ namespace MovieApp.DataAccess.Migrations
                     b.Navigation("Comments");
 
                     b.Navigation("Ratings");
+
+                    b.Navigation("WatchLists");
                 });
 #pragma warning restore 612, 618
         }

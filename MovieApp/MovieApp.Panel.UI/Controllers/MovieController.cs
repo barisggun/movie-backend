@@ -83,6 +83,7 @@ namespace MovieApp.Panel.UI.Controllers
                 movie.Poster = yeniDosyaAdi;
                 movie.DetailPoster = yeniDosyaAdiDetay;
             }
+
             movie.AverageRating = 0;
             movieManager.Create(movie);
 
@@ -124,17 +125,25 @@ namespace MovieApp.Panel.UI.Controllers
                 MovieDetailPoster = movieValue.DetailPoster,
                 MovieDescription = movieValue.Description,
                 ReleaseDate = movieValue.ReleaseDate,
-                AverageRating = (float)movieValue.AverageRating
+                AverageRating = (float)movieValue.AverageRating,
+                IsMovieAdded = false
             };
 
 
             var username = User.Identity.Name;
             var userId = c.Users.Where(x => x.UserName == username).Select(y => y.Id).FirstOrDefault();
+            bool hasAdded = c.WatchLists.Any(x => x.MovieId == id && x.AppUserId == userId);
+
+            
 
             var userRating = c.Ratings.FirstOrDefault(x => x.MovieId == id && x.AppUserId == userId);
             if (userRating != null)
             {
                 model.UserRating = userRating.Score;
+            }
+            if (hasAdded)
+            {
+               model.IsMovieAdded = true;
             }
 
             return View(model);
@@ -184,9 +193,10 @@ namespace MovieApp.Panel.UI.Controllers
                 return Json(new { success = true, averageRating });
             }
         }
+    
 
         [HttpPost]
-        public IActionResult AddWatchList(int movieId)
+        public IActionResult AddWatchList(int movieId, MovieDetailModel mdv)
         {
             var username = User.Identity.Name;
             var userId = c.Users.Where(x => x.UserName == username).Select(y => y.Id).FirstOrDefault();
@@ -196,6 +206,7 @@ namespace MovieApp.Panel.UI.Controllers
             {
                 TempData["NotificationMessage"] = "Zaten bu film izleme listenizde";
                 TempData["NotificationType"] = "error";
+                mdv.IsMovieAdded = true;
                 return Json(new { success = false });
             }
             else
@@ -213,12 +224,37 @@ namespace MovieApp.Panel.UI.Controllers
 
                 TempData["NotificationMessage"] = "Film, izleme listenize eklendi.";
                 TempData["NotificationType"] = "success";
-
+                mdv.IsMovieAdded = false;
                 return Json(new { success = true });
 
             }
 
 
+        }
+        [HttpPost]
+        public IActionResult RemoveFromWatchList(int movieId, MovieDetailModel mdv)
+        {
+            var username = User.Identity.Name;
+            var userId = c.Users.Where(x => x.UserName == username).Select(y => y.Id).FirstOrDefault();
+
+            var watchList = c.WatchLists.FirstOrDefault(x => x.MovieId == movieId && x.AppUserId == userId);
+            if (watchList != null)
+            {
+                c.WatchLists.Remove(watchList);
+                c.SaveChanges();
+
+                TempData["NotificationMessage"] = "Film, izleme listenizden kaldırıldı.";
+                TempData["NotificationType"] = "success";
+                mdv.IsMovieAdded = true;
+                return Json(new { success = true });
+            }
+            else
+            {
+                TempData["NotificationMessage"] = "Film, izleme listenizde bulunamadı.";
+                TempData["NotificationType"] = "error";
+                mdv.IsMovieAdded = false;
+                return Json(new { success = false });
+            }
         }
 
     }

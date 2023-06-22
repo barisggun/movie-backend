@@ -16,7 +16,7 @@ namespace MovieApp.DataAccess.Concrete
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
 
-            optionsBuilder.UseSqlServer("server =(localdb)\\MSSQLLocalDB;database=MovieBackend;Trusted_Connection=true;TrustServerCertificate=true");
+            optionsBuilder.UseSqlServer("Server=104.247.162.242\\MSSQLSERVER2017;Database=akadem58_movie01;User Id=akadem58_movie01;Password=&7al1Y20h;TrustServerCertificate=True");
 
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)

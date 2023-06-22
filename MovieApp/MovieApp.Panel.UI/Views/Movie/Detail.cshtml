@@ -52,11 +52,11 @@
                 Model.ReleaseDate).ToString("dd-MMM-yyyy"))
             </div>
             <div class="star-wrapper">
-                <a href="#" class="fas fa-star s5 @(Model.UserRating >= 5 ? "selected" : "")" id="s5" onclick="rate(5)"></a>
-                <a href="#" class="fas fa-star s4 @(Model.UserRating >= 4 ? "selected" : "")" id="s4" onclick="rate(4)"></a>
-                <a href="#" class="fas fa-star s3 @(Model.UserRating >= 3 ? "selected" : "")" id="s3" onclick="rate(3)"></a>
-                <a href="#" class="fas fa-star s2 @(Model.UserRating >= 2 ? "selected" : "")" id="s2" onclick="rate(2)"></a>
-                <a href="#" class="fas fa-star s1 @(Model.UserRating >= 1 ? "selected" : "")" id="s1" onclick="rate(1)"></a>
+                <a href="#" class="fas fa-star s5 @(Model.UserRating >= 5 ? "selected" : " ")" id="s5" onclick="rate(5)"></a>
+                <a href="#" class="fas fa-star s4 @(Model.UserRating >= 4 ? "selected" : " ")" id="s4" onclick="rate(4)"></a>
+                <a href="#" class="fas fa-star s3 @(Model.UserRating >= 3 ? "selected" : " ")" id="s3" onclick="rate(3)"></a>
+                <a href="#" class="fas fa-star s2 @(Model.UserRating >= 2 ? "selected" : " ")" id="s2" onclick="rate(2)"></a>
+                <a href="#" class="fas fa-star s1 @(Model.UserRating >= 1 ? "selected" : " ")" id="s1" onclick="rate(1)"></a>
             </div>
  
 
@@ -73,7 +73,7 @@
             <div class="wraper"></div>
             <br />
             <div>
-                <a href="#" class="addMyWatch" style="margin-left:0px !important;" onclick="addMovieList()">
+                <a href="#" class="addMyWatch @(Model.IsMovieAdded != false ? "watchlist-button" : "")" style="margin-left:0px !important;" onclick="toggleWatchList()">
                 <img src="~/main/assets/img/png/addIcon.png" alt="" class="addIcon" />
                 <span class="text">İzleyeceklerime Ekle</span>
             </a>
@@ -102,8 +102,18 @@
 <script src="https://kit.fontawesome.com/5ea815c1d0.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+<style>
+    .watchlist-button {
+        background-color: green;
+    }
 
-<script>
+        .watchlist-button:hover {
+            background-color: red;
+        }
+</style>
+
+
+@*<script>
     function rate(score) {
         var movieId = @Model.MovieId;
         var userRating = @Model.UserRating;
@@ -139,9 +149,11 @@
         });
     }
 </script>
+
 <script>
     function addMovieList() {
         var movieId = @Model.MovieId;
+        var addButton = $('.addMyWatch');
         $.ajax({
             url: '/Movie/AddWatchList',
             type: 'POST',
@@ -151,6 +163,8 @@
 
                     $('#notification-container2').text('Film, izleme listenize eklendi.');
                     $('#notification-container2').addClass('success');
+
+                    addButton.addClass('watchlist-button');
                    
                 } else {
                     $('#notification-container2').text('Zaten bu film izleme listenizde');
@@ -160,6 +174,123 @@
             error: function () {
                 $('#notification-container2').text('Filmi listenize eklemeniz için giriş yapmalısınız.');
                 $('#notification-container2').addClass('error');
+            }
+        });
+    }
+
+    function removeMovieList() {
+        var movieId = @Model.MovieId;
+        var addButton = $('.addMyWatch');
+        $.ajax({
+            url: '/Movie/RemoveFromWatchList',
+            type: 'POST',
+            data: { movieId: movieId },
+            success: function (response) {
+                if (response.success) {
+                    $('#notification-container2').text('Film, izleme listenizden kaldırıldı.');
+                    $('#notification-container2').addClass('success');
+                    addButton.removeClass('watchlist-button');
+                } else {
+                    $('#notification-container2').text('Film, izleme listenizde bulunamadı.');
+                    $('#notification-container2').addClass('error');
+                }
+            },
+            error: function () {
+                $('#notification-container2').text('Filmi listenizden kaldırabilmeniz için giriş yapmalısınız.');
+                $('#notification-container2').addClass('error');
+            }
+        });
+    }
+</script>
+*@
+
+<script>
+    function toggleWatchList() {
+        var movieId = @Model.MovieId;
+        var addButton = $('.addMyWatch');
+
+        if (addButton.hasClass('watchlist-button')) {
+            removeMovieList(movieId, addButton);
+        } else {
+            addMovieList(movieId, addButton);
+        }
+    }
+
+    function addMovieList(movieId, addButton) {
+        $.ajax({
+            url: '/Movie/AddWatchList',
+            type: 'POST',
+            data: { movieId: movieId },
+            success: function (response) {
+                if (response.success) {
+                    $('#notification-container2').text('Film, izleme listenize eklendi.');
+                    $('#notification-container2').addClass('success');
+                    addButton.addClass('watchlist-button');
+                } else {
+                    $('#notification-container2').text('Zaten bu film izleme listenizde');
+                    $('#notification-container2').addClass('error');
+                }
+            },
+            error: function () {
+                $('#notification-container2').text('Filmi listenize eklemeniz için giriş yapmalısınız.');
+                $('#notification-container2').addClass('error');
+            }
+        });
+    }
+
+    function removeMovieList(movieId, addButton) {
+        $.ajax({
+            url: '/Movie/RemoveFromWatchList',
+            type: 'POST',
+            data: { movieId: movieId },
+            success: function (response) {
+                if (response.success) {
+                    $('#notification-container2').text('Film, izleme listenizden kaldırıldı.');
+                    $('#notification-container2').addClass('success');
+                    addButton.removeClass('watchlist-button');
+                } else {
+                    $('#notification-container2').text('Film, izleme listenizde bulunamadı.');
+                    $('#notification-container2').addClass('error');
+                }
+            },
+            error: function () {
+                $('#notification-container2').text('Filmi listenizden kaldırabilmeniz için giriş yapmalısınız.');
+                $('#notification-container2').addClass('error');
+            }
+        });
+    }
+
+    function rate(score) {
+        var movieId = @Model.MovieId;
+        var userRating = @Model.UserRating;
+
+        $.ajax({
+            url: '/Movie/SaveRating',
+            type: 'POST',
+            data: { movieId: movieId, score: score },
+            success: function (response) {
+                if (response.success) {
+                    var averageRating = response.averageRating;
+
+                    $('#notification-container').text('Oyunuz başarıyla kaydedildi.');
+                    $('#notification-container').addClass('success');
+                    $('.director h4').text('Ortalama Puan: ' + averageRating);
+
+                    for (var i = 1; i <= 5; i++) {
+                        if (i <= score) {
+                            $('.star-wrapper .s' + i).addClass('selected');
+                        } else {
+                            $('.star-wrapper .s' + i).removeClass('selected');
+                        }
+                    }
+                } else {
+                    $('#notification-container').text('Zaten bu filme oy verdiniz.');
+                    $('#notification-container').addClass('error');
+                }
+            },
+            error: function () {
+                $('#notification-container').text('Filme oy vermek için giriş yapmalısınız.');
+                $('#notification-container').addClass('error');
             }
         });
     }
