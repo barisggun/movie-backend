@@ -70,6 +70,7 @@ namespace MovieApp.DataAccess.Concrete
         public DbSet<Comment> Comments { get; set; }
         public DbSet<HomepageCover> HomepageCovers { get; set; }
         public DbSet<Rating> Ratings { get; set; }
+        public DbSet<WatchList> WatchLists { get; set; }
 
     }
 }

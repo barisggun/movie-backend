@@ -85,37 +85,6 @@
 <script src="https://kit.fontawesome.com/5ea815c1d0.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-@*<script>
-    function rate(score) {
-        var movieId = @Model.MovieId; 
-        var userRating = @Model.UserRating;
-
-        $.ajax({
-            url: '/Movie/SaveRating',
-            type: 'POST',
-            data: { movieId: movieId, score: score },
-            success: function (response) {
-                if (response.success) {
-                    var averageRating = response.averageRating;
-                   
-                    $('#notification-container').text('Oyunuz başarıyla kaydedildi.');
-                    $('#notification-container').addClass('success');
-                    $('.director h4').text('Ortalama Puan: ' + averageRating);
-                } else {
-                    $('#notification-container').text('Zaten bu filme oy verdiniz.');
-                    $('#notification-container').addClass('error');
-                }
-            },
-            error: function () {
-                $('#notification-container').text('Filme oy vermek için giriş yapmalısınız.');
-                $('#notification-container').addClass('error');
-            }
-        });
-
-    }
-</script>
-
-            *@  
 
 <script>
     function rate(score) {

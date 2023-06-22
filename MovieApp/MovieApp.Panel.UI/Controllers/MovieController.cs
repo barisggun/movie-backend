@@ -8,6 +8,7 @@ using MovieApp.DataAccess.EntityFramework;
 using MovieApp.EntityLayer.Entities;
 using MovieApp.EntityLayer.Entities.ConnectionClasses;
 using MovieApp.Panel.UI.Models;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace MovieApp.Panel.UI.Controllers
 {
@@ -23,6 +24,7 @@ namespace MovieApp.Panel.UI.Controllers
         ActorMovieManager actorMovieManager = new ActorMovieManager(new EfActorMovieRepository());
         DirectorMovieManager directorMovieManager = new DirectorMovieManager(new EfDirectorMovieRepository());
         CategoryMovieManager categoryMovieManager = new CategoryMovieManager(new EfCategoryMovieRepository());
+        WatchListManager WatchListManager = new WatchListManager(new EfWatchListRepository());
         Context c = new Context();
 
 
@@ -109,39 +111,6 @@ namespace MovieApp.Panel.UI.Controllers
             return RedirectToAction("Index");
         }
 
-        //[AllowAnonymous]
-        //public IActionResult Detail(int id)
-        //{
-        //    ViewBag.i = id;
-        //    var movieValue = movieManager.GetById(id);
-
-
-        //    var model = new MovieDetailModel
-        //    {
-        //        MovieId = movieValue.ID,
-        //        DirectorNames = movieValue.Directors.Select(d => d.DirectorName).ToList(),
-        //        ActorNames = movieValue.Actors.Select(a => a.ActorName).ToList(),
-        //        MovieTitle = movieValue.MovieTitle,
-        //        MoviePoster = movieValue.Poster,
-        //        MovieDetailPoster = movieValue.DetailPoster,
-        //        MovieDescription = movieValue.Description,
-        //        ReleaseDate = movieValue.ReleaseDate
-        //    };
-
-        //    // Get the current user ID
-        //    var username = User.Identity.Name;
-        //    var userId = c.Users.Where(x => x.UserName == username).Select(y => y.Id).FirstOrDefault();
-
-        //    var userRating = c.Ratings.FirstOrDefault(x => x.MovieId == id && x.AppUserId == userId);
-        //    if (userRating != null)
-        //    {
-        //        model.UserRating = userRating.Score; // Set the user's rating in the model
-        //    }
-
-
-        //    return View(model);
-        //}
-
         [AllowAnonymous]
         public IActionResult Detail(int id)
         {
@@ -175,73 +144,14 @@ namespace MovieApp.Panel.UI.Controllers
             return View(model);
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //[HttpPost]
-        //public IActionResult SaveRating(int movieId, int score)
-        //{
-        //    var username = User.Identity.Name;
-        //    var userId = c.Users.Where(x => x.UserName == username).Select(y => y.Id).FirstOrDefault();
-
-        //    bool hasRated = c.Ratings.Any(x => x.MovieId == movieId && x.AppUserId == userId);
-
-        //    if (hasRated)
-        //    {
-        //        TempData["NotificationMessage"] = "Zaten bu filme oy verdiniz.";
-        //        TempData["NotificationType"] = "error";
-        //        return Json(new { success = false });
-        //    }
-        //    else
-        //    {
-        //        Rating newRating = new Rating
-        //        {
-        //            MovieId = movieId,
-        //            AppUserId = userId,
-        //            Score = score
-        //        };
-
-        //        c.Ratings.Add(newRating);
-        //        c.SaveChanges();
-
-        //        var movie = c.Movies.FirstOrDefault(x => x.ID == movieId);
-        //        var ratings = c.Ratings.Where(x => x.MovieId == movieId).Select(x => x.Score).ToList();
-        //        var averageRating = ratings.Count > 0 ? ratings.Average() : 0;
-
-        //        movie.AverageRating = (float?)averageRating;
-        //        c.SaveChanges();
-
-        //        TempData["NotificationMessage"] = "Oyunuz başarıyla kaydedildi.";
-        //        TempData["NotificationType"] = "success";
-
-        //        return Json(new { success = true, averageRating });
-        //    }
-        //}
-
         [HttpPost]
         public IActionResult SaveRating(int movieId, int score)
         {
-            // Get the current user ID
+ 
             var username = User.Identity.Name;
             var userId = c.Users.Where(x => x.UserName == username).Select(y => y.Id).FirstOrDefault();
 
-            // Check if the user has already rated the movie
+        
             bool hasRated = c.Ratings.Any(x => x.MovieId == movieId && x.AppUserId == userId);
 
             if (hasRated)
@@ -252,7 +162,7 @@ namespace MovieApp.Panel.UI.Controllers
             }
             else
             {
-                // Create a new Rating object
+               
                 Rating newRating = new Rating
                 {
                     MovieId = movieId,
@@ -260,11 +170,11 @@ namespace MovieApp.Panel.UI.Controllers
                     Score = score
                 };
 
-                // Add the new rating to the database
+               
                 c.Ratings.Add(newRating);
                 c.SaveChanges();
 
-                // Update the average rating for the movie
+               
                 var movie = c.Movies.FirstOrDefault(x => x.ID == movieId);
                 var ratings = c.Ratings.Where(x => x.MovieId == movieId).Select(x => x.Score).ToList();
                 var averageRating = ratings.Count > 0 ? ratings.Average() : 0;
@@ -279,9 +189,41 @@ namespace MovieApp.Panel.UI.Controllers
             }
         }
 
+        [HttpPost]
+        public IActionResult AddWatchList(int movieId)
+        {
+            var username = User.Identity.Name;
+            var userId = c.Users.Where(x => x.UserName == username).Select(y => y.Id).FirstOrDefault();
+
+            bool hasAdded = c.WatchLists.Any(x => x.MovieId == movieId && x.AppUserId == userId);
+            if (hasAdded)
+            {
+                TempData["NotificationMessage"] = "Zaten bu filme oy verdiniz.";
+                TempData["NotificationType"] = "error";
+                return Json(new { success = false });
+            }
+            else
+            {
+
+                WatchList newwatchList = new WatchList
+                {
+                    MovieId = movieId,
+                    AppUserId = userId
+                };
 
 
+                c.WatchLists.Add(newwatchList);
+                c.SaveChanges();
 
+                TempData["NotificationMessage"] = "Oyunuz başarıyla kaydedildi.";
+                TempData["NotificationType"] = "success";
+
+                return Json(new { success = true});
+
+            }
+
+
+        }
 
     }
 
