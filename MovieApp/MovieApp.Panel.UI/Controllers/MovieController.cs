@@ -140,7 +140,6 @@ namespace MovieApp.Panel.UI.Controllers
                 model.UserRating = userRating.Score; 
             }
 
-
             return View(model);
         }
 
@@ -198,7 +197,7 @@ namespace MovieApp.Panel.UI.Controllers
             bool hasAdded = c.WatchLists.Any(x => x.MovieId == movieId && x.AppUserId == userId);
             if (hasAdded)
             {
-                TempData["NotificationMessage"] = "Zaten bu filme oy verdiniz.";
+                TempData["NotificationMessage"] = "Zaten bu film izleme listenizde";
                 TempData["NotificationType"] = "error";
                 return Json(new { success = false });
             }
@@ -215,7 +214,7 @@ namespace MovieApp.Panel.UI.Controllers
                 c.WatchLists.Add(newwatchList);
                 c.SaveChanges();
 
-                TempData["NotificationMessage"] = "Oyunuz başarıyla kaydedildi.";
+                TempData["NotificationMessage"] = "Film, izleme listenize eklendi.";
                 TempData["NotificationType"] = "success";
 
                 return Json(new { success = true});

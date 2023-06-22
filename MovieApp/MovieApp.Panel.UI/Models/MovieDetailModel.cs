@@ -12,5 +12,6 @@
         public DateTime ReleaseDate { get; set; }
         public float AverageRating { get; set; }
         public int UserRating { get; set; }
+        public bool UserWatchList { get; set; }
     }
 }

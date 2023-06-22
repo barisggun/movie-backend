@@ -52,17 +52,19 @@
  
 
 
-            <div id="notification-container" class="@TempData["NotificationType"]">
-                @TempData["NotificationMessage"]
-            </div>
-            <div id="notification-container"></div>
+            
+            
             <div class="director">
                 <h4> Ortalama Puan: @Model.AverageRating </h4>
             </div>
-
+            <div id="notification-container" class="@TempData["NotificationType"]">
+                @TempData["NotificationMessage"]
+            </div>
 
             <div class="wraper"></div>
-            <a href="#" class="addMyWatch">
+            <br />
+            <div>
+                <a href="#" class="addMyWatch" style="margin-left:0px !important;" onclick="addMovieList()">
                 <img src="~/main/assets/img/png/addIcon.png" alt="" class="addIcon" />
                 <span class="text">İzleyeceklerime Ekle</span>
             </a>
@@ -71,7 +73,13 @@
                      alt=""
                      class="addIcon" /><span class="text">İzlenenlere Ekle</span>
             </a>
+            </div>
+            <br />
+            <div id="notification-container2" class="@TempData["NotificationType"]">
+                @TempData["NotificationMessage"]
+            </div>
         </div>
+        
     </div>
 </div>
 <br />
@@ -118,6 +126,31 @@
             error: function () {
                 $('#notification-container').text('Filme oy vermek için giriş yapmalısınız.');
                 $('#notification-container').addClass('error');
+            }
+        });
+    }
+</script>
+<script>
+    function addMovieList() {
+        var movieId = @Model.MovieId;
+        $.ajax({
+            url: '/Movie/AddWatchList',
+            type: 'POST',
+            data: { movieId: movieId},
+            success: function (response) {
+                if (response.success) {
+
+                    $('#notification-container2').text('Film, izleme listenize eklendi.');
+                    $('#notification-container2').addClass('success');
+                   
+                } else {
+                    $('#notification-container2').text('Zaten bu film izleme listenizde');
+                    $('#notification-container2').addClass('error');
+                }
+            },
+            error: function () {
+                $('#notification-container2').text('Filmi listenize eklemeniz için giriş yapmalısınız.');
+                $('#notification-container2').addClass('error');
             }
         });
     }
