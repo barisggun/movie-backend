@@ -18,7 +18,7 @@ namespace MovieApp.EntityLayer.Entities
         public string MovieTitle { get; set; }
 
         [Required(ErrorMessage = "Film açıklaması boş geçilemez.")]
-        [MaxLength(67, ErrorMessage = "Film açıklaması maksimum 60 karakter olabilir")]
+        [MaxLength(120, ErrorMessage = "Film açıklaması maksimum 60 karakter olabilir")]
         [MinLength(5, ErrorMessage = "Film açıklaması  minimum 5 karakter olabilir")]
         [DisplayName("Açıklama")]
         public string Description { get; set; }

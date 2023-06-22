@@ -51,9 +51,6 @@ namespace MovieApp.Panel.UI.Controllers
             ViewBag.Directors = directorManager.GetAll()
         .Select(s => new SelectListItem { Value = s.ID.ToString(), Text = s.DirectorName }).ToList();
 
-            //    ViewBag.Categories = categoryManager.GetAll()
-            //.Select(s => new SelectListItem { Value = s.ID.ToString(), Text = s.CategoryName }).ToList();
-
             List<Actor> actors = actorManager.GetAll();
             ViewBag.Actors = new SelectList(actors, "ID", "ActorName");
 
@@ -86,7 +83,7 @@ namespace MovieApp.Panel.UI.Controllers
                 movie.Poster = yeniDosyaAdi;
                 movie.DetailPoster = yeniDosyaAdiDetay;
             }
-
+            movie.AverageRating = 0;
             movieManager.Create(movie);
 
             int movieId = movie.ID;
@@ -130,14 +127,14 @@ namespace MovieApp.Panel.UI.Controllers
                 AverageRating = (float)movieValue.AverageRating
             };
 
-           
-               var username = User.Identity.Name;
+
+            var username = User.Identity.Name;
             var userId = c.Users.Where(x => x.UserName == username).Select(y => y.Id).FirstOrDefault();
 
             var userRating = c.Ratings.FirstOrDefault(x => x.MovieId == id && x.AppUserId == userId);
             if (userRating != null)
             {
-                model.UserRating = userRating.Score; 
+                model.UserRating = userRating.Score;
             }
 
             return View(model);
@@ -146,11 +143,11 @@ namespace MovieApp.Panel.UI.Controllers
         [HttpPost]
         public IActionResult SaveRating(int movieId, int score)
         {
- 
+
             var username = User.Identity.Name;
             var userId = c.Users.Where(x => x.UserName == username).Select(y => y.Id).FirstOrDefault();
 
-        
+
             bool hasRated = c.Ratings.Any(x => x.MovieId == movieId && x.AppUserId == userId);
 
             if (hasRated)
@@ -161,7 +158,7 @@ namespace MovieApp.Panel.UI.Controllers
             }
             else
             {
-               
+
                 Rating newRating = new Rating
                 {
                     MovieId = movieId,
@@ -169,11 +166,11 @@ namespace MovieApp.Panel.UI.Controllers
                     Score = score
                 };
 
-               
+
                 c.Ratings.Add(newRating);
                 c.SaveChanges();
 
-               
+
                 var movie = c.Movies.FirstOrDefault(x => x.ID == movieId);
                 var ratings = c.Ratings.Where(x => x.MovieId == movieId).Select(x => x.Score).ToList();
                 var averageRating = ratings.Count > 0 ? ratings.Average() : 0;
@@ -217,7 +214,7 @@ namespace MovieApp.Panel.UI.Controllers
                 TempData["NotificationMessage"] = "Film, izleme listenize eklendi.";
                 TempData["NotificationType"] = "success";
 
-                return Json(new { success = true});
+                return Json(new { success = true });
 
             }
 
