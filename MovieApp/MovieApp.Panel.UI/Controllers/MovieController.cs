@@ -134,7 +134,8 @@ namespace MovieApp.Panel.UI.Controllers
                 MovieDescription = movieValue.Description,
                 ReleaseDate = movieValue.ReleaseDate,
                 AverageRating = (float)movieValue.AverageRating,
-                IsMovieAdded = false
+                IsMovieAdded = false,
+                IsMovieAddedToWatchedList = false
             };
 
             var username = User.Identity.Name;
@@ -149,6 +150,10 @@ namespace MovieApp.Panel.UI.Controllers
             if (hasAdded)
             {
                 model.IsMovieAdded = true;
+            }
+            if (hasAdded)
+            {
+                model.IsMovieAddedToWatchedList = true;
             }
 
             string apiKey = configuration.GetValue<string>("AppSettings:GiphyApiKey");

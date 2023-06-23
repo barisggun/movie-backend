@@ -76,10 +76,9 @@
                 <img src="~/main/assets/img/png/addIcon.png" alt="" class="addIcon" />
                 <span class="text">İzleyeceklerime Ekle</span>
             </a>
-                <a href="#" class="addToWatch @(Model.IsMovieAddedToWatchedList != false ? "watchlist-button" : "")" style="margin-left:0px !important;" onclick="toggleWatchedList()">
-                <img src="~/main/assets/img/png/favIcon.png"
-                     alt=""
-                     class="addIcon" /><span class="text">İzlenenlere Ekle</span>
+                <a href="#" class="addToWatch @(Model.IsMovieAddedToWatchedList != false ? "watchedlist-button" : "")" style="margin-left:0px !important;" onclick="toggleWatchedList()">
+                <img src="~/main/assets/img/png/favIcon.png" alt="" class="addIcon" />
+                     <span class="text">İzlenenlere Ekle</span>
             </a>
             </div>
             <br />
@@ -112,6 +111,14 @@
         .watchlist-button:hover {
             background-color: red;
         }
+
+    .watchedlist-button {
+        background-color: green;
+    }
+
+        .watchedlist-button:hover {
+            background-color: red;
+        }
 </style>
 <script>
     function toggleWatchList() {
@@ -129,7 +136,7 @@
         var movieId = @Model.MovieId;
         var addButton = $('.addToWatch');
 
-        if (addButton.hasClass('watchlist-button')) {
+        if (addButton.hasClass('watchedlist-button')) {
             RemoveFromWatchedList(movieId, addButton);
         } else {
             addMovieWatchedList(movieId, addButton);
@@ -189,7 +196,7 @@
                 if (response.success) {
                     $('#notification-container3').text('Film, izledikleriniz arasına eklendi.');
                     $('#notification-container3').addClass('success');
-                    addButton.addClass('watchlist-button');
+                    addButton.addClass('watchedlist-button');
                 } else {
                     $('#notification-container3').text('Zaten bu film izledikleriniz arasında.');
                     $('#notification-container3').addClass('error');
@@ -211,7 +218,7 @@
                 if (response.success) {
                     $('#notification-container3').text('Film, izledikleriniz arasından kaldırıldı.');
                     $('#notification-container3').addClass('success');
-                    addButton.removeClass('watchlist-button');
+                    addButton.removeClass('watchedlist-button');
                 } else {
                     $('#notification-container3').text('Film, izledikleriniz arasında bulunamadı.');
                     $('#notification-container3').addClass('error');
