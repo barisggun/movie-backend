@@ -13,5 +13,6 @@
         public float? AverageRating { get; set; }
         public int UserRating { get; set; }
         public bool IsMovieAdded { get; set; }
+        public string MovieGifUrl { get; set; }
     }
 }

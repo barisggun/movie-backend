@@ -4,6 +4,10 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Options;
 using MovieApp.DataAccess.Concrete;
 using MovieApp.EntityLayer.Entities;
+using System.Configuration;
+using Microsoft.Extensions.Configuration;
+using Humanizer.Configuration;
+
 
 namespace MovieApp.Panel.UI
 {
@@ -20,6 +24,19 @@ namespace MovieApp.Panel.UI
                 x.Password.RequireNonAlphanumeric = false;
             }).AddEntityFrameworkStores<Context>();
             //Identity End
+
+
+
+
+            var configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json")
+                .Build();
+
+            // GiphyApiKey değerini yapılandırmadan alın
+            var giphyApiKey = configuration.GetValue<string>("AppSettings:GiphyApiKey");
+
+
 
 
             //Cookie start
@@ -56,7 +73,7 @@ namespace MovieApp.Panel.UI
 
 
             // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
+            if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.

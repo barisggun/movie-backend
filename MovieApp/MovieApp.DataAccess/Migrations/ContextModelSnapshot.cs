@@ -140,7 +140,7 @@ namespace MovieApp.DataAccess.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Actors");
+                    b.ToTable("Actors", (string)null);
                 });
 
             modelBuilder.Entity("MovieApp.EntityLayer.Entities.AppRole", b =>
@@ -295,7 +295,7 @@ namespace MovieApp.DataAccess.Migrations
 
                     b.HasIndex("MovieId");
 
-                    b.ToTable("Blogs");
+                    b.ToTable("Blogs", (string)null);
                 });
 
             modelBuilder.Entity("MovieApp.EntityLayer.Entities.Category", b =>
@@ -313,7 +313,7 @@ namespace MovieApp.DataAccess.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("MovieApp.EntityLayer.Entities.Comment", b =>
@@ -345,7 +345,7 @@ namespace MovieApp.DataAccess.Migrations
 
                     b.HasIndex("MovieId");
 
-                    b.ToTable("Comments");
+                    b.ToTable("Comments", (string)null);
                 });
 
             modelBuilder.Entity("MovieApp.EntityLayer.Entities.ConnectionClasses.ActorMovie", b =>
@@ -408,7 +408,7 @@ namespace MovieApp.DataAccess.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Directors");
+                    b.ToTable("Directors", (string)null);
                 });
 
             modelBuilder.Entity("MovieApp.EntityLayer.Entities.HomepageCover", b =>
@@ -430,7 +430,7 @@ namespace MovieApp.DataAccess.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("HomepageCovers");
+                    b.ToTable("HomepageCovers", (string)null);
                 });
 
             modelBuilder.Entity("MovieApp.EntityLayer.Entities.Movie", b =>
@@ -465,7 +465,7 @@ namespace MovieApp.DataAccess.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Movies");
+                    b.ToTable("Movies", (string)null);
                 });
 
             modelBuilder.Entity("MovieApp.EntityLayer.Entities.Rating", b =>
@@ -491,7 +491,7 @@ namespace MovieApp.DataAccess.Migrations
 
                     b.HasIndex("MovieId");
 
-                    b.ToTable("Ratings");
+                    b.ToTable("Ratings", (string)null);
                 });
 
             modelBuilder.Entity("MovieApp.EntityLayer.Entities.WatchList", b =>
@@ -514,7 +514,7 @@ namespace MovieApp.DataAccess.Migrations
 
                     b.HasIndex("MovieId");
 
-                    b.ToTable("WatchLists");
+                    b.ToTable("WatchLists", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>

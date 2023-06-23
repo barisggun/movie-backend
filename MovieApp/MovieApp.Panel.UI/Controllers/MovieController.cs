@@ -1,14 +1,16 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using System.Net.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using MovieApp.BusinessLayer.Concrete;
 using MovieApp.DataAccess.Concrete;
 using MovieApp.DataAccess.EntityFramework;
 using MovieApp.EntityLayer.Entities;
 using MovieApp.EntityLayer.Entities.ConnectionClasses;
 using MovieApp.Panel.UI.Models;
-using static System.Formats.Asn1.AsnWriter;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace MovieApp.Panel.UI.Controllers
 {
@@ -31,11 +33,17 @@ namespace MovieApp.Panel.UI.Controllers
         public List<DirectorMovie> DirectorMovies { get; set; } = new List<DirectorMovie>();
         public List<ActorMovie> ActorMovies { get; set; } = new List<ActorMovie>();
 
+        private readonly IConfiguration configuration;
+        private readonly AppSetting _appSettings;
 
-        public MovieController(IWebHostEnvironment webHostEnvironment)
+        public MovieController(IConfiguration configuration, IOptions<AppSetting> giphyApiOptions, IWebHostEnvironment webHostEnvironment)
         {
+            this.configuration = configuration;
+            _appSettings = giphyApiOptions.Value;
             this.webHostEnvironment = webHostEnvironment;
         }
+
+
 
         [Authorize(Roles = "Admin")]
         public IActionResult Index()
@@ -110,7 +118,7 @@ namespace MovieApp.Panel.UI.Controllers
         }
 
         [AllowAnonymous]
-        public IActionResult Detail(int id)
+        public async Task<IActionResult> Detail(int id)
         {
             ViewBag.i = id;
             var movieValue = movieManager.GetById(id);
@@ -129,12 +137,9 @@ namespace MovieApp.Panel.UI.Controllers
                 IsMovieAdded = false
             };
 
-
             var username = User.Identity.Name;
             var userId = c.Users.Where(x => x.UserName == username).Select(y => y.Id).FirstOrDefault();
             bool hasAdded = c.WatchLists.Any(x => x.MovieId == id && x.AppUserId == userId);
-
-            
 
             var userRating = c.Ratings.FirstOrDefault(x => x.MovieId == id && x.AppUserId == userId);
             if (userRating != null)
@@ -143,11 +148,34 @@ namespace MovieApp.Panel.UI.Controllers
             }
             if (hasAdded)
             {
-               model.IsMovieAdded = true;
+                model.IsMovieAdded = true;
+            }
+
+            string apiKey = configuration.GetValue<string>("AppSettings:GiphyApiKey");
+            string movieTitle = model.MovieTitle;
+            string apiUrl = $"https://api.giphy.com/v1/gifs/search?q={Uri.EscapeDataString(movieTitle)}&api_key={apiKey}";
+
+            // API'den gelen verileri almak için HTTP isteği yap
+            using (HttpClient client = new HttpClient())
+            {
+                HttpResponseMessage response = await client.GetAsync(apiUrl);
+                if (response.IsSuccessStatusCode)
+                {
+                    string json = await response.Content.ReadAsStringAsync();
+                    dynamic data = JObject.Parse(json);
+
+                    // İlk gifi al
+                    string gifUrl = data.data[0].images.original.url;
+
+                    // Gifi görüntülemek için CSS stilini güncelle
+                    string gifStyle = $"background-image: linear-gradient( 33deg, #13171D 24.97%, #13171D 38.3%, rgba(26, 26, 26, 0.0409746) 97.47%, #13171D 100% ), url({gifUrl});";
+                    ViewBag.GifStyle = gifStyle;
+                }
             }
 
             return View(model);
         }
+
 
         [HttpPost]
         public IActionResult SaveRating(int movieId, int score)
