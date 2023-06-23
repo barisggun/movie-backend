@@ -73,6 +73,7 @@ namespace MovieApp.DataAccess.Concrete
         public DbSet<HomepageCover> HomepageCovers { get; set; }
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<WatchList> WatchLists { get; set; }
+        public DbSet<AppSetting> AppSettings { get; set; }
 
     }
 }
