@@ -1,5 +1,7 @@
-﻿using MovieApp.BusinessLayer.Abstract;
+﻿using Microsoft.EntityFrameworkCore;
+using MovieApp.BusinessLayer.Abstract;
 using MovieApp.DataAccess.Abstract;
+using MovieApp.DataAccess.Concrete;
 using MovieApp.EntityLayer.Entities;
 using System;
 using System.Collections.Generic;
@@ -12,6 +14,7 @@ namespace MovieApp.BusinessLayer.Concrete
     public class UserManager : IUserService
     {
         IUserDal _userDal;
+        Context c = new Context();
 
         public UserManager(IUserDal userDal)
         {
@@ -35,7 +38,7 @@ namespace MovieApp.BusinessLayer.Concrete
 
         public AppUser GetById(int id)
         {
-           return _userDal.GetById(id);
+            return _userDal.GetById(id);
         }
 
         public void Update(AppUser appUser)
