@@ -59,6 +59,19 @@ namespace MovieApp.BusinessLayer.Concrete
             return comments;
         }
 
+        public List<Comment> GetCommentListWithUser(int Id)
+        {
+            var username = c.Users.Where(c => c.Id == Id).Select(y => y.UserName).FirstOrDefault();
+
+            var comments = _commentDal.GetAll(x => x.CommentUserName == username);
+            comments = comments.OrderBy(c => c.CommentDate).ToList();
+            comments.Reverse();
+            return comments;
+
+        }
+
+
+
         public void Update(Comment comment)
         {
             _commentDal.Update(comment);

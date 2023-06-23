@@ -13,64 +13,24 @@
              alt="Profil Fotoğrafı"
              class="profilIcon" />
         <div class="userInfo">
-            <h5 class="nameAndSurname">Hüseyin CENGİZ</h5>
-            <h6 class="userRole">User Role</h6>
+            <h5 class="nameAndSurname">@Model.NameSurname</h5>
+            <h6 class="userRole">@Model.UserRole</h6>
             <p id="modal1" class="userList">İzleme Listem &nbsp;<i class="fa-solid fa-list"></i></p>
             <p id="modal2" class="userList">İzlediklerim &nbsp;<i class="fa-solid fa-check"></i></p>
         </div>
     </div>
     <!-- Trigger/Open The Modal -->
     <!-- The Modal -->
-    <div id="myModal" class="modal">
 
-        <!-- Modal content -->
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <img class="modalPicture" src="" alt="">
-            <img class="modalPicture" src="" alt="">
-            <img class="modalPicture" src="" alt="">
-            <img class="modalPicture" src="" alt="">
-            <img class="modalPicture" src="" alt="">
-            <img class="modalPicture" src="" alt="">
-            <img class="modalPicture" src="" alt="">
-            <img class="modalPicture" src="" alt="">
-            <img class="modalPicture" src="" alt="">
-            <img class="modalPicture" src="" alt="">
-            <img class="modalPicture" src="" alt="">
-            <img class="modalPicture" src="" alt="">
-
-        </div>
-
-    </div>
+    @await Component.InvokeAsync("WatchList", new { Id = Model.UserID})
 
 </div>
 <div class="content">
-    <h1>Title</h1>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae iure, laborum provident commodi ducimus laboriosam repudiandae magnam voluptatum accusantium dolorem quo necessitatibus. Officiis corporis provident voluptatibus accusantium! Labore, est. Aperiam facere veritatis distinctio iste expedita illo quia impedit, at autem ducimus explicabo laborum dolore sunt labore dolorum, facilis numquam dolores itaque quae. Nam tempore placeat tenetur quidem nihil laborum quis repellendus commodi sed, obcaecati animi officia facere similique eos optio alias velit repellat repudiandae enim vel accusantium sequi expedita cupiditate.</p>
+    <h1>Hakkımda</h1>
+    <p>@Model.About</p>
 </div>
 <div class="title">
-    <h1>User's comments</h1>
+    <h1>Yorumlarım</h1>
 </div>
-<div class="userComments">
-    <div class="comment">
-        <div class="commentTitle">
-            <h2>Title</h2>
-            <p>23/06/2023</p>
-        </div>
-        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorum, dolor adipisci? Nostrum id necessitatibus assumenda neque deserunt laboriosam expedita tempora ipsum nihil. Sint autem consequuntur deleniti dolorum soluta. Illum unde quos alias fugiat rem quibusdam debitis, id consequatur aut assumenda. Quaerat perspiciatis doloremque sequi? Eligendi temporibus, repudiandae expedita, quia placeat sequi ullam voluptatibus minus veritatis dolor, blanditiis corrupti! Nam omnis similique sint harum eligendi velit, aspernatur praesentium voluptates architecto excepturi nisi quos dolor repudiandae. Sapiente ut ipsam voluptas laudantium vero? Cupiditate neque obcaecati vitae aliquid omnis architecto, ipsa aliquam voluptate doloribus id commodi eveniet, quod odit eligendi laborum exercitationem nostrum atque in repellendus tempora aut! Eveniet veniam laborum dolores neque perspiciatis. Pariatur officia sed, aspernatur quibusdam quia voluptate necessitatibus? Vel maiores excepturi animi esse. Distinctio obcaecati ea provident! Eveniet architecto omnis natus consequuntur dicta nesciunt dignissimos reprehenderit sint nulla, est, mollitia similique cum, asperiores rerum a libero id ullam dolorem.</p>
-    </div>
-    <div class="comment">
-        <div class="commentTitle">
-            <h2>Title</h2>
-            <p>23/06/2023</p>
-        </div>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos modi odio illo ea enim, aspernatur nulla accusamus iure beatae eaque? Rerum commodi nulla vel quod. Amet dolores dolorum incidunt tempora odio perspiciatis. Vitae vel, rem, beatae necessitatibus provident facilis porro itaque ab veritatis magni adipisci architecto iste reprehenderit distinctio dolor?</p>
-    </div>
-    <div class="comment">
-        <div class="commentTitle">
-            <h2>Title</h2>
-            <p>23/06/2023</p>
-        </div>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corporis quis adipisci, quod praesentium fuga itaque voluptates omnis recusandae aliquam molestiae.</p>
-    </div>
-</div>
+
+@await Component.InvokeAsync("ProfileLastComments", new { Id = Model.UserID })

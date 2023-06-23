@@ -1,0 +1,19 @@
+﻿@model List<ProfileWatchListModel>
+
+<div id="myModal" class="modal">
+
+    
+    <!-- Modal content -->
+    <div class="modal-content">
+
+        <span class="close">&times;</span>
+        @foreach (var item in Model)
+        {
+            <img class="modalPicture" src="~/images/movie/@item.MoviePoster" alt="">
+        }
+        
+
+
+    </div>
+
+</div>

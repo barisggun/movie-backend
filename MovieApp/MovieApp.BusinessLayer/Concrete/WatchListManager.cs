@@ -49,6 +49,16 @@ namespace MovieApp.BusinessLayer.Concrete
                 .ToList();
             return watchlist;
         }
+        public List<WatchList> GetWatchListWithUser(int Id)
+        {
+            
+
+            var watchList = _watchlistDal.GetAll(x => x.AppUserId == Id);
+
+            
+            return watchList;
+
+        }
 
         public void Update(WatchList watchlist)
         {

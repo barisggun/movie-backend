@@ -16,9 +16,13 @@ namespace MovieApp.Panel.UI.Controllers
 
         public IActionResult Detail(int id)
         {
-            //var userId = c.Users.Where(x=>x.Id == id).FirstOrDefault();
             var userRole = c.UserRoles.Where(x=>x.UserId == id).Select(y=>y.RoleId).FirstOrDefault();
             var userRoleName = c.Roles.Where(x=>x.Id == userRole).Select(y=> y.Name).FirstOrDefault();
+            var username = c.Users.Select(x=>x.UserName).FirstOrDefault();
+            var commentID = c.Comments.Where(x=>x.CommentUserName == username).Select(y=>y.ID).FirstOrDefault();
+            var commentDate = c.Comments.Where(x=>x.ID == commentID).Select(y=>y.CommentDate).FirstOrDefault();
+            var commentContent = c.Comments.Where(x=>x.ID == commentID).Select(y=>y.CommentContent).FirstOrDefault();
+            var movieId = c.Comments.Where(x=>x.ID == commentID).Select(y=>y.MovieId).FirstOrDefault();
             var user = userManager.GetById(id);
 
             var model = new UserProfileModel
@@ -28,7 +32,11 @@ namespace MovieApp.Panel.UI.Controllers
                 NameSurname = user.NameSurname,
                 About = user.About,
                 UserRole = userRoleName,
-                ImageUrl = user.ImageUrl
+                ImageUrl = user.ImageUrl,
+                CommentID = commentID,
+                CommentDate = commentDate,
+                CommentContent = commentContent,
+                MovieID = movieId
             };
 
             return View(model);
