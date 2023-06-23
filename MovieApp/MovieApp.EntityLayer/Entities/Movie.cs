@@ -51,6 +51,7 @@ namespace MovieApp.EntityLayer.Entities
 
         public List<Rating>? Ratings { get; set; } = new List<Rating>();
         public List<WatchList>? WatchLists { get; set; } = new List<WatchList>();
+        public List<WatchedList>? WatcedhLists { get; set; } = new List<WatchedList>();
         public float? AverageRating { get; set; }
        
     }

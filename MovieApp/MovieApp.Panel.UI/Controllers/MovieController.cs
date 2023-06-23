@@ -285,6 +285,68 @@ namespace MovieApp.Panel.UI.Controllers
             }
         }
 
+        [HttpPost]
+        public IActionResult AddWatchedList(int movieId, MovieDetailModel mdv)
+        {
+            var username = User.Identity.Name;
+            var userId = c.Users.Where(x => x.UserName == username).Select(y => y.Id).FirstOrDefault();
+
+            bool hasAdded = c.WatchedLists.Any(x => x.MovieId == movieId && x.AppUserId == userId);
+            if (hasAdded)
+            {
+                TempData["NotificationMessage"] = "Zaten bu film izledikleriniz arasında";
+                TempData["NotificationType"] = "error";
+                mdv.IsMovieAddedToWatchedList = true;
+                return Json(new { success = false });
+            }
+            else
+            {
+
+                WatchedList newwatchedList = new WatchedList
+                {
+                    MovieId = movieId,
+                    AppUserId = userId
+                };
+
+
+                c.WatchedLists.Add(newwatchedList);
+                c.SaveChanges();
+
+                TempData["NotificationMessage"] = "Film, izledikleriniz arasına eklendi.";
+                TempData["NotificationType"] = "success";
+                mdv.IsMovieAddedToWatchedList = false;
+                return Json(new { success = true });
+
+            }
+
+
+        }
+        [HttpPost]
+        public IActionResult RemoveFromWatchedList(int movieId, MovieDetailModel mdv)
+        {
+            var username = User.Identity.Name;
+            var userId = c.Users.Where(x => x.UserName == username).Select(y => y.Id).FirstOrDefault();
+
+            var watchedList = c.WatchedLists.FirstOrDefault(x => x.MovieId == movieId && x.AppUserId == userId);
+            if (watchedList != null)
+            {
+                c.WatchedLists.Remove(watchedList);
+                c.SaveChanges();
+
+                TempData["NotificationMessage"] = "Film, izledikleriniz arasından kaldırıldı.";
+                TempData["NotificationType"] = "success";
+                mdv.IsMovieAddedToWatchedList = true;
+                return Json(new { success = true });
+            }
+            else
+            {
+                TempData["NotificationMessage"] = "Film, izledikleriniz arasında bulunamadı.";
+                TempData["NotificationType"] = "error";
+                mdv.IsMovieAddedToWatchedList = false;
+                return Json(new { success = false });
+            }
+        }
+
     }
 
 }

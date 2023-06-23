@@ -54,6 +54,7 @@ namespace MovieApp.BusinessLayer.Concrete
 
         public List<Comment> GetCommentListWithMovie()
         {
+
             var comments = c.Comments.Include(b => b.Movie).OrderByDescending(c=>c.CommentDate).Take(4)
                 .ToList();
             return comments;
