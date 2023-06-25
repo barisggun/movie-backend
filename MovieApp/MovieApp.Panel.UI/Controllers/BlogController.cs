@@ -12,6 +12,7 @@ using System.Configuration;
 using MovieApp.DataAccess.Concrete;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using MovieApp.Panel.UI.Models;
 
 namespace MovieApp.Panel.UI.Controllers
 {
@@ -171,5 +172,33 @@ namespace MovieApp.Panel.UI.Controllers
             var blog = c.Blogs.Include(x => x.Movies).Include(c => c.AppUsers).FirstOrDefault(y => y.ID == id);
             return View(blog);
         }
+
+        [AllowAnonymous]
+        public IActionResult BlogReadAll(int id)
+        {
+            var userId = c.Blogs.Where(x=>x.ID == id).Select(y=>y.AppUserId).FirstOrDefault();
+            var userRoleId = c.UserRoles.Where(x => x.UserId == userId).Select(y => y.RoleId).FirstOrDefault();
+            var userRoleName = c.Roles.Where(x => x.Id == userRoleId).Select(y => y.Name).FirstOrDefault();
+            var userNameSurname = c.Users.Where(x=>x.Id == userId).Select(y=>y.NameSurname).FirstOrDefault();
+            var userProfile = c.Users.Where(x=>x.Id == userId).Select(y=>y.ImageUrl).FirstOrDefault();
+            var blog = bm.GetById(id);
+
+            var model = new BlogReadAllModel
+            {
+                UserID = userId,
+                BlogID = id,
+                BlogDate = blog.BlogCreateDate,
+                BlogContent = blog.BlogContent,
+                UserRole = userRoleName,
+                NameSurname = userNameSurname,
+                BlogImage = blog.BlogImage,
+                BlogTitle = blog.BlogTitle,
+                ProfilePicture = userProfile
+
+            };
+
+            return View(model);
+        }
     }
-}
+    }
+

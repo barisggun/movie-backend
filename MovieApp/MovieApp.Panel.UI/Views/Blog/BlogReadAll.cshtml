@@ -1,0 +1,33 @@
+﻿@using MovieApp.EntityLayer.Entities
+@model BlogReadAllModel
+
+
+@{
+    ViewData["Title"] = "BlogReadAll";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<div class="BlogDetailBanner" style="background-image: linear-gradient( to bottom, transparent, rgb(0, 0, 0) ), url('@Url.Content("~/images/blog/" + Model.BlogImage)')">
+    <div class="profilePicture">
+        <img src="~/images/blog/@Model.BlogImage"
+             alt="Profil Fotoğrafı"
+             class="profilIcon newSize" />
+        <div class="userInfo mb-user">
+            <h5 class="nameAndSurname">@Model.NameSurname</h5>
+            <h6 class="userRole">@Model.UserRole</h6>
+        </div>
+    </div>
+
+</div><!-- Blog Detail Banner Finish-->
+
+<div class="userComments">
+    <div class="comment">
+        <div class="commentTitle">
+            <h2>@Model.BlogTitle</h2>
+            <p>@Model.BlogDate</p>
+        </div>
+        <p>@Model.BlogContent</p>
+    </div>
+</div>
+
+
