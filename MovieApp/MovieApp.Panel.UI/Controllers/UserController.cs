@@ -7,6 +7,7 @@ using MovieApp.DataAccess.Concrete;
 using MovieApp.DataAccess.EntityFramework;
 using MovieApp.EntityLayer.Entities;
 using MovieApp.Panel.UI.Models;
+using System.Security.Claims;
 
 namespace MovieApp.Panel.UI.Controllers
 {
@@ -75,6 +76,7 @@ namespace MovieApp.Panel.UI.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Edit(int id, UserProfileEditModel model, [FromForm(Name = "ImageFile")] IFormFile imageFile, [FromForm(Name = "ProfileImageFile")] IFormFile profileImageFile)
         {
             if (ModelState.IsValid)
