@@ -57,9 +57,21 @@ namespace MovieApp.Panel.UI.Controllers
 
 
         [Authorize]
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            var user = userManager.GetById(id);
+            var currentUser = await _userManager.GetUserAsync(User);
+
+            if (currentUser.Id != id)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var user = await _userManager.FindByIdAsync(id.ToString());
+
+            if (user == null)
+            {
+                // 
+            }
 
             var model = new UserProfileEditModel
             {
@@ -77,7 +89,7 @@ namespace MovieApp.Panel.UI.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Edit(int id, UserProfileEditModel model, [FromForm(Name = "ImageFile")] IFormFile imageFile, [FromForm(Name = "ProfileImageFile")] IFormFile profileImageFile)
+        public async Task<IActionResult> Edit(int id, UserProfileEditModel model, [FromForm(Name = "ImageFile")] IFormFile? imageFile, [FromForm(Name = "ProfileImageFile")] IFormFile? profileImageFile)
         {
             if (ModelState.IsValid)
             {
