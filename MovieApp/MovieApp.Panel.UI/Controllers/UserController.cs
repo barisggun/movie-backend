@@ -153,13 +153,14 @@ namespace MovieApp.Panel.UI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(UserProfileEditModel model, [FromForm(Name = "ImageFile")] IFormFile imageFile, [FromForm(Name = "ProfileImageFile")] IFormFile profileImageFile)
+        public async Task<IActionResult> Edit(int id, UserProfileEditModel model, [FromForm(Name = "ImageFile")] IFormFile imageFile, [FromForm(Name = "ProfileImageFile")] IFormFile profileImageFile)
         {
             if (ModelState.IsValid)
             {
-                var username = User.Identity.Name;
-                var userId  = c.Users.Where(x => x.UserName == username).Select(y => y.Id).FirstOrDefault();
-                var user = await _userManager.FindByIdAsync(userId.ToString());
+                //var username = User.Identity.Name;
+                //var userId  = c.Users.Where(x => x.UserName == username).Select(y => y.Id).FirstOrDefault();
+                var userId = c.Users.Where(x => x.Id == id);
+                var user = await _userManager.FindByIdAsync(id.ToString());
 
                 if (user == null)
                 {
@@ -214,7 +215,7 @@ namespace MovieApp.Panel.UI.Controllers
 
                 await _userManager.UpdateAsync(user);
 
-                return RedirectToAction("Detail", new { id = model.UserID });
+                return RedirectToAction("Detail", new { id = id });
             }
 
             return View(model);
