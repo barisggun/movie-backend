@@ -13,6 +13,7 @@ using MovieApp.DataAccess.Concrete;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using MovieApp.Panel.UI.Models;
+using System.Security.Permissions;
 
 namespace MovieApp.Panel.UI.Controllers
 {
@@ -183,6 +184,9 @@ namespace MovieApp.Panel.UI.Controllers
             var userProfile = c.Users.Where(x=>x.Id == userId).Select(y=>y.ImageUrl).FirstOrDefault();
             var blog = bm.GetById(id);
 
+            var movieId = blog.MovieId;
+            var movieName= c.Movies.Where(x=>x.ID==movieId).Select(y=>y.MovieTitle).FirstOrDefault();   
+
             var model = new BlogReadAllModel
             {
                 UserID = userId,
@@ -193,8 +197,9 @@ namespace MovieApp.Panel.UI.Controllers
                 NameSurname = userNameSurname,
                 BlogImage = blog.BlogImage,
                 BlogTitle = blog.BlogTitle,
-                ProfilePicture = userProfile
-
+                ProfilePicture = userProfile,
+                MovieId = movieId,
+                MovieName = movieName
             };
 
             return View(model);

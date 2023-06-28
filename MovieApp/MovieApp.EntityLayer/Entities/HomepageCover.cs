@@ -14,13 +14,13 @@ namespace MovieApp.EntityLayer.Entities
 
         [Required(ErrorMessage = "Anasayfa header fotoğrafı alanı boş geçilemez.")]
         [DisplayName("Anasayfa header fotoğrafı")]
-        public string ImageUrl { get; set; }
+        public string? ImageUrl { get; set; }
 
 
         [Required(ErrorMessage = "Anasayfa header yazısı alanı boş geçilemez.")]
         [DisplayName("Anasayfa header yazısı")]
         [MaxLength(80, ErrorMessage = "Anasayfa header yazısı maksimum 60 karakter olabilir")]
         [MinLength(5, ErrorMessage = "Anasayfa header yazısı minimum 5 karakter olabilir")]
-        public string Title { get; set; }
+        public string? Title { get; set; }
     }
 }

@@ -1,0 +1,68 @@
+﻿@model MovieApp.Panel.UI.Models.UserProfileEditModel
+
+<form method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="UserName">User Name</label>
+        <input type="text" class="form-control" id="UserName" name="UserName" value="@Model.UserName">
+    </div>
+    <div class="form-group">
+        <label for="NameSurname">Name Surname</label>
+        <input type="text" class="form-control" id="NameSurname" name="NameSurname" value="@Model.NameSurname">
+    </div>
+    <div class="form-group">
+        <label for="About">About</label>
+        <textarea class="form-control" id="About" name="About">@Model.About</textarea>
+    </div>
+    <div class="form-group">
+        <label for="EMail">Email</label>
+        <input type="email" class="form-control" id="EMail" name="EMail" value="@Model.EMail">
+    </div>
+
+    <div class="form-group">
+        <label for="ImageUrl">Image URL</label>
+        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+        {
+            <div>
+                <img src="~/images/movie/@Model.ImageUrl" alt="Selected Image" style="max-width: 200px; margin-top: 10px;" />
+            </div>
+        }
+        <input type="file" class="form-control" multipe="false" id="ImageUrl" name="ImageFile">
+    </div>
+
+
+    <div class="form-group">
+        <label for="ProfileImageUrl">Profile Image URL</label>
+        @if (!string.IsNullOrEmpty(Model.ProfilePictureUrl))
+        {
+            <div>
+                <img src="~/images/movie/@Model.ProfilePictureUrl" alt="Selected Profile Image" style="max-width: 200px; margin-top: 10px;" />
+            </div>
+        }
+        <input type="file" class="form-control" multipe="false" id="ProfileImageUrl" name="ProfileImageFile">
+    </div>
+
+    <div class="form-group">
+        <label for="OldPassword">Old Password</label>
+        <input type="password" class="form-control" id="OldPassword" name="OldPassword">
+    </div>
+    <div class="form-group">
+        <label for="NewPassword">New Password</label>
+        <input type="password" class="form-control" id="NewPassword" name="NewPassword">
+    </div>
+
+    @{
+        var errors = ViewData.ModelState.Values.SelectMany(v => v.Errors);
+    }
+
+    @if (errors.Any())
+    {
+        <div class="alert alert-danger">
+            @foreach (var error in errors)
+            {
+                <span class="text-danger">@error.ErrorMessage</span>
+                <br />
+            }
+        </div>
+    }
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>

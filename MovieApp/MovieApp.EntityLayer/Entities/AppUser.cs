@@ -18,6 +18,7 @@ namespace MovieApp.EntityLayer.Entities
         [MinLength(3, ErrorMessage = "Ad ve Soyad minimum 3 karakter olabilir")]
         public string NameSurname { get; set; } 
         public string? ImageUrl { get; set; }
+        public string? ProfilePictureUrl { get; set; }
         public string? About { get; set; }
         public List<Blog>? Blogs { get; set; }
 
