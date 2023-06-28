@@ -13,6 +13,6 @@
         public string NameSurname { get; set; }
         public string About { get; set; }
         public string ImageUrl { get; set; }
-
+        public string ProfileImageUrl { get; set; }
     }
 }
