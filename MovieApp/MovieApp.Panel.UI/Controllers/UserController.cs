@@ -7,7 +7,6 @@ using MovieApp.DataAccess.Concrete;
 using MovieApp.DataAccess.EntityFramework;
 using MovieApp.EntityLayer.Entities;
 using MovieApp.Panel.UI.Models;
-using System.Security.Claims;
 
 namespace MovieApp.Panel.UI.Controllers
 {
@@ -135,7 +134,6 @@ namespace MovieApp.Panel.UI.Controllers
         //    return View(model);
         //}
 
-        [Authorize]
         public IActionResult Edit(int id)
         {
             var user = userManager.GetById(id);
@@ -154,96 +152,19 @@ namespace MovieApp.Panel.UI.Controllers
             return View(model);
         }
 
-        //[HttpPost]
-        //[Authorize]
-        //public async Task<IActionResult> Edit(int id, UserProfileEditModel model, [FromForm(Name = "ImageFile")] IFormFile imageFile, [FromForm(Name = "ProfileImageFile")] IFormFile profileImageFile)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        //var username = User.Identity.Name;
-        //        //var userId  = c.Users.Where(x => x.UserName == username).Select(y => y.Id).FirstOrDefault();
-        //        var userId = c.Users.Where(x => x.Id == id);
-        //        var user = await _userManager.FindByIdAsync(id.ToString());
-
-        //        if (user == null)
-        //        {
-
-        //        }
-
-        //        user.UserName = model.UserName;
-        //        user.NameSurname = model.NameSurname;
-        //        user.About = model.About;
-        //        user.Email = model.EMail;
-
-        //        if (imageFile != null)
-        //        {
-        //            string wwwrootPath = webHostEnvironment.WebRootPath;
-        //            string fileName = Path.GetFileNameWithoutExtension(imageFile.FileName);
-        //            string extension = Path.GetExtension(imageFile.FileName);
-        //            string newFileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
-        //            string imagePath = Path.Combine(wwwrootPath, "images", "profile", newFileName);
-
-        //            using (var fileStream = new FileStream(imagePath, FileMode.Create))
-        //            {
-        //                imageFile.CopyTo(fileStream);
-        //            }
-
-        //            user.ImageUrl = newFileName;
-        //        }
-        //        if (profileImageFile != null)
-        //        {
-        //            string wwwrootPath = webHostEnvironment.WebRootPath;
-        //            string fileName = Path.GetFileNameWithoutExtension(profileImageFile.FileName);
-        //            string extension = Path.GetExtension(profileImageFile.FileName);
-        //            string newFileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
-        //            string imagePath = Path.Combine(wwwrootPath, "images", "profile", newFileName);
-
-        //            using (var fileStream = new FileStream(imagePath, FileMode.Create))
-        //            {
-        //                profileImageFile.CopyTo(fileStream);
-        //            }
-
-        //            user.ProfilePictureUrl = newFileName;
-        //        }
-
-        //        if (!string.IsNullOrEmpty(model.OldPassword) && !string.IsNullOrEmpty(model.NewPassword))
-        //        {
-        //            var changePasswordResult = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
-
-        //            if (!changePasswordResult.Succeeded)
-        //            {
-
-        //            }
-        //        }
-
-        //        await _userManager.UpdateAsync(user);
-
-        //        return RedirectToAction("Detail", new { id = id });
-        //    }
-
-        //    return View(model);
-        //}
-
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> Edit(int id, UserProfileEditModel model, [FromForm(Name = "ImageFile")] IFormFile imageFile, [FromForm(Name = "ProfileImageFile")] IFormFile profileImageFile)
         {
-            var loggedInUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            if (loggedInUserId != id.ToString())
-            {
-                // Yetki hatası mesajı göster ve başka bir sayfaya yönlendir.
-                // Örneğin:
-                return RedirectToAction("AccessDenied", "Error");
-            }
-
             if (ModelState.IsValid)
             {
+                //var username = User.Identity.Name;
+                //var userId  = c.Users.Where(x => x.UserName == username).Select(y => y.Id).FirstOrDefault();
+                var userId = c.Users.Where(x => x.Id == id);
                 var user = await _userManager.FindByIdAsync(id.ToString());
 
                 if (user == null)
                 {
-                    // Kullanıcı bulunamadı, hata işlemleri yapılabilir.
+                    
                 }
 
                 user.UserName = model.UserName;
@@ -266,7 +187,6 @@ namespace MovieApp.Panel.UI.Controllers
 
                     user.ImageUrl = newFileName;
                 }
-
                 if (profileImageFile != null)
                 {
                     string wwwrootPath = webHostEnvironment.WebRootPath;
@@ -289,7 +209,7 @@ namespace MovieApp.Panel.UI.Controllers
 
                     if (!changePasswordResult.Succeeded)
                     {
-                        // Şifre değiştirme işleminde hata oluştu, hata işlemleri yapılabilir.
+                        
                     }
                 }
 
@@ -300,7 +220,6 @@ namespace MovieApp.Panel.UI.Controllers
 
             return View(model);
         }
-
 
     }
 }

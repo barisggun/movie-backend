@@ -15,18 +15,14 @@
         <div class="userInfo">
             <h5 class="nameAndSurname">@Model.NameSurname</h5>
             <h6 class="userRole">@Model.UserRole</h6>
-
-            @if (User.Identity.Name == Model.UserName)
-            {
-                <a href="/User/Edit/@Model.UserID" style="color:white;">Profili düzenle</a>
-            }
-
+            <a href="/User/Edit/@Model.UserID" style="color:white;">Profili düzenle</a>
             <p id="modal1" class="userList">İzleme Listem &nbsp;<i class="fa-solid fa-list"></i></p>
             <p id="modal2" class="userList">İzlediklerim &nbsp;<i class="fa-solid fa-check"></i></p>
         </div>
     </div>
     <!-- Trigger/Open The Modal -->
     <!-- The Modal -->
+
     @await Component.InvokeAsync("WatchList", new { Id = Model.UserID})
     @await Component.InvokeAsync("WatchList", new { Id = Model.UserID})
 
