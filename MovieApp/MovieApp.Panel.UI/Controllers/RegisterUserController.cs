@@ -45,7 +45,7 @@ namespace MovieApp.Panel.UI.Controllers
                 {
                     foreach (var item in result.Errors)
                     {
-                        ModelState.AddModelError("", item.Description);
+                        ModelState.AddModelError("signupError", item.Description);
                     }
                 }
             }

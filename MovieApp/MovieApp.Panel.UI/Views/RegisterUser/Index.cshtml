@@ -51,6 +51,12 @@
                     <h4 for="password">Şifrenizi Doğrulayın</h4>
                     <input type="password" asp-for="@Model.ConfirmPassword" placeholder="******************" required="" />
                 </div>
+
+                @if (!string.IsNullOrEmpty(ViewData.ModelState["signupError"]?.Errors[0]?.ErrorMessage))
+                {
+                    <span class="error" style="color:red;font-family:Arial;">@Html.Raw(ViewData.ModelState["signupError"].Errors[0].ErrorMessage)</span>
+                }
+
                 <div class="part">
                     Bir hesabınız var mı? <a href="/Account/Login/" class="loginFont">Giriş Yap</a>
                 </div>
