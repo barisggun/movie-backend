@@ -144,8 +144,19 @@ namespace MovieApp.Panel.UI.Controllers
                     if (!isOldPasswordCorrect)
                     {
                         ModelState.AddModelError("OldPassword", "The old password is incorrect.");
-                        // Şifre alanını boş bıraktığınızda hata mesajı almadan devam edebilmeniz için aşağıdaki satırı ekleyin:
+                       
                         ModelState.Remove("NewPassword");
+
+                        //fotoğrafı geri getirme 
+                        if (!string.IsNullOrEmpty(user.ImageUrl))
+                        {
+                            model.ImageUrl = user.ImageUrl;
+                        }
+                        if (!string.IsNullOrEmpty(user.ProfilePictureUrl))
+                        {
+                            model.ProfilePictureUrl = user.ProfilePictureUrl;
+                        }
+
                         return View(model);
                     }
 
@@ -153,7 +164,7 @@ namespace MovieApp.Panel.UI.Controllers
 
                     if (!changePasswordResult.Succeeded)
                     {
-                        // Şifre değiştirme başarısız oldu, gerekli işlemleri yapabilirsiniz.
+                       
                     }
                 }
 
