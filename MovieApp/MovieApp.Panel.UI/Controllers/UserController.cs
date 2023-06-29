@@ -61,7 +61,7 @@ namespace MovieApp.Panel.UI.Controllers
         {
             var currentUser = await _userManager.GetUserAsync(User);
 
-            if (currentUser.Id != id)
+            if (currentUser == null || currentUser.Id != id)
             {
                 return RedirectToAction("Login", "Account");
             }
