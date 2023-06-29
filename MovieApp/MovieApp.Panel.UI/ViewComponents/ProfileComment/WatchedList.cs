@@ -14,14 +14,13 @@ namespace MovieApp.Panel.UI.ViewComponents.ProfileComment
         public IViewComponentResult Invoke(int Id)
         {
             var watchedListIds = c.WatchedLists
-                            .Where(w => w.AppUserId == Id)
-                            .Select(w => w.ID)
-                            .ToList();
+                .Where(w => w.AppUserId == Id)
+                .Select(w => w.MovieId)
+                .ToList();
 
-            var movies = c.WatchedLists
-                            .Where(w => watchedListIds.Contains(w.ID))
-                            .Select(w => w.Movie)
-                            .ToList();
+            var movies = c.Movies
+                .Where(m => watchedListIds.Contains(m.ID))
+                .ToList();
 
             var watchedList = new List<ProfileWatchedListModel>();
 
@@ -39,5 +38,7 @@ namespace MovieApp.Panel.UI.ViewComponents.ProfileComment
 
             return View(watchedList);
         }
+
+
     }
 }

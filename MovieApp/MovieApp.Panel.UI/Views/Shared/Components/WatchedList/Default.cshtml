@@ -1,19 +1,15 @@
 ﻿@model List<ProfileWatchedListModel>
 
-<div id="myModal" class="modal">
-
-
+<div id="myModal2" class="modal">
     <!-- Modal content -->
     <div class="modal-content" id="modal2">
-
         <span class="close">&times;</span>
         @foreach (var item in Model)
         {
-            <img class="modalPicture" src="~/images/movie/@item.MoviePoster" alt="">
+            <a href="@Url.Action("Detail", "Movie", new { id = item.MovieId })">
+                <img class="modalPicture" src="~/images/movie/@item.MoviePoster" alt="">
+            </a>
         }
-
-
-
     </div>
-
 </div>
+
