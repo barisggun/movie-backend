@@ -35,6 +35,10 @@
                     <input type="password" asp-for="@Model.password" placeholder="******************">
                 </div>
                 <button type="submit" id="submit" class="submit-btn" href="">Giriş Yap</button>
+                @if (!string.IsNullOrEmpty(ViewData.ModelState["password"]?.Errors[0]?.ErrorMessage))
+                {
+                    <span class="error" style="color:red;font-family:Arial;">@Html.Raw(ViewData.ModelState["password"].Errors[0].ErrorMessage)</span>
+                }
                 <div class="part">
                     <h4>Hesabınız yok mu?</h4>
                     <a href="/RegisterUser/Index" class="loginFont">Üyelik oluştur</a>
