@@ -138,16 +138,12 @@ namespace MovieApp.Panel.UI.Controllers
                 }
 
 
-                if (!string.IsNullOrEmpty(model.OldPassword) && !string.IsNullOrEmpty(model.NewPassword))
+                if (!string.IsNullOrEmpty(model.OldPassword) || !string.IsNullOrEmpty(model.NewPassword))
                 {
-                    var isOldPasswordCorrect = await _userManager.CheckPasswordAsync(user, model.OldPassword);
-                    if (!isOldPasswordCorrect)
+                    if (string.IsNullOrEmpty(model.OldPassword) || string.IsNullOrEmpty(model.NewPassword))
                     {
-                        ModelState.AddModelError("OldPassword", "The old password is incorrect.");
-                       
-                        ModelState.Remove("NewPassword");
-
-                        //fotoğrafı geri getirme 
+                        ModelState.AddModelError("", "Please enter both the old and new passwords.");
+                        
                         if (!string.IsNullOrEmpty(user.ImageUrl))
                         {
                             model.ImageUrl = user.ImageUrl;
@@ -156,17 +152,51 @@ namespace MovieApp.Panel.UI.Controllers
                         {
                             model.ProfilePictureUrl = user.ProfilePictureUrl;
                         }
-
                         return View(model);
                     }
 
+                    var isOldPasswordCorrect = await _userManager.CheckPasswordAsync(user, model.OldPassword);
+                    if (!isOldPasswordCorrect)
+                    {
+                        ModelState.AddModelError("OldPassword", "The old password is incorrect.");
+                        ModelState.Remove("NewPassword");
+                       
+                        if (!string.IsNullOrEmpty(user.ImageUrl))
+                        {
+                            model.ImageUrl = user.ImageUrl;
+                        }
+                        if (!string.IsNullOrEmpty(user.ProfilePictureUrl))
+                        {
+                            model.ProfilePictureUrl = user.ProfilePictureUrl;
+                        }
+                        return View(model);
+                    }
+
+                 
+                    if (model.NewPassword.Length < 6)
+                    {
+                        ModelState.AddModelError("NewPassword", "The new password must be at least 6 characters long.");
+                        
+                        if (!string.IsNullOrEmpty(user.ImageUrl))
+                        {
+                            model.ImageUrl = user.ImageUrl;
+                        }
+                        if (!string.IsNullOrEmpty(user.ProfilePictureUrl))
+                        {
+                            model.ProfilePictureUrl = user.ProfilePictureUrl;
+                        }
+                        return View(model);
+                    }
+
+                  
                     var changePasswordResult = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
 
                     if (!changePasswordResult.Succeeded)
                     {
-                       
+                        
                     }
                 }
+
 
                 await _userManager.UpdateAsync(user);
 
