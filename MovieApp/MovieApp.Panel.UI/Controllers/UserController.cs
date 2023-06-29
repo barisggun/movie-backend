@@ -76,7 +76,6 @@ namespace MovieApp.Panel.UI.Controllers
             var model = new UserProfileEditModel
             {
                 UserID = user.Id,
-                UserName = user.UserName,
                 NameSurname = user.NameSurname,
                 About = user.About,
                 EMail = user.Email,
@@ -103,7 +102,6 @@ namespace MovieApp.Panel.UI.Controllers
 
                 }
 
-                user.UserName = model.UserName;
                 user.NameSurname = model.NameSurname;
                 user.About = model.About;
                 user.Email = model.EMail;
@@ -139,13 +137,23 @@ namespace MovieApp.Panel.UI.Controllers
                     user.ProfilePictureUrl = newFileName;
                 }
 
+
                 if (!string.IsNullOrEmpty(model.OldPassword) && !string.IsNullOrEmpty(model.NewPassword))
                 {
+                    var isOldPasswordCorrect = await _userManager.CheckPasswordAsync(user, model.OldPassword);
+                    if (!isOldPasswordCorrect)
+                    {
+                        ModelState.AddModelError("OldPassword", "The old password is incorrect.");
+                        // Şifre alanını boş bıraktığınızda hata mesajı almadan devam edebilmeniz için aşağıdaki satırı ekleyin:
+                        ModelState.Remove("NewPassword");
+                        return View(model);
+                    }
+
                     var changePasswordResult = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
 
                     if (!changePasswordResult.Succeeded)
                     {
-
+                        // Şifre değiştirme başarısız oldu, gerekli işlemleri yapabilirsiniz.
                     }
                 }
 
