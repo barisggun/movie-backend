@@ -14,7 +14,7 @@ namespace MovieApp.Panel.UI.Models
         public string Password { get; set; }
 
         [Display(Name ="Şifre Tekrar")]
-        [Required(ErrorMessage = "Şifreler uyuşmuyor")]
+        [Compare("Password", ErrorMessage = "Şifreler uyuşmuyor")]
         public string  ConfirmPassword { get; set; }
 
         [Display(Name = "Mail")]

@@ -64,35 +64,46 @@ namespace MovieApp.Panel.UI.Controllers
         [HttpPost]
         public IActionResult Create(Blog b, IFormFile file)
         {
-            //BlogValidator bv = new BlogValidator();
-            //ValidationResult result = bv.Validate(b);
-            b.BlogImage = "";
-            if (file != null)
+            if (ModelState.IsValid)
             {
-                string wwwrootPath = webHostEnvironment.WebRootPath;
-                string fileName = Path.GetFileNameWithoutExtension(file.FileName);
-                string extension = Path.GetExtension(file.FileName);
-
-                string yeniDosyaAdi = fileName + DateTime.Now.ToString("yymmssfff") + extension;
-                string path = Path.Combine(wwwrootPath + "/images/blog/", yeniDosyaAdi);
-
-                using (var fileStream = new FileStream(path, FileMode.Create))
+                b.BlogImage = "";
+                if (file != null)
                 {
-                    file.CopyTo(fileStream);
+                    string wwwrootPath = webHostEnvironment.WebRootPath;
+                    string fileName = Path.GetFileNameWithoutExtension(file.FileName);
+                    string extension = Path.GetExtension(file.FileName);
+
+                    string yeniDosyaAdi = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                    string path = Path.Combine(wwwrootPath + "/images/blog/", yeniDosyaAdi);
+
+                    using (var fileStream = new FileStream(path, FileMode.Create))
+                    {
+                        file.CopyTo(fileStream);
+                    }
+
+                    b.BlogImage = yeniDosyaAdi;
                 }
+                var username = User.Identity.Name;
+                var usermail = c.Users.Where(x => x.UserName == username).Select(y => y.Email).FirstOrDefault();
+                var userID = c.Users.Where(x => x.Email == usermail).Select(y => y.Id).FirstOrDefault();
 
-                b.BlogImage = yeniDosyaAdi;
+                b.BlogStatus = true;
+                b.BlogCreateDate = DateTime.Parse(DateTime.Now.ToShortDateString());
+                b.AppUserId = userID;
+
+                bm.Create(b);
+                return RedirectToAction("BlogListByWriter", "Blog");
             }
-            var username = User.Identity.Name;
-            var usermail = c.Users.Where(x => x.UserName == username).Select(y => y.Email).FirstOrDefault();
-            var userID = c.Users.Where(x => x.Email == usermail).Select(y => y.Id).FirstOrDefault();
 
-            b.BlogStatus = true;
-            b.BlogCreateDate = DateTime.Parse(DateTime.Now.ToShortDateString());
-            b.AppUserId = userID;
-          
-            bm.Create(b);
-            return RedirectToAction("BlogListByWriter", "Blog");
+            List<SelectListItem> movievalues = (from x in mm.GetList()
+                                                select new SelectListItem
+                                                {
+                                                    Text = x.MovieTitle,
+                                                    Value = x.ID.ToString()
+                                                }).ToList();
+
+            ViewBag.cv = movievalues;
+            return View(b);
         }
 
         public IActionResult BlogDelete(int id)

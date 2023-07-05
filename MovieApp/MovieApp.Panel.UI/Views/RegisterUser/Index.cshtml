@@ -30,27 +30,35 @@
                 <div class="part">
                     <h4>Ad Soyad</h4>
                     <input id="firstName" type="text" asp-for="@Model.NameSurname" placeholder=""/>
-                    <span asp-validation-for="@Model.NameSurname" class="text-danger"></span>
+                    <span asp-validation-for="@Model.NameSurname" style="font-family:Arial;color:red;"></span>
                 </div>
                 <div class="part">
                     <h4>Kullanıcı Adı</h4>
                     <input id="firstName" type="text" asp-for="@Model.UserName" placeholder=""/>
-                    <span asp-validation-for="@Model.UserName" class="text-danger"></span>
+                    <span asp-validation-for="@Model.UserName" style="font-family:Arial;color:red;"></span>
                 </div>
                 <div class="part">
                     <h4>Mail Adresi</h4>
                     <input id="firstName" type="email" asp-for="@Model.Mail" placeholder="" />
-                    <span asp-validation-for="@Model.Mail" class="text-danger"></span>
+                    <span asp-validation-for="@Model.Mail" style="font-family:Arial;color:red;"></span>
                 </div>
 
                 <div class="part">
                     <h4 for="password">Şifre</h4>
                     <input type="password" asp-for="@Model.Password" placeholder="******************" required="" />
+                    <span asp-validation-for="@Model.Password" style="font-family:Arial;color:red;"></span>
                 </div>
                 <div class="part">
                     <h4 for="password">Şifrenizi Doğrulayın</h4>
                     <input type="password" asp-for="@Model.ConfirmPassword" placeholder="******************" required="" />
+                    <span asp-validation-for="@Model.ConfirmPassword" style="font-family:Arial;color:red;"></span>
                 </div>
+
+@*                @if (!string.IsNullOrEmpty(ViewData.ModelState["signupError"]?.Errors[0]?.ErrorMessage))
+                {
+                    <span class="error" style="color:red;font-family:Arial;">@Html.Raw(ViewData.ModelState["signupError"].Errors[0].ErrorMessage)</span>
+                }*@
+
                 <div class="part">
                     Bir hesabınız var mı? <a href="/Account/Login/" class="loginFont">Giriş Yap</a>
                 </div>
