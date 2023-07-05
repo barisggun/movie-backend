@@ -40,6 +40,7 @@ namespace MovieApp.BusinessLayer.Concrete
             var movie = c.Movies
         .Include(m => m.Directors)
         .Include(m => m.Actors)
+        .Include(m=>m.Categories)
         .FirstOrDefault(m => m.ID == id);
 
             return movie;

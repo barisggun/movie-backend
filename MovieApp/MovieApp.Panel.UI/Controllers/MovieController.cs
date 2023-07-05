@@ -424,21 +424,6 @@ namespace MovieApp.Panel.UI.Controllers
 
             return View(movie);
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //
     }
 
 }

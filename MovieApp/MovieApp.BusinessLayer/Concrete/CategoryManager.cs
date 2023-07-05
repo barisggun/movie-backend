@@ -31,7 +31,7 @@ namespace MovieApp.BusinessLayer.Concrete
 
         public List<Category> GetAll()
         {
-            return _categoryDal.GetAll();
+            return _categoryDal.GetAll().ToList();
         }
 
         public Category GetById(int id)
