@@ -352,6 +352,69 @@ namespace MovieApp.Panel.UI.Controllers
             }
         }
 
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            Movie movie = movieManager.GetById(id);
+
+            if (movie == null)
+            {
+                return NotFound();
+            }
+
+            ViewBag.Directors = directorManager.GetAll()
+    .Select(s => new SelectListItem { Value = s.ID.ToString(), Text = s.DirectorName }).ToList();
+
+            List<Actor> actors = actorManager.GetAll();
+            ViewBag.Actors = new SelectList(actors, "ID", "ActorName");
+
+            List<Category> categories = categoryManager.GetAll();
+            ViewBag.Categories = new SelectList(categories, "ID", "CategoryName");
+
+
+
+            return View(movie);
+        }
+
+
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        public IActionResult Edit(Movie movie)
+        {
+            if (ModelState.IsValid)
+            {
+                movieManager.Update(movie);
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.Directors = directorManager.GetAll()
+                .Select(s => new SelectListItem { Value = s.ID.ToString(), Text = s.DirectorName }).ToList();
+
+            List<Actor> actors = actorManager.GetAll();
+            ViewBag.Actors = new SelectList(actors, "ID", "ActorName");
+
+            List<Category> categories = categoryManager.GetAll();
+            ViewBag.Categories = new SelectList(categories, "ID", "CategoryName");
+
+            return View(movie);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //
     }
 
 }

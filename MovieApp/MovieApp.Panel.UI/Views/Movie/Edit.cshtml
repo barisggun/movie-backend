@@ -1,0 +1,159 @@
+﻿@model MovieApp.EntityLayer.Entities.Movie
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h4>Movie</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <input type="hidden" asp-for="ID" />
+
+            <div class="form-group">
+                <label for="actorSelect">Oyuncu Seç</label>
+                <select id="actorSelect" name="selectedActorIds" class="form-control">
+                    <option value="">Seç</option>
+                    @foreach (var actor in ViewBag.Actors)
+                    {
+                        <option value="@actor.Value">@actor.Text</option>
+                    }
+                </select>
+            </div>
+            <button type="button" class="btn btn-primary" id="addActorButton">Ekle</button>
+
+            <!-- Seçilen oyuncuların listesi -->
+            <ul id="actorList" class="list-group mt-3">
+                @foreach (var actor in Model.Actors)
+                {
+                    <li class="list-group-item">
+                        @actor.ActorName
+                        <input type="hidden" name="selectedActorIds" value="@actor.ID" />
+                    </li>
+                }
+            </ul>
+
+            <div class="form-group">
+                <label for="categorySelect">Kategori Seç</label>
+                <select id="categorySelect" name="selectedCategoryIds" class="form-control">
+                    <option value="">Seç</option>
+                    @foreach (var category in ViewBag.Categories)
+                    {
+                        <option value="@category.Value">@category.Text</option>
+                    }
+                </select>
+            </div>
+            <button type="button" class="btn btn-primary" id="addCategoryButton">Ekle</button>
+
+            <ul id="categoryList" class="list-group mt-3">
+                @foreach (var category in Model.Categories)
+                {
+                    <li class="list-group-item">
+                        @category.CategoryName
+                        <input type="hidden" name="selectedCategoryIds" value="@category.ID" />
+                    </li>
+                }
+            </ul>
+
+
+            <div class="form-group">
+                <label for="directorSelect">Yönetmen Seç</label>
+                <select id="directorSelect" name="selectedDirectorIds" class="form-control" multiple>
+                    @foreach (var director in ViewBag.Directors)
+                    {
+                        <option value="@director.Value">@director.Text</option>
+                    }
+                </select>
+            </div>
+
+            <ul id="directorList" class="list-group mt-3">
+                @foreach (var director in Model.Directors)
+                {
+                    <li class="list-group-item">
+                        @director.DirectorName
+                        <input type="hidden" name="selectedDirectorIds" value="@director.ID" />
+                    </li>
+                }
+            </ul>
+
+            <div class="form-group mt-3">
+                <label asp-for="MovieTitle" class="control-label"></label>
+                <input asp-for="MovieTitle" class="form-control" />
+                <span asp-validation-for="MovieTitle" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ReleaseDate" class="control-label"></label>
+                <input asp-for="ReleaseDate" class="form-control" />
+                <span asp-validation-for="ReleaseDate" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Poster">Poster</label>
+                <input type="file" name="file" multipe="false" class="form-control file-upload-default">
+                <span asp-validation-for="Poster" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="DetailPoster">Detay Poster</label>
+                <input type="file" name="file" multipe="false" class="form-control file-upload-default">
+                <span asp-validation-for="DetailPoster" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Update" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<script>
+    // Seçilen oyuncuyu listeye ekle
+    document.getElementById("addActorButton").addEventListener("click", function () {
+        var selectElement = document.getElementById("actorSelect");
+        var selectedActorId = selectElement.value;
+        var selectedActorName = selectElement.options[selectElement.selectedIndex].text;
+
+        if (selectedActorId && selectedActorName) {
+            var actorList = document.getElementById("actorList");
+            var listItem = document.createElement("li");
+            listItem.classList.add("list-group-item");
+            listItem.textContent = selectedActorName;
+            listItem.innerHTML += '<input type="hidden" name="selectedActorIds" value="' + selectedActorId + '">';
+            actorList.appendChild(listItem);
+
+            selectElement.value = "";
+        }
+    });
+
+    document.getElementById("addCategoryButton").addEventListener("click", function () {
+        var selectElement = document.getElementById("categorySelect");
+        var selectedCategoryId = selectElement.value;
+        var selectedCategoryName = selectElement.options[selectElement.selectedIndex].text;
+
+        if (selectedCategoryId && selectedCategoryName) {
+            var categoryList = document.getElementById("categoryList");
+            var listItem = document.createElement("li");
+            listItem.classList.add("list-group-item");
+            listItem.textContent = selectedCategoryName;
+            listItem.innerHTML += '<input type="hidden" name="selectedCategoryIds" value="' + selectedCategoryId + '">';
+            categoryList.appendChild(listItem);
+
+            selectElement.value = "";
+        }
+    });
+</script>
