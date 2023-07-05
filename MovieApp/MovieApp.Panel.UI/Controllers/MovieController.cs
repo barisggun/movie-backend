@@ -184,7 +184,7 @@ namespace MovieApp.Panel.UI.Controllers
             string movieTitle = model.MovieTitle;
             string apiUrl = $"https://api.giphy.com/v1/gifs/search?q={Uri.EscapeDataString(movieTitle)}&api_key={apiKey}";
 
-            // API'den gelen verileri almak için HTTP isteği yap
+           
             using (HttpClient client = new HttpClient())
             {
                 HttpResponseMessage response = await client.GetAsync(apiUrl);
@@ -193,10 +193,10 @@ namespace MovieApp.Panel.UI.Controllers
                     string json = await response.Content.ReadAsStringAsync();
                     dynamic data = JObject.Parse(json);
 
-                    // İlk gifi al
+                    
                     string gifUrl = data.data[0].images.original.url;
 
-                    // Gifi görüntülemek için CSS stilini güncelle
+                    
                     string gifStyle = $"background-image: linear-gradient( 33deg, #13171D 24.97%, #13171D 38.3%, rgba(26, 26, 26, 0.0409746) 97.47%, #13171D 100% ), url({gifUrl});";
                     ViewBag.GifStyle = gifStyle;
                 }
@@ -405,10 +405,8 @@ namespace MovieApp.Panel.UI.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public IActionResult Edit(Movie movie, [FromForm(Name = "Poster")] IFormFile? poster, [FromForm(Name = "DetailPoster")] IFormFile? detailPoster)
+        public IActionResult Edit(Movie movie, [FromForm(Name = "Poster")] IFormFile? poster, [FromForm(Name = "DetailPoster")] IFormFile? detailPoster, List<int> selectedActorIds, List<int> selectedDirectorIds, List<int> selectedCategoryIds)
         {
-
-
             if (poster != null)
             {
                 string wwwrootPath = webHostEnvironment.WebRootPath;
@@ -424,6 +422,9 @@ namespace MovieApp.Panel.UI.Controllers
 
                 movie.Poster = newFileName;
             }
+
+
+
             if (detailPoster != null)
             {
                 string wwwrootPath = webHostEnvironment.WebRootPath;
@@ -440,19 +441,97 @@ namespace MovieApp.Panel.UI.Controllers
                 movie.DetailPoster = newFileName;
             }
 
-            ViewBag.Directors = directorManager.GetAll()
-             .Select(s => new SelectListItem { Value = s.ID.ToString(), Text = s.DirectorName }).ToList();
-
-            List<Actor> actors = actorManager.GetAll();
-            ViewBag.Actors = new SelectList(actors, "ID", "ActorName");
-
-            List<Category> categories = categoryManager.GetAll();
-            ViewBag.Categories = new SelectList(categories, "ID", "CategoryName");
-
-
+            movie.AverageRating = 0;
             movieManager.Update(movie);
-                return RedirectToAction("Index");
+
+            int movieId = movie.ID;
+
+
             
+            if (selectedActorIds != null)
+            {
+                
+                List<ActorMovie> existingActors = actorMovieManager.GetAll().Where(am => am.MovieId == movieId).ToList();
+
+                
+                foreach (int actorId in selectedActorIds)
+                {
+                    
+                    if (!existingActors.Any(am => am.ActorId == actorId))
+                    {
+                        ActorMovie actorMovie = new ActorMovie { ActorId = actorId, MovieId = movieId };
+                        actorMovieManager.Create(actorMovie);
+                    }
+                }
+
+                
+                foreach (ActorMovie existingActor in existingActors)
+                {
+                    
+                    if (!selectedActorIds.Contains(existingActor.ActorId))
+                    {
+                        actorMovieManager.Delete(existingActor);
+                    }
+                }
+            }
+
+
+            
+            if (selectedCategoryIds != null)
+            {
+                
+                List<CategoryMovie> existingCategories = categoryMovieManager.GetAll().Where(cm => cm.MovieId == movieId).ToList();
+
+                
+                foreach (int categoryId in selectedCategoryIds)
+                {
+                    
+                    if (!existingCategories.Any(cm => cm.CategoryId == categoryId))
+                    {
+                        CategoryMovie categoryMovie = new CategoryMovie { CategoryId = categoryId, MovieId = movieId };
+                        categoryMovieManager.Create(categoryMovie);
+                    }
+                }
+
+                
+                foreach (CategoryMovie existingCategory in existingCategories)
+                {
+                    
+                    if (!selectedCategoryIds.Contains(existingCategory.CategoryId))
+                    {
+                        categoryMovieManager.Delete(existingCategory);
+                    }
+                }
+            }
+
+            
+            if (selectedDirectorIds != null)
+            {
+                
+                List<DirectorMovie> existingDirectors = directorMovieManager.GetAll().Where(dm => dm.MovieId == movieId).ToList();
+
+                
+                foreach (int directorId in selectedDirectorIds)
+                {
+                    
+                    if (!existingDirectors.Any(dm => dm.DirectorId == directorId))
+                    {
+                        DirectorMovie directorMovie = new DirectorMovie { DirectorId = directorId, MovieId = movieId };
+                        directorMovieManager.Create(directorMovie);
+                    }
+                }
+
+                
+                foreach (DirectorMovie existingDirector in existingDirectors)
+                {
+                    
+                    if (!selectedDirectorIds.Contains(existingDirector.DirectorId))
+                    {
+                        directorMovieManager.Delete(existingDirector);
+                    }
+                }
+            }
+            return RedirectToAction("Index","Movie");
         }
     }
 

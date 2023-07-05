@@ -33,6 +33,7 @@
                     <li class="list-group-item">
                         @actor.ActorName
                         <input type="hidden" name="selectedActorIds" value="@actor.ID" />
+                        <button type="button" class="btn btn-danger btn-sm deleteButton">Delete</button>
                     </li>
                 }
             </ul>
@@ -57,13 +58,14 @@
                     <li class="list-group-item">
                         @category.CategoryName
                         <input type="hidden" name="selectedCategoryIds" value="@category.ID" />
+                        <button type="button" class="btn btn-danger btn-sm deleteButton">Delete</button>
                     </li>
                 }
             </ul>
 
             <br />
 
-            <div class="form-group">
+@*            <div class="form-group">
                 <label for="directorSelect">Yönetmen Seç</label>
                 <select id="directorSelect" name="selectedDirectorIds" class="form-control" multiple>
                     @foreach (var director in ViewBag.Directors)
@@ -79,9 +81,26 @@
                     <li class="list-group-item">
                         @director.DirectorName
                         <input type="hidden" name="selectedDirectorIds" value="@director.ID" />
+                        <button type="button" class="btn btn-danger btn-sm deleteButton">Delete</button>
                     </li>
                 }
-            </ul>
+            </ul>*@
+
+            <div class="form-group">
+                <label for="directorSelect">Yönetmen Seç</label>
+                <select id="directorSelect" name="selectedDirectorIds" class="form-control" multiple>
+                    @foreach (var director in ViewBag.Directors)
+                    {
+                        int directorId = Convert.ToInt32(director.Value); // director.Value'yu int'e dönüştür
+                        bool isSelected = Model.Directors.Any(d => d.ID == directorId);
+                        <option value="@director.Value" selected="@isSelected">@director.Text</option>
+                    }
+                </select>
+            </div>
+
+
+
+
 
             <br />
 
@@ -112,7 +131,7 @@
                     </div>
                 }
                 <br />
-                <input type="file" name="file" multipe="false" class="form-control file-upload-default">
+                <input type="file" name="Poster" multipe="false" id="Poster" class="form-control file-upload-default">
                 <span asp-validation-for="Poster" class="text-danger"></span>
             </div>
 
@@ -125,7 +144,7 @@
                     </div>
                 }
                 <br />
-                <input type="file" name="file" multipe="false" class="form-control file-upload-default">
+                <input type="file" name="DetailPoster" id="DetailPoster" multipe="false" class="form-control file-upload-default">
                 <span asp-validation-for="DetailPoster" class="text-danger"></span>
             </div>
 
@@ -140,7 +159,13 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
-<script>
+@*<script>
+    // Function to handle the delete button click event
+    function handleDeleteButtonClick(event) {
+        var listItem = event.target.parentElement;
+        listItem.remove();
+    }
+
     // Seçilen oyuncuyu listeye ekle
     document.getElementById("addActorButton").addEventListener("click", function () {
         var selectElement = document.getElementById("actorSelect");
@@ -153,9 +178,14 @@
             listItem.classList.add("list-group-item");
             listItem.textContent = selectedActorName;
             listItem.innerHTML += '<input type="hidden" name="selectedActorIds" value="' + selectedActorId + '">';
+            listItem.innerHTML += '<button type="button" class="btn btn-danger btn-sm deleteButton">Delete</button>';
             actorList.appendChild(listItem);
 
             selectElement.value = "";
+
+            // Add event listener to the new delete button
+            var deleteButton = listItem.querySelector(".deleteButton");
+            deleteButton.addEventListener("click", handleDeleteButtonClick);
         }
     });
 
@@ -170,9 +200,107 @@
             listItem.classList.add("list-group-item");
             listItem.textContent = selectedCategoryName;
             listItem.innerHTML += '<input type="hidden" name="selectedCategoryIds" value="' + selectedCategoryId + '">';
+            listItem.innerHTML += '<button type="button" class="btn btn-danger btn-sm deleteButton">Delete</button>';
             categoryList.appendChild(listItem);
 
             selectElement.value = "";
+
+            // Add event listener to the new delete button
+            var deleteButton = listItem.querySelector(".deleteButton");
+            deleteButton.addEventListener("click", handleDeleteButtonClick);
         }
     });
+
+    // Add event listeners to existing delete buttons
+    var deleteButtons = document.getElementsByClassName("deleteButton");
+    for (var i = 0; i < deleteButtons.length; i++) {
+        deleteButtons[i].addEventListener("click", handleDeleteButtonClick);
+    }
+
+
+</script>
+
+
+
+*@
+
+<script>
+    
+    function handleDeleteButtonClick(event) {
+        var listItem = event.target.parentElement;
+        listItem.remove();
+    }
+
+    
+    document.getElementById("addActorButton").addEventListener("click", function () {
+        var selectElement = document.getElementById("actorSelect");
+        var selectedActorId = selectElement.value;
+        var selectedActorName = selectElement.options[selectElement.selectedIndex].text;
+
+        if (selectedActorId && selectedActorName && !isActorAlreadyAdded(selectedActorId)) {
+            var actorList = document.getElementById("actorList");
+            var listItem = document.createElement("li");
+            listItem.classList.add("list-group-item");
+            listItem.textContent = selectedActorName;
+            listItem.innerHTML += '<input type="hidden" name="selectedActorIds" value="' + selectedActorId + '">';
+            listItem.innerHTML += '<button type="button" class="btn btn-danger btn-sm deleteButton">Delete</button>';
+            actorList.appendChild(listItem);
+
+            selectElement.value = "";
+
+            
+            var deleteButton = listItem.querySelector(".deleteButton");
+            deleteButton.addEventListener("click", handleDeleteButtonClick);
+        }
+    });
+
+    document.getElementById("addCategoryButton").addEventListener("click", function () {
+        var selectElement = document.getElementById("categorySelect");
+        var selectedCategoryId = selectElement.value;
+        var selectedCategoryName = selectElement.options[selectElement.selectedIndex].text;
+
+        if (selectedCategoryId && selectedCategoryName && !isCategoryAlreadyAdded(selectedCategoryId)) {
+            var categoryList = document.getElementById("categoryList");
+            var listItem = document.createElement("li");
+            listItem.classList.add("list-group-item");
+            listItem.textContent = selectedCategoryName;
+            listItem.innerHTML += '<input type="hidden" name="selectedCategoryIds" value="' + selectedCategoryId + '">';
+            listItem.innerHTML += '<button type="button" class="btn btn-danger btn-sm deleteButton">Delete</button>';
+            categoryList.appendChild(listItem);
+
+            selectElement.value = "";
+
+            
+            var deleteButton = listItem.querySelector(".deleteButton");
+            deleteButton.addEventListener("click", handleDeleteButtonClick);
+        }
+    });
+
+    // Oyuncu zaten eklenmiş mi kontrolü
+    function isActorAlreadyAdded(actorId) {
+        var actorListItems = document.querySelectorAll("#actorList input[name='selectedActorIds']");
+        for (var i = 0; i < actorListItems.length; i++) {
+            if (actorListItems[i].value === actorId) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // Kategori zaten eklenmiş mi kontrolü
+    function isCategoryAlreadyAdded(categoryId) {
+        var categoryListItems = document.querySelectorAll("#categoryList input[name='selectedCategoryIds']");
+        for (var i = 0; i < categoryListItems.length; i++) {
+            if (categoryListItems[i].value === categoryId) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+   
+    var deleteButtons = document.getElementsByClassName("deleteButton");
+    for (var i = 0; i < deleteButtons.length; i++) {
+        deleteButtons[i].addEventListener("click", handleDeleteButtonClick);
+    }
 </script>
