@@ -405,16 +405,43 @@ namespace MovieApp.Panel.UI.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public IActionResult Edit(Movie movie)
+        public IActionResult Edit(Movie movie, [FromForm(Name = "Poster")] IFormFile? poster, [FromForm(Name = "DetailPoster")] IFormFile? detailPoster)
         {
-            if (ModelState.IsValid)
+
+
+            if (poster != null)
             {
-                movieManager.Update(movie);
-                return RedirectToAction("Index");
+                string wwwrootPath = webHostEnvironment.WebRootPath;
+                string fileName = Path.GetFileNameWithoutExtension(poster.FileName);
+                string extension = Path.GetExtension(poster.FileName);
+                string newFileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                string imagePath = Path.Combine(wwwrootPath, "images", "movie", newFileName);
+
+                using (var fileStream = new FileStream(imagePath, FileMode.Create))
+                {
+                    poster.CopyTo(fileStream);
+                }
+
+                movie.Poster = newFileName;
+            }
+            if (detailPoster != null)
+            {
+                string wwwrootPath = webHostEnvironment.WebRootPath;
+                string fileName = Path.GetFileNameWithoutExtension(detailPoster.FileName);
+                string extension = Path.GetExtension(detailPoster.FileName);
+                string newFileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                string imagePath = Path.Combine(wwwrootPath, "images", "movie", newFileName);
+
+                using (var fileStream = new FileStream(imagePath, FileMode.Create))
+                {
+                    detailPoster.CopyTo(fileStream);
+                }
+
+                movie.DetailPoster = newFileName;
             }
 
             ViewBag.Directors = directorManager.GetAll()
-                .Select(s => new SelectListItem { Value = s.ID.ToString(), Text = s.DirectorName }).ToList();
+             .Select(s => new SelectListItem { Value = s.ID.ToString(), Text = s.DirectorName }).ToList();
 
             List<Actor> actors = actorManager.GetAll();
             ViewBag.Actors = new SelectList(actors, "ID", "ActorName");
@@ -422,7 +449,10 @@ namespace MovieApp.Panel.UI.Controllers
             List<Category> categories = categoryManager.GetAll();
             ViewBag.Categories = new SelectList(categories, "ID", "CategoryName");
 
-            return View(movie);
+
+            movieManager.Update(movie);
+                return RedirectToAction("Index");
+            
         }
     }
 

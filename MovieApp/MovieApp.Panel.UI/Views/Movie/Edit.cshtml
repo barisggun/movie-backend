@@ -37,6 +37,8 @@
                 }
             </ul>
 
+            <br />
+
             <div class="form-group">
                 <label for="categorySelect">Kategori Seç</label>
                 <select id="categorySelect" name="selectedCategoryIds" class="form-control">
@@ -59,6 +61,7 @@
                 }
             </ul>
 
+            <br />
 
             <div class="form-group">
                 <label for="directorSelect">Yönetmen Seç</label>
@@ -80,6 +83,8 @@
                 }
             </ul>
 
+            <br />
+
             <div class="form-group mt-3">
                 <label asp-for="MovieTitle" class="control-label"></label>
                 <input asp-for="MovieTitle" class="form-control" />
@@ -100,12 +105,26 @@
 
             <div class="mb-3">
                 <label asp-for="Poster">Poster</label>
+                @if (!string.IsNullOrEmpty(Model.Poster))
+                {
+                    <div>
+                        <img src="~/images/movie/@Model.Poster" alt="Selected Image" style="max-width: 200px; margin-top: 10px;" />
+                    </div>
+                }
+                <br />
                 <input type="file" name="file" multipe="false" class="form-control file-upload-default">
                 <span asp-validation-for="Poster" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
                 <label asp-for="DetailPoster">Detay Poster</label>
+                @if (!string.IsNullOrEmpty(Model.DetailPoster))
+                {
+                    <div>
+                        <img src="~/images/movie/@Model.DetailPoster" alt="Selected Image" style="max-width: 200px; margin-top: 10px;" />
+                    </div>
+                }
+                <br />
                 <input type="file" name="file" multipe="false" class="form-control file-upload-default">
                 <span asp-validation-for="DetailPoster" class="text-danger"></span>
             </div>
