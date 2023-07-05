@@ -26,7 +26,7 @@ namespace MovieApp.EntityLayer.Entities
         public string? BlogThumbnailImage { get; set; }
 
 
-        [Required(ErrorMessage = "Blog fotoğraf alanı boş geçilemez.")]
+        //[Required(ErrorMessage = "Blog fotoğraf alanı boş geçilemez.")]
         [DisplayName("Blog Fotoğrafı")]
         public string? BlogImage { get; set; }
         public DateTime BlogCreateDate { get; set; }

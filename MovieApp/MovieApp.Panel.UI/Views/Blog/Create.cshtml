@@ -1,5 +1,4 @@
-﻿@using MovieApp.EntityLayer;
-@model MovieApp.EntityLayer.Entities.Blog
+﻿@model MovieApp.EntityLayer.Entities.Blog
 
 @{
     ViewData["Title"] = "Create";
@@ -8,29 +7,6 @@
 
 <h1>Yeni Blog Giriş</h1>
 <br />
-
-@*@using (Html.BeginForm("Create", "Blog", FormMethod.Post))
-{
-    @Html.Label("Blog Başlığı")
-    @Html.TextBoxFor(x=>x.BlogTitle, new {@class = "form-control"})
-    @Html.ValidationMessageFor(x=>x.BlogTitle)
-    <br />
-    @Html.Label("Blog Görseli")
-    @Html.TextBoxFor(x=>x.BlogImage, new {@class = "form-control"})
-    @Html.ValidationMessageFor(x=>x.BlogImage)
-    <br />
-    @Html.Label("Blog Küçük Görseli")
-    @Html.TextBoxFor(x=>x.BlogThumbnailImage, new {@class = "form-control"})
-    <br />
-    @Html.Label("Film Seçiniz")
-    @Html.DropDownListFor(x=>x.MovieId, (List<SelectListItem>)ViewBag.cv, new {@class = "form-control"})
-    <br />
-    @Html.Label("Blog İçeriği")
-    @Html.TextAreaFor(x=>x.BlogContent,15,3, new {@class = "form-control"})
-    @Html.ValidationMessageFor(x=>x.BlogContent)
-    <br />
-    <button class="btn btn-primary">Yazıyı Kaydet</button>
-}*@
 
 <div class="row">
     <div class="col-md-4">
@@ -45,13 +21,13 @@
 
             <div class="mb-3">
                 <label asp-for="BlogImage">Poster</label>
-                <input type="file" name="file" multipe="false" class="form-control file-upload-default">
+                <input type="file" name="file" class="form-control-file" />
                 <span asp-validation-for="BlogImage" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 @Html.Label("Film Seçiniz")
-                @Html.DropDownListFor(x=>x.MovieId, (List<SelectListItem>)ViewBag.cv, new {@class = "form-control"})
+                @Html.DropDownListFor(x => x.MovieId, (List<SelectListItem>)ViewBag.cv, new { @class = "form-control" })
                 <br />
             </div>
 
@@ -71,6 +47,3 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
-
-
-

@@ -64,9 +64,10 @@ namespace MovieApp.Panel.UI.Controllers
         [HttpPost]
         public IActionResult Create(Blog b, IFormFile file)
         {
+             b.BlogImage = "";
             if (ModelState.IsValid)
             {
-                b.BlogImage = "";
+               
                 if (file != null)
                 {
                     string wwwrootPath = webHostEnvironment.WebRootPath;
@@ -83,6 +84,7 @@ namespace MovieApp.Panel.UI.Controllers
 
                     b.BlogImage = yeniDosyaAdi;
                 }
+               
                 var username = User.Identity.Name;
                 var usermail = c.Users.Where(x => x.UserName == username).Select(y => y.Email).FirstOrDefault();
                 var userID = c.Users.Where(x => x.Email == usermail).Select(y => y.Id).FirstOrDefault();
