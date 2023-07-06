@@ -5,6 +5,7 @@
         public int MovieId { get; set; }
         public List<string> DirectorNames { get; set; }
         public List<string> ActorNames { get; set; }
+        public List<string> CategoryNames { get; set; }
         public string MovieTitle { get; set; }
         public string MoviePoster { get; set; }
         public string MovieDetailPoster { get; set; }

@@ -44,6 +44,15 @@
         </label>
     </div>
     <div class="form-group">
+        <label for="Yonetmen">
+            <h5>Film Kategorisi:</h5>
+            @foreach (var categoryName in Model.CategoryNames)
+            {
+                <span>@categoryName | </span>
+            }
+        </label>
+    </div>
+    <div class="form-group">
         <h5>Film Ortalama Puanı:</h5>
         <label for="Ortalama">Ortalama Puanı: @Model.AverageRating</label>
     </div>
