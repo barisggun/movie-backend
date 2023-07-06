@@ -1,0 +1,86 @@
+﻿@model SearchResultsModel
+@{
+    ViewData["Title"] = "Search";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<h1 style="color:white">Arama Sonuçları</h1>
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+{
+    <p class="error" style="color:white">@ViewBag.ErrorMessage</p>
+}
+else
+{
+    if (Model.Movies.Count == 0 && Model.Blogs.Count == 0 && Model.Users.Count == 0)
+    {
+        <p style="color:white">Aradığınız kritere uygun bir sonuç bulunamadı!</p>
+    }
+
+    else
+    {
+        if (Model.Movies.Count > 0)
+        {
+            <h2 style="color:white">Filmler</h2>
+            <div class="onerilenFilmler">
+
+                @foreach (var item in Model.Movies)
+                {
+
+                    <a href="/Movie/Detail/@item.ID"><img src="~/images/movie/@item.Poster" alt="" /></a>
+
+                }
+
+            </div>
+        }
+
+        if (Model.Blogs.Count > 0)
+        {
+            <h2 style="color:white">Bloglar</h2>
+            @foreach (var item in Model.Blogs)
+            {
+                <div class="new">
+                    <div class="newPhoto">
+                        <img src="~/images/blog/@item.BlogImage" alt="" />
+                    </div>
+                    <div class="newContent">
+                        <h2>@item.BlogTitle</h2>
+                        <p>
+                            @item.BlogContent
+                        </p>
+                        <a href="/Blog/BlogReadAll/@item.ID">Devamını Oku</a>
+                    </div>
+                </div>
+            }
+            
+        }
+        if (Model.Users.Count > 0)
+        {
+            <h2 style="color:white">Kullanıcılar</h2>
+            <div class="onerilenFilmler">
+
+                @foreach (var item in Model.Users)
+                {
+                    <div class="review">
+                        <div class="image">
+                            <img src="~/images/profile/@item.ProfilePictureUrl" alt="" />
+                        </div>
+                        <div class="write">
+                            <a href="/User/Detail/@item.Id" style="color:white;"><h2>@item.UserName</h2></a>
+
+                            <p>
+                                @item.NameSurname
+                            </p>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        }
+    }
+}
+
+
+
+
+
+
