@@ -1,0 +1,76 @@
+﻿@model MovieListModel
+
+@{
+    ViewData["Title"] = "MovieList";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<!-- Filtreleme formu -->
+<form method="post" action="/Movie/MovieList/">
+    <div class="filterContainer">
+        <div class="filters">
+            <details open>
+                <summary>Film Yılı</summary>
+                @foreach (var year in Model.Filter.Years ?? new List<int>())
+                {
+                    <div class="element">
+                       
+                            <input type="checkbox" name="Years" value="@year">
+                            <p>@year</p>
+  
+                    </div>
+                }
+            </details>
+            <details open>
+                <summary>Kategori</summary>
+                @foreach (var category in Model.Filter.Categories ?? new List<Category>())
+                {
+                    <div class="element">
+                        <input type="checkbox" name="Categories" value="@category.ID">
+                        <p>@category.CategoryName</p>
+                    </div>
+                }
+            </details>
+            <details open>
+                <summary>Puan</summary>
+                @foreach (var rating in Model.Filter.Ratings ?? new List<int>())
+                {
+                    <div class="element">
+                        <input type="checkbox" name="Ratings" value="@rating">
+                        <p>@rating</p>
+                    </div>
+                }
+            </details>
+            <details open>
+                <summary>Sıralama(Puan)</summary>
+                <div class="element">
+                    <input type="checkbox" name="IsHighToLow">
+                    <p>Yüksekten düşüğe</p>
+                </div>
+                <div class="element">
+                    <input type="checkbox" name="IsHighToLow">
+                    <p>Düşükten yükseğe</p>
+                </div>
+            </details>
+        </div>
+        <div class="filterMainContent">
+            <!-- Filtreleme Sonuçları -->
+            @if (Model.Movies.Any())
+            {
+                <div class="onerilenFilmler">
+                @foreach (var movie in Model.Movies)
+                {
+                        <div class="cardsList">
+                            <a href="/Movie/Detail/@movie.ID"><img src="~/images/movie/@movie.Poster" alt="" /></a>
+                    </div>
+                }
+                </div>
+            }
+            else
+            {
+                <p>Uygun film bulunamadı.</p>
+            }
+        </div>
+    </div>
+    <button type="submit" class="apply; applyButton" style="cursor: pointer;">Filtrele</button>
+</form>
