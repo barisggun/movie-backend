@@ -54,7 +54,9 @@ namespace MovieApp.Panel.UI.Controllers
                     Email = p.Mail,
                     UserName = p.UserName,
                     NameSurname = p.NameSurname,
-                    ConfirmCode = code
+                    ConfirmCode = code,
+                    ProfilePictureUrl = "userDefault.png",
+                    ImageUrl= "coverPhotoDefault.jpg"
                 };
 
                 var  result = await _userManager.CreateAsync(user,p.Password);

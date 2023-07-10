@@ -24,6 +24,10 @@ namespace MovieApp.Panel.UI.Models
         [Display(Name = "Kullanıcı Adı")]
         [Required(ErrorMessage = "Lütfen kullanıcı adınızı giriniz")]
         public string UserName { get; set; }
+        [Display(Name = "Profil Fotoğrafı")]
+        public string? ProfilePictureUrl { get; set; }
 
+        [Display(Name = "Kapak Fotoğrafı")]
+        public string? ImageUrl { get; set; }
     }
 }
