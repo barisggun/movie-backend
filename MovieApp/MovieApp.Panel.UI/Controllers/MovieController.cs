@@ -12,6 +12,9 @@ using MovieApp.Panel.UI.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Microsoft.EntityFrameworkCore;
+using static NuGet.Packaging.PackagingConstants;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using System.Linq;
 
 namespace MovieApp.Panel.UI.Controllers
 {
@@ -535,6 +538,101 @@ namespace MovieApp.Panel.UI.Controllers
             }
             return RedirectToAction("Index","Movie");
         }
+
+
+        [AllowAnonymous]
+        [HttpGet]
+        public IActionResult MovieList()
+        {
+            var allMovies = movieManager.GetAll(); // Veritabanından bütün filmleri al
+
+            var model = new MovieListModel
+            {
+                Filter = new FilterModel
+                {
+                    Years = GetAvailableYears(),
+                    Categories = GetAvailableCategories(),
+                    Ratings = GetAvailableRatings()
+                },
+                Movies = allMovies.ToList()
+            };
+
+            return View(model);
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public IActionResult MovieList(FilterModel filters)
+        {
+
+            var filteredMovies = GetFilteredMovies(filters);
+
+            var model = new MovieListModel
+            {
+                Filter = filters,
+                Movies = filteredMovies.ToList()
+            };
+
+            return View(model);
+        }
+
+        private IQueryable<Movie> GetFilteredMovies(FilterModel filters)
+        {
+
+            var movies = c.Movies.AsQueryable();
+
+            if (filters.Years != null && filters.Years.Any())
+            {
+                movies = movies.Where(m => filters.Years.Contains(m.ReleaseDate.Year));
+            }
+
+            if (filters.Categories != null && filters.Categories.Any())
+            {
+                movies = movies.Where(m => m.Categories.Any(c => filters.Categories.Any(cat => cat.ID == c.ID)));
+            }
+
+
+            if (filters.Ratings != null && filters.Ratings.Any())
+            {
+                movies = movies.Where(m => m.AverageRating.HasValue && filters.Ratings.Contains((int)m.AverageRating.Value));
+            }
+
+            if (filters.IsHighToLow)
+            {
+                movies = movies.OrderByDescending(m => m.AverageRating);
+            }
+            else
+            {
+                movies = movies.OrderBy(m => m.AverageRating);
+            }
+
+            return movies;
+        }
+
+        private List<int> GetAvailableYears()
+        {
+            var availableYears = c.Movies.Select(m => m.ReleaseDate.Year).Distinct().ToList();
+
+            return availableYears;
+        }
+
+        private List<Category> GetAvailableCategories()
+        {
+            var categories = c.Categories?.ToList() ?? new List<Category>();
+
+        
+            return categories;
+        }
+
+        private List<int> GetAvailableRatings()
+        {
+
+            var ratings = new List<int> { 1, 2, 3, 4, 5 };
+
+            return ratings;
+        }
+
+
     }
 
 }
