@@ -8,6 +8,7 @@ namespace MovieApp.Panel.UI.Models
         public string username { get; set; }
 
         [Required(ErrorMessage = "Lütfen şifrenizi giriniz.")]
-        public string password { get; set; }
+        public string password { get; set; }  
+        public int ConfirmCode { get; set; }  
     }
 }

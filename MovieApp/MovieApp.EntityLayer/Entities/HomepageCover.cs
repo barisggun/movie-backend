@@ -22,5 +22,11 @@ namespace MovieApp.EntityLayer.Entities
         [MaxLength(80, ErrorMessage = "Anasayfa header yazısı maksimum 60 karakter olabilir")]
         [MinLength(5, ErrorMessage = "Anasayfa header yazısı minimum 5 karakter olabilir")]
         public string? Title { get; set; }
+
+        [Required(ErrorMessage = "Anasayfa alt header yazısı alanı boş geçilemez.")]
+        [DisplayName("Anasayfa alt header yazısı")]
+        [MaxLength(80, ErrorMessage = "Anasayfa alt header yazısı maksimum 60 karakter olabilir")]
+        [MinLength(5, ErrorMessage = "Anasayfa alt header yazısı minimum 5 karakter olabilir")]
+        public string? BottomTitle { get; set; }
     }
 }

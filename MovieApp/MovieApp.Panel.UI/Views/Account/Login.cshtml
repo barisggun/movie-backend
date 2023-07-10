@@ -1,7 +1,7 @@
 ﻿@model UserSignInViewModel
 
 @{
-    ViewData["Title"] = "Giriş Yap";
+    ViewData["Title"] = "Sinesozluk Giriş Yap";
     Layout = null;
 }
 
@@ -36,9 +36,20 @@
                 </div>
                 <button type="submit" id="submit" class="submit-btn" href="">Giriş Yap</button>
 
-                @if (!string.IsNullOrEmpty(ViewData.ModelState["password"]?.Errors[0]?.ErrorMessage))
+                @if (!string.IsNullOrEmpty(ViewData.ModelState["password"]?.Errors?.FirstOrDefault()?.ErrorMessage))
                 {
-                    <span class="error" style="color:red;font-family:Arial;">@Html.Raw(ViewData.ModelState["password"].Errors[0].ErrorMessage)</span>
+                    <span class="error" style="color:red;font-family:Arial;">@Html.Raw(ViewData.ModelState["password"].Errors.FirstOrDefault().ErrorMessage)</span>
+                }
+
+                @if (!string.IsNullOrEmpty(ViewData.ModelState["emailConfirmed"]?.Errors?.FirstOrDefault()?.ErrorMessage))
+                {
+                    <span class="error" style="color:red;font-family:Arial;">@Html.Raw(ViewData.ModelState["emailConfirmed"].Errors.FirstOrDefault().ErrorMessage)</span>
+                    <a href="/ConfirmMail/Index" style="font-family:Arial;">Hesabı aktifleştir</a>
+                }
+
+                @if (!string.IsNullOrEmpty(ViewData.ModelState["noFoundUser"]?.Errors?.FirstOrDefault()?.ErrorMessage))
+                {
+                    <span class="error" style="color:red;font-family:Arial;">@Html.Raw(ViewData.ModelState["noFoundUser"].Errors.FirstOrDefault().ErrorMessage)</span>
                 }
 
 

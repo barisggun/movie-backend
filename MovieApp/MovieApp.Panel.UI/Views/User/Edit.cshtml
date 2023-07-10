@@ -1,72 +1,74 @@
 ﻿@model MovieApp.Panel.UI.Models.UserProfileEditModel
 
+@{
+    ViewData["Title"] = "Profil Düzenle";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
 @if (User.Identity.IsAuthenticated)
 {
     <form method="post" enctype="multipart/form-data">
-      @*  <div class="form-group">
-            <label for="UserName">User Name</label>
-            <input type="text" class="form-control" id="UserName" name="UserName" value="@Model.UserName">
-        </div>*@
-        <div class="form-group">
-            <label for="NameSurname">Name Surname</label>
-            <input type="text" class="form-control" id="NameSurname" name="NameSurname" value="@Model.NameSurname">
-        </div>
-        <div class="form-group">
-            <label for="About">About</label>
-            <textarea class="form-control" id="About" name="About">@Model.About</textarea>
-        </div>
-        <div class="form-group">
-            <label for="EMail">Email</label>
-            <input type="email" class="form-control" id="EMail" name="EMail" value="@Model.EMail">
-        </div>
+        <div class="contact-form">
+            <div class="left-form">
 
-        <div class="form-group">
-            <label for="ImageUrl">Image URL</label>
-            @if (!string.IsNullOrEmpty(Model.ImageUrl))
-            {
-                <div>
-                    <img src="~/images/profile/@Model.ImageUrl" alt="Selected Image" style="max-width: 200px; margin-top: 10px;" />
-                </div>
-            }
-            <input type="file" class="form-control" multipe="false" id="ImageUrl" name="ImageFile" accept="image/png, image/jpeg">
-        </div>
+                <h4>Ad-Soyad</h4>
+                <input class="contact-input" type="text" id="NameSurname" name="NameSurname" value="@Model.NameSurname">
+
+                <h4>Hakkımda</h4>
+                <textarea class="contact-textarea" id="About" name="About" cols="21" rows="6">@Model.About</textarea>
 
 
-        <div class="form-group">
-            <label for="ProfileImageUrl">Profile Image URL</label>
-            @if (!string.IsNullOrEmpty(Model.ProfilePictureUrl))
-            {
-                <div>
-                    <img src="~/images/profile/@Model.ProfilePictureUrl" alt="Selected Profile Image" style="max-width: 200px; margin-top: 10px;" />
-                </div>
-            }
-            <input type="file" class="form-control" multipe="false" id="ProfileImageUrl" name="ProfileImageFile" accept="image/png, image/jpeg">
-        </div>
+                <h4>Email</h4>
+                <input class="contact-input" type="email" id="EMail" id="OldPassword" value="@Model.EMail">
 
-        <div class="form-group">
-            <label for="OldPassword">Old Password</label>
-            <input type="password" class="form-control" id="OldPassword" name="OldPassword">
-        </div>
-        <div class="form-group">
-            <label for="NewPassword">New Password</label>
-            <input type="password" class="form-control" id="NewPassword" name="NewPassword">
-        </div>
+                <h4>Eski Şifre</h4>
+                <input class="contact-input" type="password" id="OldPassword" name="OldPassword">
 
-        @{
-            var errors = ViewData.ModelState.Values.SelectMany(v => v.Errors);
-        }
-
-        @if (errors.Any())
-        {
-            <div class="alert alert-danger">
-                @foreach (var error in errors)
-                {
-                    <span class="text-danger">@error.ErrorMessage</span>
-                    <br />
-                }
+                <h4>Yeni Şifre</h4>
+                <input class="contact-input" type="password" id="NewPassword" name="NewPassword">
             </div>
-        }
-        <button type="submit" class="btn btn-primary">Save</button>
+
+            <div class="divider"></div>
+
+            <div class="right-form">
+                <h4>Kapak Fotoğrafı</h4>
+                <input onchange="document.getElementById('showImage').src = window.URL.createObjectURL(this.files[0])" class="contact-input" type="file" accept="image/png, image/gif, image/jpeg" multipe="false" id="ImageUrl" name="ImageFile">
+
+                @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                {
+                    <div>
+                        <img class="form-image" id="showImage" src="~/images/profile/@Model.ImageUrl" alt="Selected Image" style="max-width: 200px; margin-top: 10px;" />
+                    </div>
+                }
+
+                <h4>Profil Fotoğrafı</h4>
+                <input class="contact-input" type="file" accept="image/png, image/gif, image/jpeg" onchange="document.getElementById('showImage2').src = window.URL.createObjectURL(this.files[0])" multipe="false" id="ProfileImageUrl" name="ProfileImageFile">
+                @if (!string.IsNullOrEmpty(Model.ProfilePictureUrl))
+                {
+                    <div>
+                        <img class="form-image" id="showImage2" src="~/images/profile/@Model.ProfilePictureUrl" alt="Selected Profile Image" style="max-width: 200px; margin-top: 10px;" />
+                    </div>
+                }
+
+                @{
+                    var errors = ViewData.ModelState.Values.SelectMany(v => v.Errors);
+                }
+
+                @if (errors.Any())
+                {
+                    <div class="alert alert-danger">
+                        @foreach (var error in errors)
+                        {
+                            <span class="text-danger">@error.ErrorMessage</span>
+                            <br />
+                        }
+                    </div>
+                }
+                <button class="upd-btn" type="submit">Güncelle</button>
+
+
+            </div>
+        </div>
     </form>
 }
 
@@ -74,5 +76,3 @@ else
 {
     <p>Giriş yapmadan profil düzenleyemezsiniz.</p>
 }
-
-

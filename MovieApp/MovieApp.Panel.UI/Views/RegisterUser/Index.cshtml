@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="~/main/assets/CSS/main.css" />
     <link rel="stylesheet" href="~/main/assets/CSS/reset.css" />
     <script src="~/main/assets/script.js" defer></script>
-    <title>Film Atlası Üye OL</title>
+    <title>Sinesozluk Kayıt Ol</title>
 </head>
 <body>
     <div class="entryContainer">
@@ -58,6 +58,13 @@
                 {
                     <span class="error" style="color:red;font-family:Arial;">@Html.Raw(ViewData.ModelState["signupError"].Errors[0].ErrorMessage)</span>
                 }*@
+
+                @if (!string.IsNullOrEmpty(ViewData.ModelState["signupError"]?.Errors?.FirstOrDefault()?.ErrorMessage))
+                {
+                    <span class="error" style="color:red;font-family:Arial;">@Html.Raw(ViewData.ModelState["signupError"].Errors.FirstOrDefault().ErrorMessage)</span>
+                }
+
+        
 
                 <div class="part">
                     Bir hesabınız var mı? <a href="/Account/Login/" class="loginFont">Giriş Yap</a>

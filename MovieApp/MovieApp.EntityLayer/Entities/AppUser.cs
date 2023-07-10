@@ -20,6 +20,7 @@ namespace MovieApp.EntityLayer.Entities
         public string? ImageUrl { get; set; }
         public string? ProfilePictureUrl { get; set; }
         public string? About { get; set; }
+        public int? ConfirmCode { get; set; }
         public List<Blog>? Blogs { get; set; }
 
     }

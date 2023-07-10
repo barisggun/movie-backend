@@ -1,0 +1,70 @@
+﻿@*@model ConfirmMailViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<br />
+<br />
+<form method="post">
+    <h2>Taşınan Mail Adresi: @ViewBag.v</h2>
+    <label>Kullanıcı ID değeri</label>
+  @*  <input type="text" class="form-control" asp-for="UserName" value="@ViewBag.v"/>*@
+@*
+    <input type="text" class="form-control" asp-for="UserName" value="@ViewBag.v" />
+
+
+    <label style="color:white;">Mail Adresiniz'e gelen 6 haneli kodu giriniz:</label>
+    <input type="text" class="form-control" asp-for="ConfirmCode" />
+    <span asp-validation-for="ConfirmCode" class="text-danger"></span>
+    <button class="btn btn-primary">Hesabı aktifleştir</button>
+</form>
+<br />
+<br />
+*@
+
+@model ConfirmMailViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<br />
+<br />
+<form method="post">
+@*    <h2>Taşınan Mail Adresi: @ViewBag.v</h2>
+    <label>Kullanıcı ID değeri</label>*@
+    <input type="hidden" class="form-control" asp-for="UserName" value="@ViewBag.v" />
+
+    <label style="color:white;">Mail Adresiniz'e gelen 6 haneli kodu giriniz:</label>
+    <br />
+    <input type="text" class="form-control" asp-for="ConfirmCode" />
+    <br />
+    @*<span asp-validation-for="ConfirmCode"style="color:red;background-color:white;"></span>*@
+
+    @if (!string.IsNullOrEmpty(ViewData.ModelState["ConfirmCode"]?.Errors?.FirstOrDefault()?.ErrorMessage))
+    {
+        <span class="error" style="color:red;font-family:Arial;">@Html.Raw(ViewData.ModelState["ConfirmCode"].Errors.FirstOrDefault().ErrorMessage)</span>
+    }
+
+
+
+    <br />
+    <button class="btn btn-primary">Hesabı aktifleştir</button>
+</form>
+<br />
+<br />
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var userNameInput = document.querySelector('[name="UserName"]');
+        var storedUserName = localStorage.getItem('userName');
+        if (userNameInput && storedUserName) {
+            userNameInput.value = storedUserName;
+        }
+        userNameInput.addEventListener('input', function () {
+            localStorage.setItem('userName', this.value);
+        });
+    });
+</script>
+

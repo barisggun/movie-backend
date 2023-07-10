@@ -43,10 +43,10 @@
         {
             <div class="review">
                 <div class="image2">
-                    <img src="~/main/assets/img/png/commentUser.png" alt="" />
+                    <img src="~/images/profile/@item.ProfilePictureUrl" alt="" />
                 </div>
                 <div class="write">
-                    <h2>@item.CommentUserName</h2>
+                    <a href="/User/Detail/@item.CommentUserNameId"><h2>@item.CommentUserName</h2></a>
                     <br />
                     <small>@(((DateTime)item.CommentDate).ToString("dd-MMM-yyyy"))</small>
                     <p>@item.CommentContent</p>

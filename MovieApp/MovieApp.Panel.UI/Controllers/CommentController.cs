@@ -32,15 +32,18 @@ namespace MovieApp.Panel.UI.Controllers
         {
             var username = User.Identity.Name;
             var userID = c.Users.Where(x => x.UserName == username).Select(y => y.Id).FirstOrDefault();
+            var profilePicture = c.Users.Where(x => x.UserName == username).Select(y => y.ProfilePictureUrl).FirstOrDefault();
             var values = userManager.GetById(userID);
             DateTime now = DateTime.Now;
             DateTime commentDate = new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, now.Second);
 
-
+            
             p.CommentDate = commentDate;
             p.CommentStatus = true;
             p.CommentUserName=username;
             p.MovieId = m.MovieId;
+            p.CommentUserNameId = userID;
+            p.ProfilePictureUrl = profilePicture;
             commentManager.Create(p);
             return RedirectToAction("Detail", "Movie", new { id = p.MovieId });
         }

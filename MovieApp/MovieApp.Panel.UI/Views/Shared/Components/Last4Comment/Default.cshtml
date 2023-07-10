@@ -13,10 +13,13 @@
         {
             <div class="review">
                 <div class="image">
-                    <img src="~/images/movie/@item.Movie.Poster" alt="" />
+                    <a href="/Movie/Detail/@item.MovieId">
+                        <img src="~/images/movie/@item.Movie.Poster" alt="" />
+                    </a>
+                   
                 </div>
                 <div class="write">
-                    <a href="/Movie/Detail/@item.MovieId" style="color:white;"><h2>@item.CommentUserName</h2></a>
+                    <a href="/User/Detail/@item.CommentUserNameId" style="color:white;"><h2>@item.CommentUserName</h2></a>
                     
                     <p>
                         @item.CommentContent
