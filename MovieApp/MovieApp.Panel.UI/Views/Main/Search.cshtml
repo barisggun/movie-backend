@@ -35,6 +35,8 @@ else
 
         if (Model.Blogs.Count > 0)
         {
+            <div class="movieNews">
+
             <h2 style="color:white">Bloglar</h2>
             @foreach (var item in Model.Blogs)
             {
@@ -45,13 +47,13 @@ else
                     <div class="newContent">
                         <h2>@item.BlogTitle</h2>
                         <p>
-                            @item.BlogContent
+                            @item.BlogContent.Substring(0,300)...
                         </p>
                         <a href="/Blog/BlogReadAll/@item.ID">Devamını Oku</a>
                     </div>
                 </div>
             }
-            
+            </div>       
         }
         if (Model.Users.Count > 0)
         {
