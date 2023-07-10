@@ -114,12 +114,127 @@ namespace MovieApp.Panel.UI.Controllers
 
         public async Task<IActionResult> Logout()
         {
-            //HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Main");
         }
 
         public IActionResult AccessDenied()
+        {
+            return View();
+        }
+        [HttpGet]
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByEmailAsync(model.Email);
+                if (user == null)
+                {
+                    ModelState.AddModelError(string.Empty, "Bu e-posta adresine sahip bir kullanıcı bulunamadı.");
+                    return View(model);
+                }
+
+                Random random = new Random();
+                int code = random.Next(100000, 1000000);
+
+                user.ConfirmCode = code;
+
+                var emailSettings = _configuration.GetSection("AppSettings:SmtpSettings");
+                var email = emailSettings["Email"];
+                var password = emailSettings["Password"];
+
+                MimeMessage mimeMessage = new MimeMessage();
+                MailboxAddress mailboxAddressFrom = new MailboxAddress("Film Küresi Admin", "filmcapella@gmail.com");
+                MailboxAddress mailboxAddressTo = new MailboxAddress("User", user.Email);
+
+                mimeMessage.From.Add(mailboxAddressFrom);
+                mimeMessage.To.Add(mailboxAddressTo);
+
+                var bodyBuilder = new BodyBuilder();
+                bodyBuilder.TextBody = "Kayıt işlemini gerçekleştirmek için onay kodunuz: " + code;
+                mimeMessage.Body = bodyBuilder.ToMessageBody();
+
+                mimeMessage.Subject = "Film Küresi Onay Kodu";
+
+                using (var client = new MailKit.Net.Smtp.SmtpClient())
+                {
+                    client.Connect("smtp.gmail.com", 587, false);
+                    client.Authenticate(email, password);
+                    client.Send(mimeMessage);
+                    client.Disconnect(true);
+                }
+
+                await _userManager.UpdateAsync(user);
+
+                TempData["EMail"] = user.Email;
+                return RedirectToAction("ResetPassword", "Account");
+            }
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult ForgotPasswordConfirmation()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult ResetPassword()
+        {
+            var value = TempData["EMail"];
+            ViewBag.v = value;
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByEmailAsync(model.Email);
+                if (user == null)
+                {
+                    ModelState.AddModelError(string.Empty, "Kullanıcı bulunamadı.");
+                    return View(model);
+                }
+
+                if (user.ConfirmCode.ToString() == model.ResetCode)
+                {
+                    var newPasswordHash = _userManager.PasswordHasher.HashPassword(user, model.NewPassword);
+                    user.PasswordHash = newPasswordHash;
+                    var result = await _userManager.UpdateAsync(user);
+
+
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction("Login", "Account");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, "Geçersiz şifre sıfırlama kodu.");
+                        return View(model);
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Geçersiz şifre sıfırlama kodu.");
+                    return View(model);
+                }
+            }
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult ResetPasswordConfirmation()
         {
             return View();
         }
