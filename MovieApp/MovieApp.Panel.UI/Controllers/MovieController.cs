@@ -155,7 +155,7 @@ namespace MovieApp.Panel.UI.Controllers
             {
                 MovieId = movieValue.ID,
                 DirectorNames = movieValue.Directors.Select(d => d.DirectorName).ToList(),
-                ActorNames = movieValue.Actors.Select(a => a.ActorName).ToList(),
+                Actors = movieValue.Actors,
                 CategoryNames = movieValue.Categories.Select(a => a.CategoryName).ToList(),
                 MovieTitle = movieValue.MovieTitle,
                 MoviePoster = movieValue.Poster,
@@ -632,7 +632,18 @@ namespace MovieApp.Panel.UI.Controllers
             return ratings;
         }
 
+        [AllowAnonymous]
+        public IActionResult MoviesByActors(int Id)
+        {
+            var actor = c.Actors.Include(x=>x.Movies).FirstOrDefault(y=>y.ID == Id);
 
+            if (actor == null)
+            {
+                return NotFound();
+            }
+
+            return View(actor);
+        }
     }
 
 }

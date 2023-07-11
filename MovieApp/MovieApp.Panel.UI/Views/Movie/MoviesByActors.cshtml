@@ -1,0 +1,27 @@
+﻿@model Actor
+
+@{
+    ViewData["Title"] = "MoviesByActors";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<h2 style="color:white">@Model.ActorName İsimli Oyuncunun Filmleri</h2>
+<br />
+<br />
+
+@if (Model.Movies.Any())
+{
+    <div class="onerilenFilmler">
+        @foreach (var movie in Model.Movies)
+        {
+            <div class="cardsList">
+                <a href="/Movie/Detail/@movie.ID"><img src="~/images/movie/@movie.Poster" alt="" /></a>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <p>Uygun film bulunamadı.</p>
+}
+

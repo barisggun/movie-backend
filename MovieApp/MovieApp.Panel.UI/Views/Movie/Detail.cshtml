@@ -41,9 +41,9 @@
                 }
             </div>
             <div class="director">
-                Oyuncular : @foreach (var actorName in Model.ActorNames)
+                Oyuncular : @foreach (var actorName in Model.Actors)
                 {
-                    <span>@actorName |</span>
+                        <a href="/Movie/MoviesByActors?Id=@actorName.ID">@actorName.ActorName </a>
                 }
             </div>
             <div class="director">

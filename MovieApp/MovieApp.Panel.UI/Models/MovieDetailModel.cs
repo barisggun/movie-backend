@@ -1,10 +1,13 @@
-﻿namespace MovieApp.Panel.UI.Models
+﻿using MovieApp.EntityLayer.Entities;
+using MovieApp.EntityLayer.Entities.ConnectionClasses;
+
+namespace MovieApp.Panel.UI.Models
 {
     public class MovieDetailModel
     {
         public int MovieId { get; set; }
         public List<string> DirectorNames { get; set; }
-        public List<string> ActorNames { get; set; }
+        public List<Actor> Actors { get; set; }
         public List<string> CategoryNames { get; set; }
         public string MovieTitle { get; set; }
         public string MoviePoster { get; set; }
