@@ -16,16 +16,7 @@ namespace MovieApp.Panel.UI.Controllers
         CommentManager commentManager = new CommentManager(new EfCommentRepository());
         UserManager userManager = new UserManager(new EfUserRepository());
 
-        //[HttpGet]
-        //public PartialViewResult AddComment(int id)
-        //{
-           
-        //    //var movie = c.Movies.FirstOrDefault(x => x.ID == id);
-        //    //ViewBag.Movie = movie;
 
-        //    //ViewBag.Movie = id;
-        //    return PartialView(id);
-        //}
 
         [HttpPost]
         public IActionResult AddComment(Comment p, MovieDetailModel m)
@@ -37,10 +28,10 @@ namespace MovieApp.Panel.UI.Controllers
             DateTime now = DateTime.Now;
             DateTime commentDate = new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, now.Second);
 
-            
+
             p.CommentDate = commentDate;
             p.CommentStatus = true;
-            p.CommentUserName=username;
+            p.CommentUserName = username;
             p.MovieId = m.MovieId;
             p.CommentUserNameId = userID;
             p.ProfilePictureUrl = profilePicture;
@@ -49,31 +40,15 @@ namespace MovieApp.Panel.UI.Controllers
         }
 
 
-        //[HttpPost]
-        //public IActionResult Delete(int commentId, MovieDetailModel m)
-        //{
-
-        //    Comment comment = commentManager.GetById(commentId);
-
-        //    if (comment != null)
-        //    {
-
-        //        commentManager.Delete(comment);
-        //    }
-
-
-        //    return RedirectToAction("Detail", "Movie",new { id = m.MovieId }); 
-        //}
-
         [HttpPost]
         public IActionResult Delete(int commentId, int movieId)
         {
-        
+
             Comment comment = commentManager.GetById(commentId);
 
             if (comment != null)
             {
-                
+
                 var username = User.Identity.Name;
 
                 if (comment.CommentUserName == username)
@@ -82,13 +57,32 @@ namespace MovieApp.Panel.UI.Controllers
                 }
                 else
                 {
-                   
+
                     return RedirectToAction("Unauthorized", "Error");
                 }
             }
 
 
-            return RedirectToAction("Detail", "Movie", new { id = movieId }); 
+            return RedirectToAction("Detail", "Movie", new { id = movieId });
+        }
+
+        [HttpGet]
+        public IActionResult LoadMoreComments(int startIndex, int pageSize, int movieId)
+        {
+            var movie = c.Movies.FirstOrDefault(x => x.ID == movieId);
+
+            if (movie == null)
+            {
+                // Hatalı film kimliği için işlemler yapabilirsiniz
+                return BadRequest("Hatalı film kimliği");
+            }
+
+            var comments = commentManager.GetCommentById(movieId)
+                .Skip(startIndex)
+                .Take(pageSize)
+                .ToList();
+
+            return PartialView("_CommentList", comments);
         }
 
     }
