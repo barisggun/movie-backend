@@ -102,8 +102,10 @@
 <br />
 <br />
 @await Html.PartialAsync("~/Views/Comment/AddComment.cshtml")
+<div id="commentComponentContainer">
+    @await Component.InvokeAsync("MovieComments", new{id=ViewBag.i})
+</div>
 
-@await Component.InvokeAsync("MovieComments", new{id=ViewBag.i})
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://kit.fontawesome.com/5ea815c1d0.js"></script>

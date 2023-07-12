@@ -1,11 +1,45 @@
 ﻿@model MovieDetailModel
 
-<form method="post" asp-action="AddComment" asp-controller="Comment">
+<form id="addCommentForm" method="post" asp-action="AddComment" asp-controller="Comment">
     <div class="review-input">
-        <input name="MovieId" type="hidden" value="@Model.MovieId"/>
+        <input name="MovieId" type="hidden" value="@Model.MovieId" />
         <input name="CommentContent" type="text" placeholder="Yorumunuz" />
-         <button class="addComment" type="submit">Yorum ekle</button>
+        <button id="addCommentButton" class="addComment" type="submit">Yorum ekle</button>
     </div>
 </form>
 
+
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" type="text/javascript"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        
+        $("#addCommentForm").submit(function (event) {
+            event.preventDefault(); // Sayfa yenilenmesini engelle
+
+            var formData = $(this).serialize();
+
+            $.ajax({
+                url: $(this).attr("action"),
+                type: $(this).attr("method"),
+                data: formData,
+                success: function (response) {
+
+                    var newCommentHtml = $(response).find("#commentContainer").html();
+
+                    // Yeni yorumu görüntüleyen bölüme ekle
+                    $("#commentComponentContainer").html(newCommentHtml);
+
+                    // Yorum eklendikten sonra formu sıfırla
+                    $("#addCommentForm")[0].reset();
+                },
+                error: function (xhr, status, error) {
+                    // Hata durumunda yapılacak işlemler
+                    console.error(error);
+                }
+            });
+        });
+    });
+</script>
+

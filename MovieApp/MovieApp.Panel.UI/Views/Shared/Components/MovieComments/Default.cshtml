@@ -38,7 +38,7 @@
     <div class="title">
         <h4>Yorumlar</h4>
     </div>
-    <div class="reviews">
+    <div class="reviews" id="commentContainer">
         @foreach (var item in Model)
         {
             <div class="review">
@@ -53,7 +53,7 @@
 
                     @if (User.Identity.Name == item.CommentUserName)
                     {
-                        <form method="post" asp-action="Delete" asp-controller="Comment">
+                        <form method="post" asp-action="Delete" asp-controller="Comment" class="deleteCommentForm">
                             <input type="hidden" name="commentId" value="@item.ID" />
                             <input type="hidden" name="movieId" value="@item.MovieId" />
                             <button class="deleteComment" type="submit">Yorumu Sil</button>
@@ -65,3 +65,32 @@
 
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Yorum silme formunu gönder
+        $(".deleteCommentForm").submit(function (event) {
+            event.preventDefault(); // Sayfa yenilenmesini engelle
+
+            var form = $(this);
+
+            // AJAX isteği gönder
+            $.ajax({
+                url: form.attr("action"),
+                type: form.attr("method"),
+                data: form.serialize(),
+                success: function () {
+                    // Yorum başarıyla silindiğinde yapılacak işlemler
+                    // Yorumun bulunduğu HTML parçasını kaldır
+                    form.closest(".review").remove();
+                },
+                error: function (xhr, status, error) {
+                    // Hata durumunda yapılacak işlemler
+                    console.error(error);
+                }
+            });
+        });
+    });
+</script>
+
