@@ -15,7 +15,7 @@
             <input type="hidden" class="userId" value="@item.CommentUserNameId" />
             @if (User.Identity.Name == item.CommentUserName || User.IsInRole("Admin"))
             {
-                <form method="post" asp-action="Delete" asp-controller="Comment" class="deleteCommentForm">
+                <form method="post" asp-action="DeleteFromProfile" asp-controller="Comment" class="deleteCommentForm">
                     <input type="hidden" name="commentId" value="@item.ID" />
                     <input type="hidden" name="movieId" value="@item.MovieId" />
                     <button class="deleteComment" type="submit">Yorumu Sil</button>

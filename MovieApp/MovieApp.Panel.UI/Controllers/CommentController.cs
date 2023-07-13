@@ -71,6 +71,35 @@ namespace MovieApp.Panel.UI.Controllers
             return RedirectToAction("Detail", "Movie", new { id = movieId });
         }
 
+        [HttpPost]
+        public IActionResult DeleteFromProfile(int commentId, int movieId)
+        {
+
+            Comment comment = commentManager.GetById(commentId);
+
+            if (comment != null)
+            {
+
+                var username = User.Identity.Name;
+                var userID = c.Users.Where(x => x.UserName == username).Select(y => y.Id).FirstOrDefault();
+                var userId = userID;
+
+                if (comment.CommentUserName == username)
+                {
+                    commentManager.Delete(comment);
+                    return RedirectToAction("Detail", "User", new { id = userId });
+                }
+                else
+                {
+
+                    return RedirectToAction("Unauthorized", "Error");
+                }
+            }
+
+
+            return View();
+        }
+
         [HttpGet]
         public IActionResult LoadMoreComments(int startIndex, int pageSize, int movieId)
         {
