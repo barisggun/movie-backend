@@ -74,7 +74,7 @@ namespace MovieApp.Panel.UI.Controllers
 
             if (movie == null)
             {
-                // Hatalı film kimliği için işlemler yapabilirsiniz
+                
                 return BadRequest("Hatalı film kimliği");
             }
 
@@ -83,8 +83,22 @@ namespace MovieApp.Panel.UI.Controllers
                 .Take(pageSize)
                 .ToList();
 
+            var userIds = comments.Select(comment => comment.CommentUserName);
+            var users = Task.Run(() => c.Users.Where(user => userIds.Contains(user.UserName)).ToList()).Result;
+
+            var userPhotos = users.ToDictionary(user => user.UserName, user => user.ProfilePictureUrl);
+
+            foreach (var comment in comments)
+            {
+                if (userPhotos.ContainsKey(comment.CommentUserName))
+                {
+                    comment.ProfilePictureUrl = userPhotos[comment.CommentUserName];
+                }
+            }
+
             return PartialView("_CommentList", comments);
         }
+
 
         [HttpGet]
         public IActionResult LoadMoreProfileComments(int startIndex, int pageSize, int userId)
@@ -93,7 +107,7 @@ namespace MovieApp.Panel.UI.Controllers
 
             if (user == null)
             {
-                // Hatalı kullanıcı kimliği için işlemler yapabilirsiniz
+                
                 return BadRequest("Hatalı kullanıcı kimliği");
             }
 

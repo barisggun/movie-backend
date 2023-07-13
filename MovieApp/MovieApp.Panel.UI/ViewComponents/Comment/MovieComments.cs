@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MovieApp.BusinessLayer.Concrete;
 using MovieApp.DataAccess.EntityFramework;
 using MovieApp.EntityLayer.Entities;
@@ -18,12 +19,16 @@ namespace MovieApp.Panel.UI.ViewComponents.Comment
         {
             var values = commentManager.GetCommentById(id);
 
+            var userIds = values.Select(comment => comment.CommentUserName);
+            var users = Task.Run(() => _userManager.Users.Where(user => userIds.Contains(user.UserName)).ToListAsync()).Result;
+
+            var userPhotos = users.ToDictionary(user => user.UserName, user => user.ProfilePictureUrl);
+
             foreach (var comment in values)
             {
-                var user = Task.Run(() => _userManager.FindByNameAsync(comment.CommentUserName)).Result;
-                if (user != null)
+                if (userPhotos.ContainsKey(comment.CommentUserName))
                 {
-                    comment.ProfilePictureUrl = user.ProfilePictureUrl;
+                    comment.ProfilePictureUrl = userPhotos[comment.CommentUserName];
                 }
             }
 
