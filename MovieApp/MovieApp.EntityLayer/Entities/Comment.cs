@@ -11,8 +11,8 @@ namespace MovieApp.EntityLayer.Entities
     {
         public int CommentUserNameId { get; set; }  
         public string CommentUserName { get; set; }
-        public string? ProfilePictureUrl { get; set; }
         public string CommentContent { get; set; }
+        public string? ProfilePictureUrl { get; set; }
         public DateTime CommentDate { get; set; }
         public bool CommentStatus { get; set; }
         public int MovieId { get; set; }
