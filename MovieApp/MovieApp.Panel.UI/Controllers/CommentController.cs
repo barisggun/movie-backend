@@ -86,5 +86,23 @@ namespace MovieApp.Panel.UI.Controllers
             return PartialView("_CommentList", comments);
         }
 
+        [HttpGet]
+        public IActionResult LoadMoreProfileComments(int startIndex, int pageSize, int userId)
+        {
+            var user = c.Users.FirstOrDefault(x => x.Id == userId);
+
+            if (user == null)
+            {
+                // Hatalı kullanıcı kimliği için işlemler yapabilirsiniz
+                return BadRequest("Hatalı kullanıcı kimliği");
+            }
+
+            var comments = commentManager.GetCommentListWithUser(userId)
+                .Skip(startIndex)
+                .Take(pageSize)
+                .ToList();
+
+            return PartialView("_ProfileCommentList", comments);
+        }
     }
 }
