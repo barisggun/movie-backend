@@ -21,6 +21,10 @@ namespace MovieApp.Panel.UI.Controllers
         [HttpPost]
         public IActionResult AddComment(Comment p, MovieDetailModel m)
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Unauthorized();
+            }
             var username = User.Identity.Name;
             var userID = c.Users.Where(x => x.UserName == username).Select(y => y.Id).FirstOrDefault();
             var profilePicture = c.Users.Where(x => x.UserName == username).Select(y => y.ProfilePictureUrl).FirstOrDefault();

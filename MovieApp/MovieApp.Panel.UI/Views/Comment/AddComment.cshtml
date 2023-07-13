@@ -42,4 +42,39 @@
         });
     });
 </script>
+<script>
+    $(document).ready(function () {
+        $("#addCommentForm").submit(function (event) {
+            event.preventDefault();
+
+            if (!isUserAuthenticated()) {
+                // Kullanıcı giriş yapmamışsa uygun bir mesaj göster ve "/Account/Login" sayfasına yönlendir
+                alert("Yorum yapmak için giriş yapmalısınız!");
+                window.location.href = "/Account/Login";
+                return;
+            }
+
+            var formData = $(this).serialize();
+
+            $.ajax({
+                url: $(this).attr("action"),
+                type: $(this).attr("method"),
+                data: formData,
+                success: function (response) {
+                    var newCommentHtml = $(response).find("#commentContainer").html();
+                    $("#commentComponentContainer").html(newCommentHtml);
+                    $("#addCommentForm")[0].reset();
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        });
+
+        function isUserAuthenticated() {
+            // Kullanıcı giriş yapmışsa true, yapmamışsa false döndür
+            return @User.Identity.IsAuthenticated.ToString().ToLower();
+        }
+    });
+</script>
 
