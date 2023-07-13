@@ -1,0 +1,16 @@
+﻿@model List<Comment>
+
+<div class="userComments">
+    @foreach (var item in Model)
+    {
+        <div class="comment">
+            <div class="commentTitle">
+                <h2>@item.CommentUserName</h2>
+                <p>@item.CommentDate</p>
+            </div>
+            <a href="@Url.Action("Detail", "Movie", new { id = item.MovieId })">
+                <p>@item.CommentContent</p>
+            </a>
+        </div>
+    }
+</div>

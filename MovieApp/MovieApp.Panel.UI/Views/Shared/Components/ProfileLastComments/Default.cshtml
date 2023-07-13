@@ -1,7 +1,7 @@
 ﻿@model List<Comment>
 
 <div class="userComments">
-    @foreach (var item in Model)
+    @foreach (var item in Model.Take(5))
     {
         <div class="comment">
             <div class="commentTitle">
@@ -9,7 +9,45 @@
                 <p>@item.CommentDate</p>
             </div>
 
-            <a href="@Url.Action("Detail", "Movie", new { id = item.MovieId })"><p>@item.CommentContent</p></a>
+            <a href="@Url.Action("Detail", "Movie", new { id = item.MovieId })">
+                <p>@item.CommentContent</p>
+            </a>
+            <input type="hidden" class="userId" value="@item.CommentUserNameId" />
         </div>
     }
 </div>
+<div class="load-more-container">
+    <button id="loadMoreButton" class="load-more-button addComment" style="cursor:pointer;" type="button">Daha fazla yükle</button>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var startIndex = 5;
+        var pageSize = 5;
+        var totalComments = @Model.Count;
+
+        $("#loadMoreButton").click(function () {
+            var userId = $(".userId:last").val(); // Son yorumun userId değerini al
+
+            $.ajax({
+                url: "@Url.Action("LoadMoreProfileComments", "Comment")",
+                type: "GET",
+                data: { startIndex: startIndex, pageSize: pageSize, userId: userId },
+                success: function (response) {
+                    $(".userComments").append(response);
+
+                    startIndex += pageSize;
+
+                    if (startIndex >= totalComments) {
+                        $(".load-more-container").hide();
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        });
+    });
+</script>
+
