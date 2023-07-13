@@ -68,7 +68,7 @@ namespace MovieApp.Panel.UI.Controllers
                     var password = _configuration["AppSettings:SmtpSettings:Password"];
 
                     MimeMessage mimeMessage = new MimeMessage();
-                    MailboxAddress mailboxAddressFrom = new MailboxAddress("Film Küresi Admin", "filmcapella@gmail.com");
+                    MailboxAddress mailboxAddressFrom = new MailboxAddress("SineSözlüK Kayıt", "sinesozluk.info@gmail.com");
                     MailboxAddress mailboxAddressTo = new MailboxAddress("User", user.Email);
 
                     mimeMessage.From.Add(mailboxAddressFrom);
@@ -78,7 +78,7 @@ namespace MovieApp.Panel.UI.Controllers
                     bodyBuilder.TextBody = p.UserName +  " SineSözlüğe hoş geldin! " + "Kayıt işlemini gerçekleştirmek için onay kodunuz: " + code;
                     mimeMessage.Body = bodyBuilder.ToMessageBody();
 
-                    mimeMessage.Subject = "Film Küresi Onay Kodu";
+                    mimeMessage.Subject = "SineSözlük Onay Kodu";
                     
                     ISmtpClient client  = new MailKit.Net.Smtp.SmtpClient();
                     client.Connect("smtp.gmail.com", 587, false);

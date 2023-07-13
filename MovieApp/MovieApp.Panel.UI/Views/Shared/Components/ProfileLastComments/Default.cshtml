@@ -56,6 +56,25 @@
                 }
             });
         });
+        $(".deleteCommentForm").submit(function (event) {
+            event.preventDefault();
+
+            var form = $(this);
+
+            $.ajax({
+                url: form.attr("action"),
+                type: form.attr("method"),
+                data: form.serialize(),
+                success: function () {
+                    form.closest(".review").remove();
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        });
     });
+
+   
 </script>
 
