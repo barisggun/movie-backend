@@ -71,6 +71,15 @@ namespace MovieApp.BusinessLayer.Concrete
 
         }
 
+        public Comment GetLastCommentByUser(string userId)
+        {
+            int parsedUserId = int.Parse(userId);
+
+            return c.Comments
+                    .Where(x => x.CommentUserNameId == parsedUserId)
+                    .OrderByDescending(x => x.CommentDate)
+                    .FirstOrDefault();
+        }
 
 
         public void Update(Comment comment)

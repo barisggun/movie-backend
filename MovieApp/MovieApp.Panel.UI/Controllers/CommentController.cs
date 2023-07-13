@@ -40,6 +40,21 @@ namespace MovieApp.Panel.UI.Controllers
             p.MovieId = m.MovieId;
             p.CommentUserNameId = userID;
 
+
+            var lastComment = commentManager.GetLastCommentByUser(userID.ToString());
+
+            if (lastComment != null)
+            {
+               
+                var timeDifference = commentDate - lastComment.CommentDate;
+
+                if (timeDifference.TotalSeconds < 10)
+                {
+                    ModelState.AddModelError(string.Empty, "Çok hızlı yorum ekliyorsunuz. Lütfen 10 saniye bekleyin.");
+                    return View("Detail", m); // Hata mesajını görüntülemek için "Detail" view'ini dön
+                }
+            }
+
             commentManager.Create(p);
             return RedirectToAction("Detail", "Movie", new { id = p.MovieId });
         }
