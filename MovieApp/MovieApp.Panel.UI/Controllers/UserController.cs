@@ -217,5 +217,39 @@ namespace MovieApp.Panel.UI.Controllers
 
             return View(model);
         }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult RemoveCoverPhoto(int id)
+        {
+            var user = userManager.GetById(id);
+            if (user == null)
+            {
+                return Json(new { success = false, imageUrl = "" });
+            }
+
+            user.ImageUrl = "coverPhotoDefault.jpg";
+            userManager.Update(user);
+
+            return Json(new { success = true, imageUrl = Url.Content("~/images/profile/coverPhotoDefault.jpg") });
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult RemoveProfilePhoto(int id)
+        {
+            var user = userManager.GetById(id);
+            if (user == null)
+            {
+                return Json(new { success = false, imageUrl = "" });
+            }
+
+            user.ProfilePictureUrl = "userDefault.png";
+            userManager.Update(user);
+
+            return Json(new { success = true, imageUrl = Url.Content("~/images/profile/userDefault.png") });
+        }
+
+
     }
 }

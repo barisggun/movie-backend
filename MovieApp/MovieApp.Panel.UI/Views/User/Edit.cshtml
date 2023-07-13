@@ -40,6 +40,7 @@
                 {
                     <div>
                         <img class="form-image" id="showImage" src="~/images/profile/@Model.ImageUrl" alt="" style="max-width: 200px; margin-top: 10px;" />
+                        <button type="button" class="btn btn-danger" onclick="removeCoverPhoto()">Kapak Fotoğrafını Kaldır</button>
                     </div>
                 }
 
@@ -49,6 +50,7 @@
                 {
                     <div>
                         <img class="form-image" id="showImage2" src="~/images/profile/@Model.ProfilePictureUrl" alt="" style="max-width: 200px; margin-top: 10px;" />
+                        <button type="button" class="btn btn-danger" onclick="removeProfilePhoto()">Profil Fotoğrafını Kaldır</button>
                     </div>
                 }
 
@@ -73,10 +75,48 @@
             </div>
         </div>
     </form>
-}
+    <script>
+        function removeCoverPhoto() {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("RemoveCoverPhoto", "User")",
+                data: { id: @Model.UserID },
+                success: function (result) {
+                    if (result.success) {
+                        $("#showImage").attr("src", result.imageUrl);
+                    } else {
+                        alert("Kapak fotoğrafı kaldırılamadı.");
+                    }
+                },
+                error: function () {
+                    alert("Bir hata oluştu.");
+                }
+            });
+        }
 
+        function removeProfilePhoto() {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("RemoveProfilePhoto", "User", new { id = Model.UserID })",
+                success: function (result) {
+                    if (result.success) {
+                        $("#showImage2").attr("src", result.imageUrl);
+                    } else {
+                        alert("Profil fotoğrafı kaldırılamadı.");
+                    }
+                },
+                error: function () {
+                    alert("Bir hata oluştu.");
+                }
+            });
+        }
+    </script>
+
+}
 else
 {
     <p>Giriş yapmadan profil düzenleyemezsiniz.</p>
 }
+
+
 
