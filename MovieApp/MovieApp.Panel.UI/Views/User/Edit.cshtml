@@ -8,6 +8,7 @@
 @if (User.Identity.IsAuthenticated)
 {
     <form method="post" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" style="background-color:white;color:red;"></div>
         <div class="contact-form">
             <div class="left-form">
 
@@ -19,7 +20,8 @@
 
 
                 <h4>Email</h4>
-                <input class="contact-input" type="email" id="EMail" id="Email" value="@Model.EMail">
+                <input class="contact-input" type="email" id="EMail" name="EMail" @*value="@Model.EMail"*@>
+
 
                 <h4>Eski Şifre</h4>
                 <input class="contact-input" type="password" id="OldPassword" name="OldPassword">
@@ -37,7 +39,7 @@
                 @if (!string.IsNullOrEmpty(Model.ImageUrl))
                 {
                     <div>
-                        <img class="form-image" id="showImage" src="~/images/profile/@Model.ImageUrl" alt="Selected Image" style="max-width: 200px; margin-top: 10px;" />
+                        <img class="form-image" id="showImage" src="~/images/profile/@Model.ImageUrl" alt="" style="max-width: 200px; margin-top: 10px;" />
                     </div>
                 }
 
@@ -46,7 +48,7 @@
                 @if (!string.IsNullOrEmpty(Model.ProfilePictureUrl))
                 {
                     <div>
-                        <img class="form-image" id="showImage2" src="~/images/profile/@Model.ProfilePictureUrl" alt="Selected Profile Image" style="max-width: 200px; margin-top: 10px;" />
+                        <img class="form-image" id="showImage2" src="~/images/profile/@Model.ProfilePictureUrl" alt="" style="max-width: 200px; margin-top: 10px;" />
                     </div>
                 }
 
@@ -64,6 +66,7 @@
                         }
                     </div>
                 }
+
                 <button class="upd-btn" type="submit">Güncelle</button>
 
 
@@ -76,3 +79,4 @@ else
 {
     <p>Giriş yapmadan profil düzenleyemezsiniz.</p>
 }
+

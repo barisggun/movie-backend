@@ -104,7 +104,19 @@ namespace MovieApp.Panel.UI.Controllers
 
                 user.NameSurname = model.NameSurname;
                 user.About = model.About;
-                user.Email = model.EMail;
+
+                if (!string.IsNullOrEmpty(model.EMail))
+                {
+                    var existingUser = await _userManager.FindByEmailAsync(model.EMail);
+                    if (existingUser != null)
+                    {
+                        ModelState.AddModelError(String.Empty, "Bu mail sistemde kayıtlı, lütfen geçerli bir mail adresi giriniz.");
+                        return View(model);
+                    }
+
+                    user.Email = model.EMail;
+                }
+
 
                 if (imageFile != null)
                 {
