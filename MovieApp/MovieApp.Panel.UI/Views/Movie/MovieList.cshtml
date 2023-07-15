@@ -11,28 +11,33 @@
         <div class="filters">
             <details open>
                 <summary>Film Yılı</summary>
+                <div class="filterTitle">
                 @foreach (var year in Model.Filter.Years ?? new List<int>())
                 {
-                    <div class="element">
+                        <div class="filterContent">
                        
                             <input type="checkbox" name="Years" value="@year">
                             <p>@year</p>
   
                     </div>
                 }
+                </div>
             </details>
             <details open>
                 <summary>Kategori</summary>
-                @foreach (var category in Model.Filter.Categories ?? new List<Category>())
-                {
-                    <div class="element">
-                        <input type="checkbox" name="Categories" value="@category.ID">
-                        <p>@category.CategoryName</p>
-                    </div>
-                }
+                <div class="filterTitle">
+                    @foreach (var category in Model.Filter.Categories ?? new List<int>())
+                    {
+                        <div class="element">
+                            <input type="checkbox" name="Categories" value="@category">
+                            <p>@(ViewBag.CategoryNames != null && ViewBag.CategoryNames.ContainsKey(category) ? ViewBag.CategoryNames[category] : string.Empty)</p>
+                        </div>
+                    }
+                </div>
             </details>
             <details open>
                 <summary>Puan</summary>
+                <div class="filterTitle">
                 @foreach (var rating in Model.Filter.Ratings ?? new List<int>())
                 {
                     <div class="element">
@@ -40,27 +45,35 @@
                         <p>@rating</p>
                     </div>
                 }
+                </div>
             </details>
             <details open>
                 <summary>Sıralama(Puan)</summary>
-                <div class="element">
-                    <input type="checkbox" name="IsHighToLow">
-                    <p>Yüksekten düşüğe</p>
-                </div>
-                <div class="element">
-                    <input type="checkbox" name="IsHighToLow">
-                    <p>Düşükten yükseğe</p>
+                <div class="filterTitle">
+                    <div class="filterContent">
+                        <input type="checkbox">
+                        <p>Düşükten yükseğe</p>
+                    </div>
+                    <div class="filterContent">
+                        <input type="checkbox">
+                        <p>Yüksekten düşüğe</p>
+                    </div>
                 </div>
             </details>
+            <div class="apply">
+                <button type="submit" class="applyButton" href="#">Filtrele</button>
+                <a href="@Url.Action("MovieList", "Movie")" class="applyButton">Filtreyi Sıfırla</a>
+            </div>
         </div>
         <div class="filterMainContent">
             <!-- Filtreleme Sonuçları -->
+            <p>Filtreleme Sonuçları</p>
             @if (Model.Movies.Any())
             {
-                <div class="onerilenFilmler">
+                <div class="filterResult">
                 @foreach (var movie in Model.Movies)
                 {
-                        <div class="cardsList">
+                        <div class="filterResultContent">
                             <a href="/Movie/Detail/@movie.ID"><img src="~/images/movie/@movie.Poster" alt="" /></a>
                     </div>
                 }
@@ -72,5 +85,6 @@
             }
         </div>
     </div>
-    <button type="submit" class="apply; applyButton" style="cursor: pointer;">Filtrele</button>
+    @*<button type="submit" class="apply; applyButton" style="cursor: pointer;">Filtrele</button>*@
 </form>
+

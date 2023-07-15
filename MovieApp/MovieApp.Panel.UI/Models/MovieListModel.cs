@@ -10,7 +10,7 @@ namespace MovieApp.Panel.UI.Models
         public MovieListModel()
         {
             Filter = new FilterModel();
-            Movies = new List<Movie>(); // Movies özelliğini başlat
+            Movies = new List<Movie>();
         }
     }
 }
