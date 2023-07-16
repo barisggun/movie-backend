@@ -272,8 +272,9 @@
                 }
             },
             error: function () {
-                $('#notification-container').text('Filme oy vermek için giriş yapmalısınız.');
-                $('#notification-container').addClass('error');
+                toastr.error('Filme puan vermek için giriş yapmalısınız', '', { positionClass: 'toast-bottom-right' });
+                //$('#notification-container').text('Filme oy vermek için giriş yapmalısınız.');
+                //$('#notification-container').addClass('error');
             }
         });
     }

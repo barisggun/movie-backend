@@ -36,7 +36,7 @@
                 data: formData,
                 success: function (response) {
                     currentTime = Date.now();
-                    var newCommentHtml = $(response).find("#commentContainer").html();
+                    var newCommentHtml = $(response).find(".popularReviews").html();
                     $(".popularReviews").html(newCommentHtml);
                     $("#addCommentForm")[0].reset();
                     $("#errorContainer").empty(); // Hata mesajını temizle
