@@ -71,6 +71,7 @@
                 data: form.serialize(),
                 success: function () {
                     form.closest(".review").remove();
+                    toastr.success('Yorumunuz başarıyla silindi.', '', { positionClass: 'toast-bottom-right' });
                 },
                 error: function (xhr, status, error) {
                     console.error(error);

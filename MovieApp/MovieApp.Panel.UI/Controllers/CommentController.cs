@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using CrmUygulamasi.UI.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MovieApp.BusinessLayer.Concrete;
@@ -16,14 +17,20 @@ namespace MovieApp.Panel.UI.Controllers
         CommentManager commentManager = new CommentManager(new EfCommentRepository());
         UserManager userManager = new UserManager(new EfUserRepository());
 
+        private readonly INotificationService notificationService;
 
+        public CommentController(INotificationService notificationService)
+        {
+            this.notificationService = notificationService;
+        }
 
         [HttpPost]
         public IActionResult AddComment(Comment p, MovieDetailModel m)
         {
             if (!User.Identity.IsAuthenticated)
             {
-                return Unauthorized();
+                notificationService.Notification(NotifyType.Error, "Yorum yapmak için giriş yapmalısınız.");
+                return RedirectToAction("Detail", "Movie", new { id = p.MovieId });
             }
             var username = User.Identity.Name;
             var userID = c.Users.Where(x => x.UserName == username).Select(y => y.Id).FirstOrDefault();
@@ -50,12 +57,14 @@ namespace MovieApp.Panel.UI.Controllers
 
                 if (timeDifference.TotalSeconds < 10)
                 {
-                    ModelState.AddModelError(string.Empty, "Çok hızlı yorum ekliyorsunuz. Lütfen 10 saniye bekleyin.");
-                    return View("Detail", m); // Hata mesajını görüntülemek için "Detail" view'ini dön
+                    //ModelState.AddModelError(string.Empty, "Çok hızlı yorum ekliyorsunuz. Lütfen 10 saniye bekleyin.");
+                    notificationService.Notification(NotifyType.Warning, "Çok hızlı bir şekilde yorum eklemeye çalıştınız!");
+                    return RedirectToAction("Detail", "Movie", new { id = p.MovieId });
                 }
             }
 
             commentManager.Create(p);
+            notificationService.Notification(NotifyType.Success, $"{p.CommentUserName} Yorumunuz başarıyla eklendi!");
             return RedirectToAction("Detail", "Movie", new { id = p.MovieId });
         }
 

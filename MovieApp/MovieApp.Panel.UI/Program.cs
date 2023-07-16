@@ -7,7 +7,8 @@ using MovieApp.EntityLayer.Entities;
 using System.Configuration;
 using Microsoft.Extensions.Configuration;
 using Humanizer.Configuration;
-
+using CrmUygulamasi.UI.Services;
+using Microsoft.AspNetCore.Identity;
 
 namespace MovieApp.Panel.UI
 {
@@ -25,8 +26,9 @@ namespace MovieApp.Panel.UI
             }).AddEntityFrameworkStores<Context>();
             //Identity End
 
-
-
+            //Toastr için
+            builder.Services.AddHttpContextAccessor();
+            builder.Services.AddScoped<INotificationService, NotificationService>();
 
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
@@ -35,9 +37,6 @@ namespace MovieApp.Panel.UI
 
             // GiphyApiKey değerini yapılandırmadan alın
             var giphyApiKey = configuration.GetValue<string>("AppSettings:GiphyApiKey");
-
-
-
 
             //Cookie start
             builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();

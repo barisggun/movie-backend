@@ -15,12 +15,13 @@
           crossorigin="anonymous"
           referrerpolicy="no-referrer" />
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="~/main/assets/CSS/reset.css" />
     <link rel="stylesheet" href="~/main/assets/CSS/main.css" />
     <script src="~/main/assets/JS/main.js" defer></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <title>@ViewData["Title"] - Film Project</title>
+
 </head>
 <body>
     <div class="container">
@@ -31,16 +32,18 @@
                 </div>
                 <div class="nav">
                     <ul class="left">
-                        <a href="/Main/Index"><li>Anasayfa</li></a>
-                        <a href="/Movie/MovieList"><li>Filmler</li></a>
+                        <a href="/Main/Index">
+                        <li>Anasayfa</li></a>
+                        <a href="/Movie/MovieList">
+                        <li>Filmler</li></a>
                         <li>Listeler</li>
                     </ul>
 
                     <form asp-controller="Main" asp-action="Search" method="get">
-                        <input class="filter" type="text" name="searchTerm" placeholder="Ara"  />
+                        <input class="filter" type="text" name="searchTerm" placeholder="Ara" />
                         <button type="submit" style="display: none;">Ara</button>
                     </form>
-                    
+
 
                     @if (!User.Identity.IsAuthenticated)
                     {
@@ -95,36 +98,38 @@
         <!-- Header Finish-->
         @RenderBody()
     </div>
-        <!-- Footer Başlangıç-->
-        <div class="footer">
-            <div class="logoSmall">
-                <img src="assets/img/anaLogo.png" alt="" />
-            </div>
-            <div class="links">
-                <ul>
-                    SineSözlük
-                    <li>Sinesözlük Hakkında Bilgi Alın</li>
-                    <li>Bize Ulaşın</li>
-                    <li>Geri Bildirimde Bulun</li>
-                    <li>Hata Bildir</li>
-                </ul>
-                <ul>
-                    Sayfalar
-                    <li>Filmler</li>
-                    <li>Bloglar</li>
-                    <li>Profil</li>
-                    <li>Son Yorumlar</li>
-                </ul>
-                <ul>
-                    Sosyal Medya
-                    <li><i class="fa-brands fa-instagram"></i></li>
-                    <li><i class="fa-brands fa-facebook"></i></li>
-                    <li><i class="fa-brands fa-twitter"></i></li>
-                </ul>
-            </div>
+    <!-- Footer Başlangıç-->
+    <div class="footer">
+        <div class="logoSmall">
+            <img src="assets/img/anaLogo.png" alt="" />
         </div>
-        <!--Footer Bitiş-->
+        <div class="links">
+            <ul>
+                SineSözlük
+                <li>Sinesözlük Hakkında Bilgi Alın</li>
+                <li>Bize Ulaşın</li>
+                <li>Geri Bildirimde Bulun</li>
+                <li>Hata Bildir</li>
+            </ul>
+            <ul>
+                Sayfalar
+                <li>Filmler</li>
+                <li>Bloglar</li>
+                <li>Profil</li>
+                <li>Son Yorumlar</li>
+            </ul>
+            <ul>
+                Sosyal Medya
+                <li><i class="fa-brands fa-instagram"></i></li>
+                <li><i class="fa-brands fa-facebook"></i></li>
+                <li><i class="fa-brands fa-twitter"></i></li>
+            </ul>
+        </div>
+    </div>
+    <!--Footer Bitiş-->
 
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <partial name="_Notifications"/>
 </body>
 </html>

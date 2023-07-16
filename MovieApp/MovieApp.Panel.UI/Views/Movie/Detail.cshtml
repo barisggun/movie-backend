@@ -71,29 +71,29 @@
             <div class="director">
                 <h4> Ortalama Puan: @Model.AverageRating </h4>
             </div>
-            <div id="notification-container" class="@TempData["NotificationType"]">
+           @* <div id="notification-container" class="@TempData["NotificationType"]">
                 @TempData["NotificationMessage"]
-            </div>
+            </div>*@
 
             <div class="wraper"></div>
             <br />
             <div>
                 <a href="#" class="addMyWatch @(Model.IsMovieAdded != false ? "watchlist-button" : "")" style="margin-left:0px !important;" onclick="toggleWatchList()">
                 <img src="~/main/assets/img/png/addIcon.png" alt="" class="addIcon" />
-                <span class="text">İzleyeceklerime Ekle</span>
+                    <span class="text addToWatchList">İzleyeceklerime Ekle</span>
             </a>
                 <a href="#" class="addToWatch @(Model.IsMovieAddedToWatchedList != false ? "watchedlist-button" : "")" style="margin-left:0px !important;" onclick="toggleWatchedList()">
                 <img src="~/main/assets/img/png/favIcon.png" alt="" class="addIcon" />
-                     <span class="text">İzlenenlere Ekle</span>
+                     <span class="text addToWatchedList">İzlenenlere Ekle</span>
             </a>
             </div>
             <br />
-            <div id="notification-container2" class="@TempData["NotificationType"]">
+         @*   <div id="notification-container2" class="@TempData["NotificationType"]">
                 @TempData["NotificationMessage"]
             </div>
             <div id="notification-container3" class="@TempData["NotificationType"]">
                 @TempData["NotificationMessage"]
-            </div>
+            </div>*@
         </div>
         
     </div>
@@ -113,76 +113,80 @@
 
 <style>
     .watchlist-button {
-        background-color: green;
+        background-color: #67D449;
     }
 
         .watchlist-button:hover {
-            background-color: red;
+            background-color: #EA7D62;
         }
 
     .watchedlist-button {
-        background-color: green;
+        background-color: #67D449;
     }
 
         .watchedlist-button:hover {
-            background-color: red;
+            background-color: #EA7D62;
         }
 </style>
+
 <script>
     function toggleWatchList() {
         var movieId = @Model.MovieId;
         var addButton = $('.addMyWatch');
+        var buttonText = $('.addToWatchList');
 
         if (addButton.hasClass('watchlist-button')) {
-            removeMovieList(movieId, addButton);
+            removeMovieList(movieId, addButton, buttonText);
         } else {
-            addMovieList(movieId, addButton);
+            addMovieList(movieId, addButton, buttonText);
         }
     }
 
     function toggleWatchedList() {
         var movieId = @Model.MovieId;
         var addButton = $('.addToWatch');
+        var buttonText = $('.addToWatchedList');
 
         if (addButton.hasClass('watchedlist-button')) {
-            RemoveFromWatchedList(movieId, addButton);
+            RemoveFromWatchedList(movieId, addButton, buttonText);
         } else {
-            addMovieWatchedList(movieId, addButton);
+            addMovieWatchedList(movieId, addButton, buttonText);
         }
     }
 
-    function addMovieList(movieId, addButton) {
+    function addMovieList(movieId, addButton, buttonText) {
         $.ajax({
             url: '/Movie/AddWatchList',
             type: 'POST',
             data: { movieId: movieId },
             success: function (response) {
                 if (response.success) {
-                    $('#notification-container2').text('Film, izleme listenize eklendi.');
-                    $('#notification-container2').addClass('success');
+                    toastr.success('İzleme listesine başarıyla eklendi!', '', { positionClass: 'toast-bottom-right' });
                     addButton.addClass('watchlist-button');
+                    buttonText.text('İzleme listemde');
                 } else {
                     $('#notification-container2').text('Zaten bu film izleme listenizde');
                     $('#notification-container2').addClass('error');
                 }
             },
             error: function () {
-                $('#notification-container2').text('Filmi listenize eklemeniz için giriş yapmalısınız.');
-                $('#notification-container2').addClass('error');
+                //$('#notification-container2').text('Filmi listenize eklemeniz için giriş yapmalısınız.');
+                //$('#notification-container2').addClass('error');
+                toastr.error('İzleme listenize eklemek için giriş yapmanız gerekli.', '', { positionClass: 'toast-bottom-right' });
             }
         });
     }
 
-    function removeMovieList(movieId, addButton) {
+    function removeMovieList(movieId, addButton, buttonText) {
         $.ajax({
             url: '/Movie/RemoveFromWatchList',
             type: 'POST',
             data: { movieId: movieId },
             success: function (response) {
                 if (response.success) {
-                    $('#notification-container2').text('Film, izleme listenizden kaldırıldı.');
-                    $('#notification-container2').addClass('success');
+                    toastr.success('İzleme listenizden başarıyla kaldırıldı!', '', { positionClass: 'toast-bottom-right' });
                     addButton.removeClass('watchlist-button');
+                    buttonText.text('İzleme listesine ekle');
                 } else {
                     $('#notification-container2').text('Film, izleme listenizde bulunamadı.');
                     $('#notification-container2').addClass('error');
@@ -195,38 +199,39 @@
         });
     }
 
-    function addMovieWatchedList(movieId, addButton) {
+    function addMovieWatchedList(movieId, addButton,buttonText) {
         $.ajax({
             url: '/Movie/AddWatchedList',
             type: 'POST',
             data: { movieId: movieId },
             success: function (response) {
                 if (response.success) {
-                    $('#notification-container3').text('Film, izledikleriniz arasına eklendi.');
-                    $('#notification-container3').addClass('success');
+                    toastr.success('İzlenenlere başarıyla eklendi!', '', { positionClass: 'toast-bottom-right' });
                     addButton.addClass('watchedlist-button');
+                    buttonText.text('İzleme listemde');
                 } else {
                     $('#notification-container3').text('Zaten bu film izledikleriniz arasında.');
                     $('#notification-container3').addClass('error');
                 }
             },
             error: function () {
-                $('#notification-container3').text('Filmi listenize eklemeniz için giriş yapmalısınız.');
-                $('#notification-container3').addClass('error');
+                //$('#notification-container3').text('Filmi listenize eklemeniz için giriş yapmalısınız.');
+                //$('#notification-container3').addClass('error');
+                toastr.error('İzleme listenize eklemek için giriş yapmanız gerekli.', '', { positionClass: 'toast-bottom-right' });
             }
         });
     }
 
-    function RemoveFromWatchedList(movieId, addButton) {
+    function RemoveFromWatchedList(movieId, addButton,buttonText) {
         $.ajax({
             url: '/Movie/RemoveFromWatchedList',
             type: 'POST',
             data: { movieId: movieId },
             success: function (response) {
                 if (response.success) {
-                    $('#notification-container3').text('Film, izledikleriniz arasından kaldırıldı.');
-                    $('#notification-container3').addClass('success');
+                    toastr.success('İzlenenlerden başarıyla kaldırıldı!', '', { positionClass: 'toast-bottom-right' });
                     addButton.removeClass('watchedlist-button');
+                    buttonText.text('İzlenenlerden kaldır');
                 } else {
                     $('#notification-container3').text('Film, izledikleriniz arasında bulunamadı.');
                     $('#notification-container3').addClass('error');
@@ -250,9 +255,9 @@
             success: function (response) {
                 if (response.success) {
                     var averageRating = response.averageRating;
-
-                    $('#notification-container').text('Oyunuz başarıyla kaydedildi.');
-                    $('#notification-container').addClass('success');
+                    toastr.success('Oyunuz başarıyla kaydedildi', '', { positionClass: 'toast-bottom-right' });
+                    //$('#notification-container').text('Oyunuz başarıyla kaydedildi.');
+                    //$('#notification-container').addClass('success');
                     $('.director h4').text('Ortalama Puan: ' + averageRating);
 
                     for (var i = 1; i <= 5; i++) {

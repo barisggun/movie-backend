@@ -189,7 +189,7 @@ namespace MovieApp.Panel.UI.Controllers
             string movieTitle = model.MovieTitle;
             string apiUrl = $"https://api.giphy.com/v1/gifs/search?q={Uri.EscapeDataString(movieTitle)}&api_key={apiKey}";
 
-           
+
             using (HttpClient client = new HttpClient())
             {
                 HttpResponseMessage response = await client.GetAsync(apiUrl);
@@ -198,10 +198,10 @@ namespace MovieApp.Panel.UI.Controllers
                     string json = await response.Content.ReadAsStringAsync();
                     dynamic data = JObject.Parse(json);
 
-                    
+
                     string gifUrl = data.data[0].images.original.url;
 
-                    
+
                     string gifStyle = $"background-image: linear-gradient( 33deg, #13171D 24.97%, #13171D 38.3%, rgba(26, 26, 26, 0.0409746) 97.47%, #13171D 100% ), url({gifUrl});";
                     ViewBag.GifStyle = gifStyle;
                 }
@@ -255,7 +255,7 @@ namespace MovieApp.Panel.UI.Controllers
                 return Json(new { success = true, averageRating });
             }
         }
-    
+
 
         [HttpPost]
         public IActionResult AddWatchList(int movieId, MovieDetailModel mdv)
@@ -452,16 +452,16 @@ namespace MovieApp.Panel.UI.Controllers
             int movieId = movie.ID;
 
 
-            
+
             if (selectedActorIds != null)
             {
-                
+
                 List<ActorMovie> existingActors = actorMovieManager.GetAll().Where(am => am.MovieId == movieId).ToList();
 
-                
+
                 foreach (int actorId in selectedActorIds)
                 {
-                    
+
                     if (!existingActors.Any(am => am.ActorId == actorId))
                     {
                         ActorMovie actorMovie = new ActorMovie { ActorId = actorId, MovieId = movieId };
@@ -469,10 +469,10 @@ namespace MovieApp.Panel.UI.Controllers
                     }
                 }
 
-                
+
                 foreach (ActorMovie existingActor in existingActors)
                 {
-                    
+
                     if (!selectedActorIds.Contains(existingActor.ActorId))
                     {
                         actorMovieManager.Delete(existingActor);
@@ -481,16 +481,16 @@ namespace MovieApp.Panel.UI.Controllers
             }
 
 
-            
+
             if (selectedCategoryIds != null)
             {
-                
+
                 List<CategoryMovie> existingCategories = categoryMovieManager.GetAll().Where(cm => cm.MovieId == movieId).ToList();
 
-                
+
                 foreach (int categoryId in selectedCategoryIds)
                 {
-                    
+
                     if (!existingCategories.Any(cm => cm.CategoryId == categoryId))
                     {
                         CategoryMovie categoryMovie = new CategoryMovie { CategoryId = categoryId, MovieId = movieId };
@@ -498,10 +498,10 @@ namespace MovieApp.Panel.UI.Controllers
                     }
                 }
 
-                
+
                 foreach (CategoryMovie existingCategory in existingCategories)
                 {
-                    
+
                     if (!selectedCategoryIds.Contains(existingCategory.CategoryId))
                     {
                         categoryMovieManager.Delete(existingCategory);
@@ -509,16 +509,16 @@ namespace MovieApp.Panel.UI.Controllers
                 }
             }
 
-            
+
             if (selectedDirectorIds != null)
             {
-                
+
                 List<DirectorMovie> existingDirectors = directorMovieManager.GetAll().Where(dm => dm.MovieId == movieId).ToList();
 
-                
+
                 foreach (int directorId in selectedDirectorIds)
                 {
-                    
+
                     if (!existingDirectors.Any(dm => dm.DirectorId == directorId))
                     {
                         DirectorMovie directorMovie = new DirectorMovie { DirectorId = directorId, MovieId = movieId };
@@ -526,17 +526,17 @@ namespace MovieApp.Panel.UI.Controllers
                     }
                 }
 
-                
+
                 foreach (DirectorMovie existingDirector in existingDirectors)
                 {
-                    
+
                     if (!selectedDirectorIds.Contains(existingDirector.DirectorId))
                     {
                         directorMovieManager.Delete(existingDirector);
                     }
                 }
             }
-            return RedirectToAction("Index","Movie");
+            return RedirectToAction("Index", "Movie");
         }
 
 
@@ -620,7 +620,7 @@ namespace MovieApp.Panel.UI.Controllers
         {
             var categories = c.Categories?.ToList() ?? new List<Category>();
 
-        
+
             return categories;
         }
 
@@ -635,7 +635,7 @@ namespace MovieApp.Panel.UI.Controllers
         [AllowAnonymous]
         public IActionResult MoviesByActors(int Id)
         {
-            var actor = c.Actors.Include(x=>x.Movies).FirstOrDefault(y=>y.ID == Id);
+            var actor = c.Actors.Include(x => x.Movies).FirstOrDefault(y => y.ID == Id);
 
             if (actor == null)
             {

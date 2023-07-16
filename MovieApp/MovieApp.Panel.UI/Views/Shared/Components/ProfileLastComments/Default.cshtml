@@ -58,6 +58,25 @@
         });
     });
 
+    //Yorum siliniyor ama sayfa yenilenince gözüküyor silindiği.
+    $(".deleteCommentForm").submit(function (event) {
+        event.preventDefault();
+
+        var form = $(this);
+
+        $.ajax({
+            url: form.attr("action"),
+            type: form.attr("method"),
+            data: form.serialize(),
+            success: function () {
+                form.closest(".comment").remove();
+                toastr.success('Yorumunuz başarıyla silindi.', '', { positionClass: 'toast-bottom-right' });
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
+            }
+        });
+    });
    
 </script>
 
