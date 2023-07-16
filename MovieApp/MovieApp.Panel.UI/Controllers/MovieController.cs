@@ -599,11 +599,11 @@ namespace MovieApp.Panel.UI.Controllers
                 movies = movies.Where(m => m.AverageRating.HasValue && filters.Ratings.Contains((int)m.AverageRating.Value));
             }
 
-            if (filters.IsHighToLow)
+            if (filters.Sorting == "highToLow")
             {
                 movies = movies.OrderByDescending(m => m.AverageRating);
             }
-            else
+            else if (filters.Sorting == "lowToHigh")
             {
                 movies = movies.OrderBy(m => m.AverageRating);
             }
@@ -638,13 +638,6 @@ namespace MovieApp.Panel.UI.Controllers
 
             return ratings;
         }
-
-        //[AllowAnonymous]
-        //[HttpGet]
-        //public IActionResult ResetFilter()
-        //{
-        //    return RedirectToAction(nameof(MovieList));
-        //}
 
         [AllowAnonymous]
         public IActionResult MoviesByActors(int Id)

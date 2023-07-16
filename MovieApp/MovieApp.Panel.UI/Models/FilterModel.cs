@@ -9,6 +9,7 @@ namespace MovieApp.Panel.UI.Models
         public List<int>? Ratings { get; set; }
         public bool IsHighToLow { get; set; }
         public List<string>? CategoryNames { get; set; }
+        public string? Sorting { get; set; }
     }
 
 }

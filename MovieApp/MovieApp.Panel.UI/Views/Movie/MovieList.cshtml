@@ -51,11 +51,11 @@
                 <summary>Sıralama(Puan)</summary>
                 <div class="filterTitle">
                     <div class="filterContent">
-                        <input type="checkbox">
+                        <input type="checkbox" name="Sorting" value="lowToHigh" @(Model.Filter.Sorting == "lowToHigh" ? "checked" : "")>
                         <p>Düşükten yükseğe</p>
                     </div>
                     <div class="filterContent">
-                        <input type="checkbox">
+                        <input type="checkbox" name="Sorting" value="highToLow" @(Model.Filter.Sorting == "highToLow" ? "checked" : "")>
                         <p>Yüksekten düşüğe</p>
                     </div>
                 </div>
@@ -87,4 +87,3 @@
     </div>
     @*<button type="submit" class="apply; applyButton" style="cursor: pointer;">Filtrele</button>*@
 </form>
-
