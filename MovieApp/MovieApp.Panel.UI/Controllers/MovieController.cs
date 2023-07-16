@@ -618,12 +618,19 @@ namespace MovieApp.Panel.UI.Controllers
             return availableYears;
         }
 
+
+
         private List<int> GetAvailableCategories()
         {
-            var categories = c.Categories?.ToList() ?? new List<Category>();
-
-        
+            var categories = c.Categories?.Select(cat => cat.ID).ToList() ?? new List<int>();
+            GetAvailableCategoryNames(); // Kategori isimlerini doldur
             return categories;
+        }
+
+        private void GetAvailableCategoryNames()
+        {
+            var categoryNames = c.Categories?.ToDictionary(cat => cat.ID, cat => cat.CategoryName) ?? new Dictionary<int, string>();
+            ViewBag.CategoryNames = categoryNames;
         }
 
         private List<int> GetAvailableRatings()
