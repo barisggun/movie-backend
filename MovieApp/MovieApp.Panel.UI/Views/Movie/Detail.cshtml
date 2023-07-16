@@ -77,14 +77,16 @@
             <div class="wraper"></div>
             <br />
             <div>
-                <a href="#" class="addMyWatch @(Model.IsMovieAdded != false ? "watchlist-button" : "")" style="margin-left:0px !important;" onclick="toggleWatchList()">
-                <img src="~/main/assets/img/png/addIcon.png" alt="" class="addIcon" />
+                <a href="#" class="addMyWatch @(Model.IsMovieAdded != false ? "watchlist-button" : "")" style="margin-left:0px !important;" onclick="toggleWatchList(); return false;">
+                    <img src="~/main/assets/img/png/addIcon.png" alt="" class="addIcon" />
                     <span class="text addToWatchList">İzleyeceklerime Ekle</span>
-            </a>
-                <a href="#" class="addToWatch @(Model.IsMovieAddedToWatchedList != false ? "watchedlist-button" : "")" style="margin-left:0px !important;" onclick="toggleWatchedList()">
-                <img src="~/main/assets/img/png/favIcon.png" alt="" class="addIcon" />
-                     <span class="text addToWatchedList">İzlenenlere Ekle</span>
-            </a>
+                </a>
+
+                <a href="#" class="addToWatch @(Model.IsMovieAddedToWatchedList != false ? "watchedlist-button" : "")" style="margin-left:0px !important;" onclick="toggleWatchedList(); return false;">
+                    <img src="~/main/assets/img/png/favIcon.png" alt="" class="addIcon" />
+                    <span class="text addToWatchedList">İzlenenlere Ekle</span>
+                </a>
+
             </div>
             <br />
          @*   <div id="notification-container2" class="@TempData["NotificationType"]">
@@ -139,6 +141,7 @@
         } else {
             addMovieList(movieId, addButton, buttonText);
         }
+        return false;
     }
 
     function toggleWatchedList() {
@@ -151,6 +154,7 @@
         } else {
             addMovieWatchedList(movieId, addButton, buttonText);
         }
+        return false;
     }
 
     function addMovieList(movieId, addButton, buttonText) {
@@ -207,15 +211,13 @@
                 if (response.success) {
                     toastr.success('İzlenenlere başarıyla eklendi!', '', { positionClass: 'toast-bottom-right' });
                     addButton.addClass('watchedlist-button');
-                    buttonText.text('İzleme listemde');
+                    buttonText.text('İzlediklerimde');
                 } else {
                     $('#notification-container3').text('Zaten bu film izledikleriniz arasında.');
                     $('#notification-container3').addClass('error');
                 }
             },
             error: function () {
-                //$('#notification-container3').text('Filmi listenize eklemeniz için giriş yapmalısınız.');
-                //$('#notification-container3').addClass('error');
                 toastr.error('İzleme listenize eklemek için giriş yapmanız gerekli.', '', { positionClass: 'toast-bottom-right' });
             }
         });
@@ -228,9 +230,9 @@
             data: { movieId: movieId },
             success: function (response) {
                 if (response.success) {
-                    toastr.success('İzlenenlerden başarıyla kaldırıldı!', '', { positionClass: 'toast-bottom-right' });
+                    toastr.success('İzlediklerimden başarıyla kaldırıldı!', '', { positionClass: 'toast-bottom-right' });
                     addButton.removeClass('watchedlist-button');
-                    buttonText.text('İzlenenlerden kaldır');
+                    buttonText.text('İzlenenlere Ekle');
                 } else {
                     $('#notification-container3').text('Film, izledikleriniz arasında bulunamadı.');
                     $('#notification-container3').addClass('error');
