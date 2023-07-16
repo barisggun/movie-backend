@@ -552,7 +552,9 @@ namespace MovieApp.Panel.UI.Controllers
                 {
                     Years = GetAvailableYears(),
                     Categories = GetAvailableCategories(),
-                    Ratings = GetAvailableRatings()
+                    Ratings = GetAvailableRatings(),
+                    CategoryNames = c.Categories.Select(x=>x.CategoryName).ToList()
+                    
                 },
                 Movies = allMovies.ToList()
             };
@@ -588,7 +590,7 @@ namespace MovieApp.Panel.UI.Controllers
 
             if (filters.Categories != null && filters.Categories.Any())
             {
-                movies = movies.Where(m => m.Categories.Any(c => filters.Categories.Any(cat => cat.ID == c.ID)));
+                movies = movies.Where(m => m.Categories.Any(c => filters.Categories.Contains(c.ID)));
             }
 
 
@@ -597,11 +599,11 @@ namespace MovieApp.Panel.UI.Controllers
                 movies = movies.Where(m => m.AverageRating.HasValue && filters.Ratings.Contains((int)m.AverageRating.Value));
             }
 
-            if (filters.IsHighToLow)
+            if (filters.Sorting == "highToLow")
             {
                 movies = movies.OrderByDescending(m => m.AverageRating);
             }
-            else
+            else if (filters.Sorting == "lowToHigh")
             {
                 movies = movies.OrderBy(m => m.AverageRating);
             }
@@ -616,11 +618,11 @@ namespace MovieApp.Panel.UI.Controllers
             return availableYears;
         }
 
-        private List<Category> GetAvailableCategories()
+        private List<int> GetAvailableCategories()
         {
             var categories = c.Categories?.ToList() ?? new List<Category>();
 
-
+        
             return categories;
         }
 

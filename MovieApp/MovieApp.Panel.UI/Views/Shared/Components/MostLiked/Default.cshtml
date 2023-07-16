@@ -1,0 +1,24 @@
+﻿@model List<Movie>
+
+<div class="onerilenFilmler">
+    @foreach (var item in Model)
+    {
+        <div class="cards">
+            <img src="~/images/movie/@item.Poster" alt="" />
+            <div class="card-cont">
+                <h4 class="film-category">
+                    @if (item.Directors != null && item.Directors.Any())
+                    {
+                        @item.Directors.FirstOrDefault()?.DirectorName
+                    }
+                    else
+                    {
+                        <span>No director available</span>
+                    }
+                </h4>
+                <h3>@item.MovieTitle</h3>
+                <p>@item.Description.Substring(0,50)</p>
+            </div>
+        </div>
+    }   
+</div>
