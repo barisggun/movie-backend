@@ -37,7 +37,7 @@
                 success: function (response) {
                     currentTime = Date.now();
                     var newCommentHtml = $(response).find("#commentContainer").html();
-                    $("#commentComponentContainer").html(newCommentHtml);
+                    $(".popularReviews").html(newCommentHtml);
                     $("#addCommentForm")[0].reset();
                     $("#errorContainer").empty(); // Hata mesajını temizle
                     toastr.success('Yorumunuz başarıyla eklendi!', '', { positionClass: 'toast-bottom-right' });
