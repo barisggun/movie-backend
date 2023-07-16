@@ -245,6 +245,7 @@ body {
     border-bottom: 3px solid #fff;
     max-width: 1110px;
     margin-bottom: 25px;
+    margin: 0 auto;
 }
 /*buralar yeni*/
 .title-footer {
@@ -360,9 +361,10 @@ body {
     margin: 0 auto;
     margin-bottom: 45px;
     /*buralar yeni*/
-    background: rgba(0, 0, 0, 0.7);
-    padding: 62px;
-    box-shadow: rgb(42 128 241 / 25%) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgb(59 74 239 / 58%) 0px -3px 5px;
+    padding:62px;
+    background-image:url(../img/png/BACKGROUND.png);
+    box-shadow: 0 0 50px rgba(42 128 241 / 25%);
+    border-radius: 20px;
 }
 
     .popularReviews .title {
@@ -622,8 +624,13 @@ input {
     padding: 15px;
 }
 
+.review-input {
+    max-width:1110px;
+    margin: 0 auto;
+    margin-bottom:20px;
+}
 .review-input input {
-    width: 80%;
+    width: 90%;
     background-color: hsla(0, 0%, 100%, 0.25);
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
@@ -1559,3 +1566,22 @@ details[open] summary::before {
         margin-bottom: 15px;
     }
 }
+
+/*Yorum silme*/
+
+.deleteComment {
+    -webkit-border-radius: 25;
+    -moz-border-radius: 25;
+    border-radius: 25px;
+    color: #ffffff;
+    font-size: 13px;
+    background: #EA7D62;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+}
+
+.deleteComment:hover {
+    background: #fc6644;
+    text-decoration: none;
+}
+
