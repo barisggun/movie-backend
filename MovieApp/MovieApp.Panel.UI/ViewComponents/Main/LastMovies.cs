@@ -9,7 +9,7 @@ namespace MovieApp.Panel.UI.ViewComponents.Main
         MovieManager mm = new MovieManager(new EfMovieRepository());
         public IViewComponentResult Invoke()
         {
-            var values = mm.GetAll().Take(5).ToList();
+            var values = mm.GetAll().Take(6).ToList();
             values.Reverse();
             return View(values);
         }

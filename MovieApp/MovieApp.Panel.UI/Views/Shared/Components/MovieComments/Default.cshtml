@@ -4,25 +4,27 @@
     <div class="title">
         <h4>Yorumlar</h4>
     </div>
-    <div class="reviews" id="commentContainer">
-        @foreach (var item in Model.Take(5))
-        {
-            <div class="review">
-                <div class="image2">
-                    <img src="~/images/profile/@item.ProfilePictureUrl" alt="" />
-                </div>
-                <div class="write">
-                    <a href="/User/Detail/@item.CommentUserNameId"><h2>@item.CommentUserName</h2></a>
-                    <br />
-                    <small>@item.CommentDate.ToString("dd-MMM-yyyy")</small>
-                    <p>@item.CommentContent</p>
+    @if (Model.Any())
+    {
+        <div class="reviews" id="commentContainer">
+            @foreach (var item in Model.Take(5))
+            {
+                <div class="review">
+                    <div class="image2">
+                        <img src="~/images/profile/@item.ProfilePictureUrl" alt="" />
+                    </div>
+                    <div class="write">
+                        <a href="/User/Detail/@item.CommentUserNameId"><h2>@item.CommentUserName</h2></a>
+                        <br />
+                        <small>@item.CommentDate.ToString("dd-MMM-yyyy")</small>
+                        <p>@item.CommentContent</p>
 
                     @if (User.Identity.Name == item.CommentUserName || User.IsInRole("Admin"))
                     {
                         <form method="post" asp-action="Delete" asp-controller="Comment" class="deleteCommentForm">
                             <input type="hidden" name="commentId" value="@item.ID" />
                             <input type="hidden" name="movieId" value="@item.MovieId" />
-                            <button class="deleteComment" type="submit">Sil</button>
+                            <button class="deleteComment" type="submit">Yorumu Sil</button>
                         </form>
                     }
                 </div>
@@ -37,14 +39,14 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function () {
-        var startIndex = 5;
+        var startIndex = 0;
         var pageSize = 5;
 
         $("#loadMoreButton").click(function () {
             $.ajax({
                 url: "@Url.Action("LoadMoreComments", "Comment")",
                 type: "GET",
-                data: { startIndex: startIndex, pageSize: pageSize, movieId: @Model.First().MovieId },
+                data: { startIndex: startIndex, pageSize: pageSize, movieId: @(Model.FirstOrDefault()?.MovieId ?? 0) },
                 success: function (response) {
                     $("#commentContainer").append(response);
 
