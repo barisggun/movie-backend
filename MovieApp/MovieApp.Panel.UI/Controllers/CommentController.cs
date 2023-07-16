@@ -52,7 +52,7 @@ namespace MovieApp.Panel.UI.Controllers
 
             if (lastComment != null)
             {
-               
+
                 var timeDifference = commentDate - lastComment.CommentDate;
 
                 if (timeDifference.TotalSeconds < 10)
@@ -131,7 +131,7 @@ namespace MovieApp.Panel.UI.Controllers
 
             if (movie == null)
             {
-                
+
                 return BadRequest("Hatalı film kimliği");
             }
 
@@ -164,7 +164,7 @@ namespace MovieApp.Panel.UI.Controllers
 
             if (user == null)
             {
-                
+
                 return BadRequest("Hatalı kullanıcı kimliği");
             }
 

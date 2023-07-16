@@ -198,7 +198,7 @@
         });
     }
 
-    function addMovieWatchedList(movieId, addButton,buttonText) {
+    function addMovieWatchedList(movieId, addButton, buttonText) {
         $.ajax({
             url: '/Movie/AddWatchedList',
             type: 'POST',
@@ -221,7 +221,7 @@
         });
     }
 
-    function RemoveFromWatchedList(movieId, addButton,buttonText) {
+    function RemoveFromWatchedList(movieId, addButton, buttonText) {
         $.ajax({
             url: '/Movie/RemoveFromWatchedList',
             type: 'POST',
