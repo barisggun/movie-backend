@@ -19,21 +19,23 @@
                         <small>@item.CommentDate.ToString("dd-MMM-yyyy")</small>
                         <p>@item.CommentContent</p>
 
-                    @if (User.Identity.Name == item.CommentUserName || User.IsInRole("Admin"))
-                    {
-                        <form method="post" asp-action="Delete" asp-controller="Comment" class="deleteCommentForm">
-                            <input type="hidden" name="commentId" value="@item.ID" />
-                            <input type="hidden" name="movieId" value="@item.MovieId" />
-                            <button class="deleteComment" type="submit">Yorumu Sil</button>
-                        </form>
-                    }
+                        @if (User.Identity.Name == item.CommentUserName || User.IsInRole("Admin"))
+                        {
+                            <form method="post" asp-action="Delete" asp-controller="Comment" class="deleteCommentForm">
+                                <input type="hidden" name="commentId" value="@item.ID" />
+                                <input type="hidden" name="movieId" value="@item.MovieId" />
+                                <button class="deleteComment" type="submit">Yorumu Sil</button>
+                            </form>
+                        }
+                    </div>
                 </div>
-            </div>
-        }
-    </div>
-    <div class="load-more-container">
-        <button id="loadMoreButton" class="load-more-button addComment" style="cursor:pointer;" type="button">Daha fazla yükle</button>
-    </div>
+            }
+        </div>
+
+        <div class="load-more-container">
+            <button id="loadMoreButton" class="load-more-button addComment" style="cursor:pointer;" type="button">Daha fazla yükle</button>
+        </div>
+    }
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
