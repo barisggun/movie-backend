@@ -1,13 +1,23 @@
 ﻿@using MovieApp.EntityLayer.Entities
 @model List<Movie>
 
-<div class="onerilenFilmler">
-   
-    @foreach (var item in Model)
-    {
-        <div class="cards">
-            <a href="/Movie/Detail/@item.ID"><img src="~/images/movie/@item.Poster" alt="" /></a>
-        </div>
-    }
-    
+<div class="justReviewed">
+    <div class="title">
+        <h4>Son Eklenen Filmler</h4>
+    </div>
+    <h4 class="title-footer">En sevdiğiniz filmleri şimdi inceleyebilirsiniz..</h4>
+    <br />
+    <div class="movies">
+        @foreach (var item in Model)
+        {
+            <div class="movie">
+                <a href="/Movie/Detail/@item.ID"><img src="~/images/movie/@item.Poster" alt="" /></a>
+                <div class="card-content">
+                    <h4>@item.MovieTitle</h4>
+                    <p>@item.Description.Substring(0,50)</p>
+                </div>
+            </div>
+        }
+        
+    </div>
 </div>
