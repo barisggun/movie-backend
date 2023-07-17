@@ -852,7 +852,7 @@ pre {
 
     .profilIcon:hover {
         content: 'Merhaba'; /* Yeni */
-        border: 1px solid red;
+        border: 1px solid rgb(7 11 18 / 70%);
     }
 
 .profilePicture {
