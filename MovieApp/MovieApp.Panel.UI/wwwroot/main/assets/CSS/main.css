@@ -284,6 +284,7 @@ body {
     /*buraya kadar*/
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
+    box-shadow: 0 0 50px rgba(42 128 241 / 25%);
 }
 
     .movie:hover .card-content {
@@ -673,7 +674,7 @@ input {
     height: 400px;
     background-position: top;
     margin: 0 auto;
-    margin-bottom: 200px;
+    margin-bottom: 145px;
     background-size: cover;
 }
 
@@ -1376,15 +1377,15 @@ details[open] summary::before {
 }
 /* Yeni */
 .mailCodeContent input { /* Yeni */
-    display: inline-block;
+  /*  display: inline-block;
     width: 42px;
     height: 42px;
     font-size: 20px;
-    margin-left: 16px;
+    margin-left: 16px;*/
     margin-bottom: 16px;
-    border-radius: 0;
+/*    border-radius: 0;
     color: #000;
-    padding: 14px;
+    padding: 14px;*/
 }
 /* Yeni */
 .mailCodeContent { /* Yeni */

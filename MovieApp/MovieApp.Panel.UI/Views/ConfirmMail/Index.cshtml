@@ -36,10 +36,6 @@
     <label>Kullanıcı ID değeri</label>*@
     <input type="hidden" class="form-control" asp-for="UserName" value="@ViewBag.v" />
 
-    <label style="color:white;">Mail Adresiniz'e gelen 6 haneli kodu giriniz:</label>
-    <br />
-    <input type="text" class="form-control" asp-for="ConfirmCode" />
-    <br />
     @*<span asp-validation-for="ConfirmCode"style="color:red;background-color:white;"></span>*@
 
     @if (!string.IsNullOrEmpty(ViewData.ModelState["ConfirmCode"]?.Errors?.FirstOrDefault()?.ErrorMessage))
@@ -47,10 +43,11 @@
         <span class="error" style="color:red;font-family:Arial;">@Html.Raw(ViewData.ModelState["ConfirmCode"].Errors.FirstOrDefault().ErrorMessage)</span>
     }
 
-
-
-    <br />
-    <button class="btn btn-primary">Hesabı aktifleştir</button>
+    <div class="mailCodeContent">
+        <h4>Mail adresine gelen 6 haneli kodu giriniz.</h4>
+        <input type="text" class="form-control" asp-for="ConfirmCode"/>
+        <div><a href="#" class="mailActive">Hesabı Aktifleştir</a></div>
+    </div>
 </form>
 <br />
 <br />
