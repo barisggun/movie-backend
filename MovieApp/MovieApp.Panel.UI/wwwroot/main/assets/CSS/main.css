@@ -1021,7 +1021,7 @@ pre {
 .commentTitle {
     display: flex;
     justify-content: space-between;
-    padding: 0 55px;
+/*    padding: 0 55px;*/
 }
 
     .commentTitle h2 {

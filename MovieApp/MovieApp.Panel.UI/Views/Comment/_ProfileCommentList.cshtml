@@ -1,6 +1,6 @@
 ﻿@model List<Comment>
 
-<div class="userComments">
+@*<div class="userComments">*@
     @foreach (var item in Model)
     {
         <div class="comment">
@@ -11,6 +11,16 @@
             <a href="@Url.Action("Detail", "Movie", new { id = item.MovieId })">
                 <p>@item.CommentContent</p>
             </a>
+        <input type="hidden" class="userId" value="@item.CommentUserNameId" />
+        @if (User.Identity.Name == item.CommentUserName || User.IsInRole("Admin"))
+        {
+            <form method="post" asp-action="DeleteFromProfile" asp-controller="Comment" class="deleteCommentForm">
+                <input type="hidden" name="commentId" value="@item.ID" />
+                <input type="hidden" name="movieId" value="@item.MovieId" />
+                <button class="deleteComment" type="submit">Yorumu Sil</button>
+            </form>
+        }
         </div>
     }
-</div>
+@*</div>
+*@

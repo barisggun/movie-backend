@@ -1,9 +1,10 @@
 ﻿@model List<Comment>
 
-<div class="userComments">
+
+<div class="userComments" id="commentContainer">
     @foreach (var item in Model.Take(5))
     {
-        <div class="comment">
+        <div class="comment" >
             <div class="commentTitle">
                 <h2>@item.CommentUserName</h2>
                 <p>@item.CommentDate</p>
@@ -28,6 +29,7 @@
     <button id="loadMoreButton" class="load-more-button addComment" style="cursor:pointer;" type="button">Daha fazla yükle</button>
 </div>
 
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function () {
@@ -43,7 +45,7 @@
                 type: "GET",
                 data: { startIndex: startIndex, pageSize: pageSize, userId: userId },
                 success: function (response) {
-                    $(".userComments").append(response);
+                    $("#commentContainer").append(response);
 
                     startIndex += pageSize;
 
