@@ -8,9 +8,9 @@
                 <h2>@item.CommentUserName</h2>
                 <p>@item.CommentDate</p>
             </div>
-            <a href="@Url.Action("Detail", "Movie", new { id = item.MovieId })">
+            @*<a href="@Url.Action("Detail", "Movie", new { id = item.MovieId })">*@
                 <p>@item.CommentContent</p>
-            </a>
+            @*</a>*@
         <input type="hidden" class="userId" value="@item.CommentUserNameId" />
         @if (User.Identity.Name == item.CommentUserName || User.IsInRole("Admin"))
         {

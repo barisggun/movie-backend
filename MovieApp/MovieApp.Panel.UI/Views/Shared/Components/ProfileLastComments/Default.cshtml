@@ -10,9 +10,9 @@
                 <p>@item.CommentDate</p>
             </div>
 
-            <a href="@Url.Action("Detail", "Movie", new { id = item.MovieId })">
+         @*   <a href="@Url.Action("Detail", "Movie", new { id = item.MovieId })">*@
                 <p>@item.CommentContent</p>
-            </a>
+           @* </a>*@
             <input type="hidden" class="userId" value="@item.CommentUserNameId" />
             @if (User.Identity.Name == item.CommentUserName || User.IsInRole("Admin"))
             {
@@ -24,10 +24,11 @@
             }
         </div>
     }
+    <div class="load-more-container">
+        <button id="loadMoreButton" class="load-more-button addComment" style="cursor:pointer;" type="button">Daha fazla yükle</button>
+    </div>
 </div>
-<div class="load-more-container">
-    <button id="loadMoreButton" class="load-more-button addComment" style="cursor:pointer;" type="button">Daha fazla yükle</button>
-</div>
+
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
