@@ -279,7 +279,7 @@ body {
 }
 
 .movie:hover {
-    background-color: #0c177a;
+    background-color: #0d1daa;
     border-radius: 10px;
     /*buraya kadar*/
     -webkit-transform: scale(1.1);
@@ -288,7 +288,7 @@ body {
 
     .movie:hover .card-content {
         opacity: 1;
-        background-color: #0c177a;
+        background-color: #0d1daa;
         border-radius: 10px;
         color: #fff;
     }
@@ -311,13 +311,15 @@ body {
     margin-right: 0;
     /*buralar yeni*/
     min-width: 323px;
-    background: rgba(0, 0, 0, 0.70);
+    /*background: rgba(0, 0, 0, 0.70);*/
     border-radius: 20px;
     display: flex;
     color: #ffff;
     min-height: 196px;
     align-items: center;
     padding: 20px;
+    background-image: url(../img/png/BACKGROUND.png);
+    box-shadow: 0 0 50px rgba(42 128 241 / 25%);
 }
 /*buralar yeni*/
 .card-cont {
@@ -332,18 +334,18 @@ body {
     padding: 3px;
     width: 100px;
     border-radius: 11px;
-    border: 1px solid #000F93;
+    border: 1px solid #ffff;
     background: rgba(0, 15, 147, 0.12);
-    color: #1328E3;
+    color: #fff;
     margin-bottom: 15px;
     text-align: center;
     cursor: pointer;
 }
 
     .film-category:hover {
-        background-color: #1328E3;
-        border: 1px solid black;
-        color: #fff;
+        background-color: #ffff;
+        border: 1px solid #fff;
+        color: #000;
     }
 /*buraya kadar*/
 .cards img {
