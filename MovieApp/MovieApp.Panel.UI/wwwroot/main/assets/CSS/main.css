@@ -1176,6 +1176,7 @@ pre {
     width: 1200px;
     margin: 0 auto;
     margin-top: 16px;
+    margin-bottom: 172px;
 }
 
 .filters {
@@ -1331,6 +1332,8 @@ details > input {
 }
 
 .apply {
+    display: flex; /* Yeni*/
+    gap: 8px; /* Yeni*/
     margin-top: 16px;
     text-align: center;
 }
@@ -1341,9 +1344,19 @@ details > input {
     color: #FFF; /* Yeni*/
     border: none;
     border-radius: 8px;
-    padding: 10px 32px;
+    padding: 6px 18px; /* Yeni*/
     margin-left: -3px;
 }
+/* Yeni*/
+.resetButton { /* Yeni*/
+    display: inline-block;
+    background-color: #0c177a;
+    color: #FFF;
+    border: none;
+    border-radius: 8px;
+    padding: 6px 18px;
+}
+/* Yeni*/
 
 summary::before {
     content: "+";
