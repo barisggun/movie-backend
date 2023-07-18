@@ -1359,7 +1359,15 @@ details > input {
     padding: 10px 32px;
     margin-left: -3px;
 }
-
+.resetButton {
+    display: inline-block;
+    background-color: #0c177a; /* Yeni*/
+    color: #FFF; /* Yeni*/
+    border: none;
+    border-radius: 8px;
+    padding: 10px 32px;
+    margin-left: -3px;
+}
 summary::before {
     content: "+";
     float: left;
