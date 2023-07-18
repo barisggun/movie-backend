@@ -245,14 +245,17 @@ body {
     border-bottom: 3px solid #fff;
     max-width: 1110px;
     margin-bottom: 25px;
-    margin: 0 auto;
+    padding: 0 55px;
 }
 /*buralar yeni*/
 .title-footer {
     margin-bottom: 10px;
     color: rgba(255, 255, 255, 0.60);
 }
-
+.blogTitle{
+   display: flex;
+   justify-content: space-between;
+}
 .movies {
     display: flex;
     justify-content: space-between;
@@ -312,15 +315,15 @@ body {
     margin-right: 0;
     /*buralar yeni*/
     min-width: 323px;
-    /*background: rgba(0, 0, 0, 0.70);*/
+    background: rgba(0, 0, 0, 0.70);
     border-radius: 20px;
     display: flex;
     color: #ffff;
     min-height: 196px;
     align-items: center;
     padding: 20px;
-    background-image: url(../img/png/BACKGROUND.png);
-    box-shadow: 0 0 50px rgba(42 128 241 / 25%);
+    /*background-image: url(../img/png/BACKGROUND.png);*/
+    /*box-shadow: 0 0 50px rgba(42 128 241 / 25%);*/
 }
 /*buralar yeni*/
 .card-cont {
@@ -335,17 +338,17 @@ body {
     padding: 3px;
     width: 100px;
     border-radius: 11px;
-    border: 1px solid #ffff;
+    border: 1px solid #000F93;
     background: rgba(0, 15, 147, 0.12);
-    color: #fff;
+    color: #1328E3;
     margin-bottom: 15px;
     text-align: center;
     cursor: pointer;
 }
 
     .film-category:hover {
-        background-color: #ffff;
-        border: 1px solid #fff;
+        background-color: #1328E3;
+        border: 1px solid black;
         color: #000;
     }
 /*buraya kadar*/
@@ -380,6 +383,7 @@ body {
 .reviews {
     grid-column: 1 / 4;
     grid-row: 2 / 5;
+    max-width: 1360px;
 }
 
 .popularList {
@@ -400,6 +404,7 @@ body {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     transition: 0.5s;
     background-color: hsla(0, 0%, 100%, 0.5);
+    flex-wrap: wrap;
 }
 
     .review:hover {
@@ -419,6 +424,9 @@ body {
     max-width: 50px;
 }
 
+.write{
+    width:100%;
+}
 .write p {
     /*burda da var*/
     color: #000;
@@ -636,12 +644,12 @@ input {
 }
 
 .review-input {
-    max-width:1110px;
+    width: 80%;
     margin: 0 auto;
     margin-bottom:20px;
 }
 .review-input input {
-    width: 90%;
+    width: 89%;
     background-color: hsla(0, 0%, 100%, 0.25);
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
@@ -698,14 +706,18 @@ input {
     display: grid;
     grid-template-columns: 1fr 2fr;
     color: #ffff;
+    margin-bottom: 45px;
 }
-
+.forgatPassword{
+    min-height: 70vh;
+}
 .movieTitleDetails {
     margin-top: 240px;
+    width: 650px
 }
 
 .star-wrapper {
-    margin-right: 500px;
+    margin-right: 450px;
     direction: rtl;
 }
 
@@ -846,9 +858,12 @@ pre {
     display: inline-flex;
     background-color: gold;
     color: #000;
-    padding: 6px 8px 8px 8px;
+    padding: 9px 8px 10px 8px;
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 .profilIcon {
@@ -1407,6 +1422,7 @@ details[open] summary::before {
     text-align: center;
     border-radius: 10px;
     margin-bottom: 40px;
+    min-height:70vh;
 }
 /* Yeni */
 .forgotContent { /* Yeni */
@@ -1445,6 +1461,8 @@ details[open] summary::before {
     text-align: center;
     border-radius: 10px;
     margin-bottom: 40px;
+    min-height:70vh;
+    display: block;
 }
     /* Yeni */
     .resetPassContent input { /* Yeni */
@@ -1595,18 +1613,23 @@ details[open] summary::before {
 /*Yorum silme*/
 
 .deleteComment {
-    -webkit-border-radius: 25;
-    -moz-border-radius: 25;
-    border-radius: 25px;
-    color: #ffffff;
-    font-size: 13px;
-    background: #EA7D62;
-    padding: 10px 20px 10px 20px;
-    text-decoration: none;
+    display: inline-flex;
+    background-color: #CD0404;
+    color: #000;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
 }
 
 .deleteComment:hover {
-    background: #fc6644;
+    background: darkred;
     text-decoration: none;
 }
 
+.commentUserName {
+    color: black;
+    width: 200px
+}

@@ -139,7 +139,7 @@ namespace MovieApp.Panel.UI.Controllers
                 MovieDetailPoster = movieValue.DetailPoster,
                 MovieDescription = movieValue.Description,
                 ReleaseDate = movieValue.ReleaseDate,
-                AverageRating = (float)movieValue.AverageRating,
+                AverageRating = (float)movieValue.AverageRating,      
             };
 
             return View(model);
@@ -164,7 +164,8 @@ namespace MovieApp.Panel.UI.Controllers
                 ReleaseDate = movieValue.ReleaseDate,
                 AverageRating = (float)movieValue.AverageRating,
                 IsMovieAdded = false,
-                IsMovieAddedToWatchedList = false
+                IsMovieAddedToWatchedList = false,
+                TrailerUrl = movieValue.TrailerUrl
             };
 
             var username = User.Identity.Name;

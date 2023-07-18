@@ -34,9 +34,6 @@
     <h1>Hakkımda</h1>
     <p>@Model.About</p>
 </div>
-<div class="title">
-    <h1>Yorumlarım</h1>
-</div>
 
 @await Component.InvokeAsync("ProfileLastComments", new { Id = Model.UserID })
 

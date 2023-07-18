@@ -19,5 +19,6 @@ namespace MovieApp.Panel.UI.Models
         public bool IsMovieAdded { get; set; }
         public bool IsMovieAddedToWatchedList { get; set; }
         public string MovieGifUrl { get; set; }
+        public string? TrailerUrl { get; set; }
     }
 }

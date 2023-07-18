@@ -47,6 +47,7 @@ namespace MovieApp.EntityLayer.Entities
 
         public List<Blog>? Blogs { get; set; } = new List<Blog>();
 
+        public string? TrailerUrl { get; set; }
         public List<Comment>? Comments { get; set; } = new List<Comment>();
 
         public List<Rating>? Ratings { get; set; } = new List<Rating>();

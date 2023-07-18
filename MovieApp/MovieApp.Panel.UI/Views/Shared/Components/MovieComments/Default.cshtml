@@ -14,9 +14,11 @@
                         <img src="~/images/profile/@item.ProfilePictureUrl" alt="" />
                     </div>
                     <div class="write">
-                        <a href="/User/Detail/@item.CommentUserNameId"><h2>@item.CommentUserName</h2></a>
-                        <br />
-                        <small>@item.CommentDate.ToString("dd-MMM-yyyy")</small>
+                        <div class="blogTitle">
+                            <a href="/User/Detail/@item.CommentUserNameId" class="commentUserName"><h3>@item.CommentUserName</h3></a>
+                            <small>@item.CommentDate.ToString("dd-MMM-yyyy")</small>
+                        </div>
+                        
                         <p>@item.CommentContent</p>
 
                         @if (User.Identity.Name == item.CommentUserName || User.IsInRole("Admin"))
