@@ -8,6 +8,8 @@ using MimeKit;
 using MovieApp.DataAccess.Concrete;
 using MovieApp.EntityLayer.Entities;
 using MovieApp.Panel.UI.Models;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace MovieApp.Panel.UI.Controllers
 {
@@ -34,6 +36,22 @@ namespace MovieApp.Panel.UI.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(UserSignInViewModel p)
         {
+            var captchaImage = HttpContext.Request.Form["g-recaptcha-response"];
+
+            if (string.IsNullOrEmpty(captchaImage))
+            {
+                ModelState.AddModelError("recaptcha", "Lütfen Google Recaptcha'yı doldurunuz.");
+
+            }
+
+            var verified = await checkCaptcha();
+
+            if (!verified)
+            {
+                ModelState.AddModelError("recaptcha", "Doğrulanamadı.");
+                return View(p);
+            }
+
             if (ModelState.IsValid)
             {
                 Random random = new Random();
@@ -237,6 +255,24 @@ namespace MovieApp.Panel.UI.Controllers
         public IActionResult ResetPasswordConfirmation()
         {
             return View();
+        }
+
+        public async Task<bool> checkCaptcha()
+        {
+            var postData = new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>("secret", "6LesIDonAAAAAL9BAdJejEropGEixXYFY2kVNzzz"),
+                new KeyValuePair<string, string>("response", HttpContext.Request.Form["g-recaptcha-response"])
+
+            };
+
+            var client = new HttpClient();
+
+            var response = await client.PostAsync("https://www.google.com/recaptcha/api/siteverify", new FormUrlEncodedContent(postData));
+
+            var o = (JObject)JsonConvert.DeserializeObject(await response.Content.ReadAsStringAsync());
+
+            return (bool)o["success"];
         }
 
     }

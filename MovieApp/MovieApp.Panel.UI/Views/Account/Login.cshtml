@@ -39,6 +39,14 @@
                     <h4 for="password">Şifre </h4>
                     <input type="password" asp-for="@Model.password" placeholder="******************">
                 </div>
+
+                @if (!string.IsNullOrEmpty(ViewData.ModelState["recaptcha"]?.Errors?.FirstOrDefault()?.ErrorMessage))
+                {
+                    <span class="error" style="color:red;font-family:Arial;">@Html.Raw(ViewData.ModelState["recaptcha"].Errors.FirstOrDefault().ErrorMessage)</span>
+                }
+
+                <div class="g-recaptcha" data-sitekey="6LesIDonAAAAAPuiNDteWSZ-BDSxn1vxKy5PmhzA"></div>
+
                 <button type="submit" id="submit" class="submit-btn" href="">Giriş Yap</button>
 
                 @if (!string.IsNullOrEmpty(ViewData.ModelState["password"]?.Errors?.FirstOrDefault()?.ErrorMessage))
@@ -76,5 +84,6 @@
         </div>
     </div>
 
+    <script src="https://www.google.com/recaptcha/api.js"></script>
 </body>
 </html>

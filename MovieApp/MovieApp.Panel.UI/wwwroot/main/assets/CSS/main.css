@@ -1651,8 +1651,13 @@ details[open] summary::before {
     max-width: 1110px;
 }
 
-success-message {
+.success-message {
     color:green;
     text-align:center;
     font-size:17px;
+}
+
+.g-recaptcha {
+    margin-bottom:30px;
+    margin-top:30px;
 }
