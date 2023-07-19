@@ -233,6 +233,7 @@ namespace MovieApp.Panel.UI.Controllers
 
                     if (result.Succeeded)
                     {
+                        TempData["passwordChanged"] = "Şifreniz başarıyla değiştirildi.";
                         return RedirectToAction("Login", "Account");
                     }
                     else

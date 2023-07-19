@@ -80,6 +80,12 @@
                     </div>
                 }
 
+                @if (TempData["passwordChanged"] != null)
+                {
+                    <div class="success-message">
+                        @TempData["passwordChanged"]
+                    </div>
+                }
             </form>
         </div>
     </div>
