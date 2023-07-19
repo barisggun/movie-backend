@@ -17,7 +17,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/main/assets/CSS/main.css">
     <link rel="stylesheet" href="~/main/assets/CSS/reset.css">
-    <title>Film Atlası Giriş Yap</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <title>SineSözlük Giriş Yap</title>
 </head>
 <body>
     <div class="entryContainer">
@@ -58,12 +61,20 @@
                 <div class="part">
                     <br />
                     <br />
-                    <a href="/RegisterUser/Index" class="loginFont">Üyelik oluştur | </a>
-                    <a href="/Account/ForgotPassword/" class="loginFont">Şifremi Unuttum</a>
+                    <a href="/RegisterUser/Index">Üyelik oluştur | </a>
+                    <a href="/Account/ForgotPassword/">Şifremi Unuttum</a>
                 </div>
+
+                @if (TempData["AccountActivated"] != null)
+                {
+                    <div class="success-message">
+                        @TempData["AccountActivated"]
+                    </div>
+                }
 
             </form>
         </div>
     </div>
+
 </body>
 </html>

@@ -1650,3 +1650,9 @@ details[open] summary::before {
     border-bottom: 3px solid #fff;
     max-width: 1110px;
 }
+
+success-message {
+    color:green;
+    text-align:center;
+    font-size:17px;
+}

@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using MimeKit;
 using MovieApp.EntityLayer.Entities;
 using MovieApp.Panel.UI.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Configuration;
 using System.Net.Mail;
 
@@ -28,7 +30,26 @@ namespace MovieApp.Panel.UI.Controllers
 
         [HttpPost]
         public async Task<IActionResult> Index(UserSignUpViewModel p)
-        {   
+        {
+            var captchaImage = HttpContext.Request.Form["g-recaptcha-response"];
+
+            if (string.IsNullOrEmpty(captchaImage))
+            {
+                ModelState.AddModelError("recaptcha", "Lütfen Google Recaptcha'yı doldurunuz.");
+                
+            }
+
+            var verified = await checkCaptcha();
+
+            if (!verified)
+            {
+                ModelState.AddModelError("recaptcha", "Doğrulanamadı.");
+                return View(p);
+            }
+            //if (verified)
+            //{
+            //    ModelState.AddModelError("recaptcha", "Başarıyla doğrulandı.");
+            //}
             if (ModelState.IsValid)
             {
                 var existingUser = await _userManager.FindByNameAsync(p.UserName);
@@ -101,6 +122,24 @@ namespace MovieApp.Panel.UI.Controllers
                 }
             }
             return View(p);
+        }
+
+        public async Task<bool> checkCaptcha()
+        {
+            var postData =new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>("secret", "6LesIDonAAAAAL9BAdJejEropGEixXYFY2kVNzzz"), 
+                new KeyValuePair<string, string>("response", HttpContext.Request.Form["g-recaptcha-response"]) 
+
+            };
+
+            var client = new HttpClient();
+
+            var response = await client.PostAsync("https://www.google.com/recaptcha/api/siteverify", new FormUrlEncodedContent(postData));
+
+            var o = (JObject)JsonConvert.DeserializeObject(await response.Content.ReadAsStringAsync());
+
+            return (bool)o["success"];
         }
     }
 }

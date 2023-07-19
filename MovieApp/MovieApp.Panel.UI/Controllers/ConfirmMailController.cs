@@ -51,7 +51,10 @@ namespace MovieApp.Panel.UI.Controllers
             {
                 user.EmailConfirmed = true;
                 await _userManager.UpdateAsync(user);
-                return RedirectToAction("VerificationSuccessful", "ConfirmMail");
+
+                TempData["AccountActivated"] = "Hesabınız başarıyla aktifleştirildi.";
+                return RedirectToAction("Login", "Account");
+                //return RedirectToAction("VerificationSuccessful", "ConfirmMail");
             }
             else
             {

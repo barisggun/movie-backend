@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="~/main/assets/CSS/main.css" />
     <link rel="stylesheet" href="~/main/assets/CSS/reset.css" />
     <script src="~/main/assets/script.js" defer></script>
-    <title>Sinesozluk Kayıt Ol</title>
+    <title>SineSözlük Kayıt Ol</title>
 </head>
 <body>
     <div class="entryContainer">
@@ -64,10 +64,15 @@
                     <span class="error" style="color:red;font-family:Arial;">@Html.Raw(ViewData.ModelState["signupError"].Errors.FirstOrDefault().ErrorMessage)</span>
                 }
 
-        
+                @if (!string.IsNullOrEmpty(ViewData.ModelState["recaptcha"]?.Errors?.FirstOrDefault()?.ErrorMessage))
+                {
+                    <span class="error" style="color:red;font-family:Arial;">@Html.Raw(ViewData.ModelState["recaptcha"].Errors.FirstOrDefault().ErrorMessage)</span>
+                }
+
+                <div class="g-recaptcha" data-sitekey="6LesIDonAAAAAPuiNDteWSZ-BDSxn1vxKy5PmhzA"></div>
 
                 <div class="part">
-                    Bir hesabınız var mı? <a href="/Account/Login/" class="loginFont">Giriş Yap</a>
+                    Bir hesabınız var mı? <a href="/Account/Login/">Giriş Yap</a>
                 </div>
                 <div>
                     <button type="submit" id="submit" class="submit-btn" href="">Üyelik Oluştur</button>
@@ -78,5 +83,7 @@
             </form>
         </div>
     </div>
+
+    <script src="https://www.google.com/recaptcha/api.js"></script>
 </body>
 </html>
