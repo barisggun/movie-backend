@@ -146,14 +146,22 @@ namespace MovieApp.Panel.UI.Controllers
         }
 
         [AllowAnonymous]
-        public async Task<IActionResult> Detail(int id)
+        public async Task<IActionResult> Detail(string slug)
         {
-            ViewBag.i = id;
-            var movieValue = movieManager.GetById(id);
+            ViewBag.Slug = slug;
+            var movieValue = movieManager.GetBySlug(slug);
+
+            if (movieValue == null)
+            {
+                // Eğer film bulunamazsa, 404 sayfasına yönlendirme yapabilirsiniz.
+                // Örnek olarak:
+                return NotFound();
+            }
 
             var model = new MovieDetailModel
             {
                 MovieId = movieValue.ID,
+                Slug = movieValue?.Slug,
                 DirectorNames = movieValue.Directors.Select(d => d.DirectorName).ToList(),
                 Actors = movieValue.Actors,
                 CategoryNames = movieValue.Categories.Select(a => a.CategoryName).ToList(),
@@ -170,9 +178,9 @@ namespace MovieApp.Panel.UI.Controllers
 
             var username = User.Identity.Name;
             var userId = c.Users.Where(x => x.UserName == username).Select(y => y.Id).FirstOrDefault();
-            bool hasAdded = c.WatchLists.Any(x => x.MovieId == id && x.AppUserId == userId);
+            bool hasAdded = c.WatchLists.Any(x => x.MovieId == movieValue.ID && x.AppUserId == userId);
 
-            var userRating = c.Ratings.FirstOrDefault(x => x.MovieId == id && x.AppUserId == userId);
+            var userRating = c.Ratings.FirstOrDefault(x => x.MovieId == movieValue.ID && x.AppUserId == userId);
             if (userRating != null)
             {
                 model.UserRating = userRating.Score;
@@ -190,7 +198,6 @@ namespace MovieApp.Panel.UI.Controllers
             string movieTitle = model.MovieTitle;
             string apiUrl = $"https://api.giphy.com/v1/gifs/search?q={Uri.EscapeDataString(movieTitle)}&api_key={apiKey}";
 
-
             using (HttpClient client = new HttpClient())
             {
                 HttpResponseMessage response = await client.GetAsync(apiUrl);
@@ -199,9 +206,7 @@ namespace MovieApp.Panel.UI.Controllers
                     string json = await response.Content.ReadAsStringAsync();
                     dynamic data = JObject.Parse(json);
 
-
                     string gifUrl = data.data[0].images.original.url;
-
 
                     string gifStyle = $"background-image: linear-gradient( 33deg, #13171D 24.97%, #13171D 38.3%, rgba(26, 26, 26, 0.0409746) 97.47%, #13171D 100% ), url({gifUrl});";
                     ViewBag.GifStyle = gifStyle;
@@ -210,6 +215,7 @@ namespace MovieApp.Panel.UI.Controllers
 
             return View(model);
         }
+
 
 
         [HttpPost]

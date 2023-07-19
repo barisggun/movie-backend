@@ -34,6 +34,14 @@ namespace MovieApp.EntityLayer.Entities
         [DisplayName("Detay Posteri")]
         public string? DetailPoster { get; set; }
 
+        [DisplayName("Slug")]
+        public string Slug { get; set; }
+
+        public void UpdateSlug()
+        {
+            Slug = SlugHelper.GenerateSlug(MovieTitle);
+        }
+
         //[DisplayName("Film Kategorisi")]
         //public int CategoryId { get; set; }
         //public Category Category { get; set; }

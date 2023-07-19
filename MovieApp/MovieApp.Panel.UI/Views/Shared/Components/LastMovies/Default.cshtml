@@ -11,7 +11,7 @@
         @foreach (var item in Model)
         {
             <div class="movie">
-                <a href="/Movie/Detail/@item.ID"><img src="~/images/movie/@item.Poster" alt="" /></a>
+                <a href="/Movie/Detail/@item.Slug"><img src="~/images/movie/@item.Poster" alt="" /></a>
                 <div class="card-content">
                     <h4>@item.MovieTitle</h4>
                     <p>@item.Description.Substring(0,50)</p>

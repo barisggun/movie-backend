@@ -127,7 +127,7 @@
 <br />
 @await Html.PartialAsync("~/Views/Comment/AddComment.cshtml")
 <div id="commentComponentContainer">
-    @await Component.InvokeAsync("MovieComments", new{id=ViewBag.i})
+    @await Component.InvokeAsync("MovieComments", new{slug = ViewBag.Slug})
 </div>
 
 

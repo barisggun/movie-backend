@@ -10,14 +10,17 @@ namespace MovieApp.Panel.UI.ViewComponents.Comment
     public class MovieComments:ViewComponent
     {
         CommentManager commentManager = new CommentManager(new EfCommentRepository());
+        MovieManager mm = new MovieManager(new EfMovieRepository());
         private readonly UserManager<AppUser> _userManager;
         public MovieComments(UserManager<AppUser> userManager)
         {
             _userManager = userManager;
         }
-        public IViewComponentResult Invoke(int id)
+        public IViewComponentResult Invoke(string slug)
         {
-            var values = commentManager.GetCommentById(id);
+            var movie = mm.GetBySlug(slug);
+            int movieId = movie?.ID ?? 0;
+            var values = commentManager.GetCommentById(movieId);
 
             var userIds = values.Select(comment => comment.CommentUserName);
             var users = Task.Run(() => _userManager.Users.Where(user => userIds.Contains(user.UserName)).ToListAsync()).Result;

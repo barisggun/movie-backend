@@ -23,6 +23,7 @@ namespace MovieApp.BusinessLayer.Concrete
         }
         public void Create(Movie movie)
         {
+            movie.UpdateSlug();
             _movieDal.Create(movie);
         }
 
@@ -45,7 +46,16 @@ namespace MovieApp.BusinessLayer.Concrete
 
             return movie;
         }
+        public Movie GetBySlug(string slug)
+        {
+            var movie = c.Movies
+            .Include(m => m.Directors)
+            .Include(m => m.Actors)
+            .Include(m => m.Categories)
+            .FirstOrDefault(m => m.Slug == slug);
 
+            return movie;
+        }
         public void Update(Movie movie)
         {
             _movieDal.Update(movie);
@@ -54,5 +64,6 @@ namespace MovieApp.BusinessLayer.Concrete
         {
             return _movieDal.GetAll();
         }
+       
     }
 }

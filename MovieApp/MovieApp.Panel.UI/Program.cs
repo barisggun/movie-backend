@@ -90,9 +90,17 @@ namespace MovieApp.Panel.UI
 
             app.UseAuthorization();
 
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Main}/{action=Index}/{id?}");
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "movieDetail",
+                    pattern: "Movie/Detail/{slug}",
+                    defaults: new { controller = "Movie", action = "Detail" });
+
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Main}/{action=Index}/{id?}");
+            });
 
             app.Run();
         }
