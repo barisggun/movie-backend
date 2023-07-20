@@ -21,6 +21,7 @@ namespace MovieApp.EntityLayer.Entities
         public string? ProfilePictureUrl { get; set; }
         public string? About { get; set; }
         public int? ConfirmCode { get; set; }
+        public bool TermsOfUse { get; set; }
         public List<Blog>? Blogs { get; set; }
 
     }

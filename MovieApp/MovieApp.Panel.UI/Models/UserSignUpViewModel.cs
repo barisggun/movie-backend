@@ -29,5 +29,8 @@ namespace MovieApp.Panel.UI.Models
 
         [Display(Name = "Kapak Fotoğrafı")]
         public string? ImageUrl { get; set; }
+
+        [Display(Name = "Kullanım Koşulları")]
+        public bool TermsOfUse { get; set; }
     }
 }

@@ -46,6 +46,11 @@ namespace MovieApp.Panel.UI.Controllers
                 ModelState.AddModelError("recaptcha", "Doğrulanamadı.");
                 return View(p);
             }
+            if (p.TermsOfUse == false)
+            {
+                ModelState.AddModelError("TermsOfUse", "Kullanım koşullarını kabul etmelisiniz.");
+                return View(p);
+            }
             //if (verified)
             //{
             //    ModelState.AddModelError("recaptcha", "Başarıyla doğrulandı.");
@@ -77,7 +82,8 @@ namespace MovieApp.Panel.UI.Controllers
                     NameSurname = p.NameSurname,
                     ConfirmCode = code,
                     ProfilePictureUrl = "userDefault.png",
-                    ImageUrl= "coverPhotoDefault.jpg"
+                    ImageUrl= "coverPhotoDefault.jpg",
+                    TermsOfUse = p.TermsOfUse
                 };
 
                 var  result = await _userManager.CreateAsync(user,p.Password);
