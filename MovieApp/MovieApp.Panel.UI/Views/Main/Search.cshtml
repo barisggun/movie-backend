@@ -26,7 +26,7 @@ else
                 @foreach (var item in Model.Movies)
                 {
 
-                    <a href="/Movie/Detail/@item.ID"><img src="~/images/movie/@item.Poster" alt="" /></a>
+                    <a href="/Movie/Detail/@item.Slug"><img src="~/images/movie/@item.Poster" alt="" /></a>
 
                 }
 
@@ -49,7 +49,7 @@ else
                         <p>
                             @item.BlogContent.Substring(0,300)...
                         </p>
-                        <a href="/Blog/BlogReadAll/@item.ID">Devamını Oku</a>
+                        <a href="/Blog/BlogReadAll/@item.Slug">Devamını Oku</a>
                     </div>
                 </div>
             }
@@ -67,7 +67,7 @@ else
                             <img src="~/images/profile/@item.ProfilePictureUrl" alt="" />
                         </div>
                         <div class="write">
-                            <a href="/User/Detail/@item.Id" style="color:white;"><h2>@item.UserName</h2></a>
+                            <a href="/User/Detail/@item.Slug" style="color:white;"><h2>@item.UserName</h2></a>
 
                             <p>
                                 @item.NameSurname

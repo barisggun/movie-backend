@@ -17,5 +17,6 @@ namespace MovieApp.EntityLayer.Entities
         public bool CommentStatus { get; set; }
         public int MovieId { get; set; }
         public Movie Movie { get; set; }
+        public string MovieSlug { get; set; }
     }
 }

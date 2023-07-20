@@ -25,7 +25,7 @@ namespace MovieApp.Panel.UI.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddComment(Comment p, MovieDetailModel m)
+        public IActionResult AddComment(Comment p, int movieId)
         {
             if (!User.Identity.IsAuthenticated)
             {
@@ -40,12 +40,19 @@ namespace MovieApp.Panel.UI.Controllers
             DateTime now = DateTime.Now;
             DateTime commentDate = new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, now.Second);
 
+            var movie = c.Movies.SingleOrDefault(m => m.ID == movieId);
+
+            if (movie == null)
+            {
+                return NotFound();
+            }
 
             p.CommentDate = commentDate;
             p.CommentStatus = true;
             p.CommentUserName = username;
-            p.MovieId = m.MovieId;
+            p.MovieId = movie.ID;
             p.CommentUserNameId = userID;
+            p.MovieSlug = movie.Slug;
 
 
             var lastComment = commentManager.GetLastCommentByUser(userID.ToString());
@@ -65,7 +72,7 @@ namespace MovieApp.Panel.UI.Controllers
 
             commentManager.Create(p);
             notificationService.Notification(NotifyType.Success, $"{p.CommentUserName} Yorumunuz başarıyla eklendi!");
-            return RedirectToAction("Detail", "Movie", new { id = p.MovieId });
+            return RedirectToAction("Detail", "Movie", new { slug = movie.Slug });
         }
 
 

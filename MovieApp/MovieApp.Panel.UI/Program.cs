@@ -92,6 +92,7 @@ namespace MovieApp.Panel.UI
 
             app.UseEndpoints(endpoints =>
             {
+               
                 endpoints.MapControllerRoute(
                     name: "movieDetail",
                     pattern: "Movie/Detail/{slug}",
@@ -104,10 +105,11 @@ namespace MovieApp.Panel.UI
                    name: "userDetail",
                    pattern: "User/Detail/{slug}",
                    defaults: new { controller = "User", action = "Detail" });
-
                 endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Main}/{action=Index}/{id?}");
+                   name: "default",
+                   pattern: "{controller=Main}/{action=Index}/{id?}");
+
+
             });
 
             app.Run();

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MovieApp.BusinessLayer.Concrete;
 using MovieApp.DataAccess.Concrete;
 using MovieApp.DataAccess.EntityFramework;
@@ -35,6 +36,12 @@ namespace MovieApp.Panel.UI.Controllers
                 // Örnek olarak:
                 return NotFound();
             }
+            //var movie = c.Movies.SingleOrDefault(m => m.Slug == slug);
+
+            //if (movie == null)
+            //{
+            //    return NotFound();
+            //}
 
             var userId = user.Id;
             var userRole = c.UserRoles.Where(x => x.UserId == userId).Select(y => y.RoleId).FirstOrDefault();
