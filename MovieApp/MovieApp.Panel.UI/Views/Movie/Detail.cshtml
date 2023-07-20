@@ -36,7 +36,7 @@
             <div class="director">
                 Yönetmen: @foreach (var directorName in Model.DirectorNames)
                 {
-                    <span>@directorName</span>
+                    <a href="/Movie/MoviesByDirectors/@directorName.Slug">@directorName.DirectorName </a>
                 }
             </div>
             <div class="director">

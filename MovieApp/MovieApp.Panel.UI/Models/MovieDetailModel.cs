@@ -7,7 +7,7 @@ namespace MovieApp.Panel.UI.Models
     {
         public int MovieId { get; set; }
         public string? Slug { get; set; }
-        public List<string> DirectorNames { get; set; }
+        public List<Director> DirectorNames { get; set; }
         public List<Actor> Actors { get; set; }
         public List<string> CategoryNames { get; set; }
         public string MovieTitle { get; set; }

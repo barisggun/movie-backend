@@ -17,6 +17,13 @@ namespace MovieApp.EntityLayer.Entities
         [MinLength(5, ErrorMessage = "Yönetmen adı minimum 5 karakter olabilir")]
         public string DirectorName { get; set; }
 
+        [DisplayName("Slug")]
+        public string? Slug { get; set; }
+
+        public void UpdateSlug()
+        {
+            Slug = SlugHelper.GenerateSlug(DirectorName);
+        }
         public List<Movie>? Movies { get; set; }
     }
 }

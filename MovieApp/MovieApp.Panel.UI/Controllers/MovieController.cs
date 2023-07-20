@@ -163,7 +163,7 @@ namespace MovieApp.Panel.UI.Controllers
             {
                 MovieId = movieValue.ID,
                 Slug = movieValue?.Slug,
-                DirectorNames = movieValue.Directors.Select(d => d.DirectorName).ToList(),
+                DirectorNames = movieValue.Directors,
                 Actors = movieValue.Actors,
                 CategoryNames = movieValue.Categories.Select(a => a.CategoryName).ToList(),
                 MovieTitle = movieValue.MovieTitle,
@@ -455,6 +455,7 @@ namespace MovieApp.Panel.UI.Controllers
             }
 
             movie.AverageRating = 0;
+            movie.UpdateSlug();
             movieManager.Update(movie);
 
             int movieId = movie.ID;
@@ -666,6 +667,18 @@ namespace MovieApp.Panel.UI.Controllers
             //}
 
             return View(actor);
+        }
+
+
+        [AllowAnonymous]
+        public IActionResult MoviesByDirectors(string slug)
+        {
+            var director = directorManager.GetBySlug(slug);
+            if (director == null)
+            {
+                return NotFound();
+            }
+            return View(director);
         }
     }
 

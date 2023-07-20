@@ -102,6 +102,10 @@ namespace MovieApp.Panel.UI
                    pattern: "Movie/MoviesByActors/{slug}",
                    defaults: new { controller = "Movie", action = "MoviesByActors" });
                 endpoints.MapControllerRoute(
+                   name: "movieMoviesByDirectors",
+                   pattern: "Movie/MoviesByDirectors/{slug}",
+                   defaults: new { controller = "Movie", action = "MoviesByDirectors" });
+                endpoints.MapControllerRoute(
                    name: "blogBlogReadAll",
                    pattern: "Blog/BlogReadAll/{slug}",
                    defaults: new { controller = "Blog", action = "BlogReadAll" });

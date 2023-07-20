@@ -24,7 +24,6 @@ namespace MovieApp.EntityLayer.Entities
         public void UpdateSlug()
         {
             Slug = SlugHelper.GenerateSlug(ActorName);
-            Console.WriteLine($"Updated Slug for {ActorName}: {Slug}");
         }
     }
 }
