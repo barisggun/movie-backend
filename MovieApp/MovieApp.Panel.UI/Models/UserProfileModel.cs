@@ -5,6 +5,7 @@
         public int UserID { get; set; }
         public int? MovieID { get; set; }
         public int? CommentID { get; set; }
+        public string Slug { get; set; }
         public DateTime? CommentDate { get; set; }
         public string? CommentContent { get; set; }
         //public string Poster { get; set; }

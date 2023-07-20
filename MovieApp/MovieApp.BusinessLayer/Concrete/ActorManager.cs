@@ -1,5 +1,8 @@
-﻿using MovieApp.BusinessLayer.Abstract;
+﻿using Microsoft.EntityFrameworkCore;
+using MovieApp.BusinessLayer.Abstract;
 using MovieApp.DataAccess.Abstract;
+using MovieApp.DataAccess.Concrete;
+using MovieApp.DataAccess.Migrations;
 using MovieApp.EntityLayer.Entities;
 using System;
 using System.Collections.Generic;
@@ -12,6 +15,7 @@ namespace MovieApp.BusinessLayer.Concrete
     public class ActorManager : IActorService
     {
         private IActorDal _actorDal;
+        Context c = new Context();
 
         public ActorManager(IActorDal actorDal)
         {

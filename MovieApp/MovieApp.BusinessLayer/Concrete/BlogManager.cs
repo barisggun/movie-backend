@@ -24,6 +24,7 @@ namespace MovieApp.BusinessLayer.Concrete
 
         public void Create(Blog blog)
         {
+            blog.UpdateSlug();
            _blogDal.Create(blog);
         }
 
@@ -40,6 +41,15 @@ namespace MovieApp.BusinessLayer.Concrete
         public Blog GetById(int id)
         {
             return _blogDal.GetById(id);
+        }
+
+        public Blog GetBySlug(string slug)
+        {
+            var blog = c.Blogs
+            .Include(m => m.Movies)
+            .FirstOrDefault(m => m.Slug == slug);
+
+            return blog;
         }
 
         public void Update(Blog blog)

@@ -188,22 +188,27 @@ namespace MovieApp.Panel.UI.Controllers
         }
 
         [AllowAnonymous]
-        public IActionResult BlogReadAll(int id)
+        public IActionResult BlogReadAll(string slug)
         {
-            var userId = c.Blogs.Where(x=>x.ID == id).Select(y=>y.AppUserId).FirstOrDefault();
+            var blog = bm.GetBySlug(slug);
+            if (blog == null)
+            {
+                return NotFound();
+            }
+            var userId = blog.AppUserId;
             var userRoleId = c.UserRoles.Where(x => x.UserId == userId).Select(y => y.RoleId).FirstOrDefault();
             var userRoleName = c.Roles.Where(x => x.Id == userRoleId).Select(y => y.Name).FirstOrDefault();
             var userNameSurname = c.Users.Where(x=>x.Id == userId).Select(y=>y.NameSurname).FirstOrDefault();
             var userProfile = c.Users.Where(x=>x.Id == userId).Select(y=>y.ImageUrl).FirstOrDefault();
-            var blog = bm.GetById(id);
-
+            
             var movieId = blog.MovieId;
             var movieName= c.Movies.Where(x=>x.ID==movieId).Select(y=>y.MovieTitle).FirstOrDefault();   
 
             var model = new BlogReadAllModel
             {
                 UserID = userId,
-                BlogID = id,
+                BlogID = blog.ID,
+                Slug = blog.Slug,
                 BlogDate = blog.BlogCreateDate,
                 BlogContent = blog.BlogContent,
                 UserRole = userRoleName,

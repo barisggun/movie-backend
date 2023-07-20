@@ -5,6 +5,7 @@
         public int UserID { get; set; }
         //public int MovieID { get; set; }
         public int BlogID { get; set; }
+        public string Slug { get; set; }
         public DateTime BlogDate { get; set; }
         public string BlogContent { get; set; }
         public string BlogTitle { get; set; }

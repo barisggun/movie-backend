@@ -25,6 +25,13 @@ namespace MovieApp.EntityLayer.Entities
         public string BlogContent { get; set; }
         public string? BlogThumbnailImage { get; set; }
 
+        [DisplayName("Slug")]
+        public string Slug { get; set; }
+
+        public void UpdateSlug()
+        {
+            Slug = SlugHelper.GenerateSlug(BlogTitle);
+        }
 
         //[Required(ErrorMessage = "Blog fotoğraf alanı boş geçilemez.")]
         [DisplayName("Blog Fotoğrafı")]

@@ -21,13 +21,10 @@ namespace MovieApp.EntityLayer.Entities
                 .Replace("ş", "s")
                 .Replace("ü", "u");
 
-            // Alphanumeric (harf ve rakam) ve tireler dışındaki karakterleri kaldırın
             slug = Regex.Replace(slug, "[^a-z0-9\\-]", "");
 
-            // Ardışık tireleri tek bir tire ile değiştirin
             slug = Regex.Replace(slug, "-{2,}", "-");
 
-            // Başta ve sonda kalan tireleri kaldırın
             slug = slug.Trim('-');
 
             return slug;

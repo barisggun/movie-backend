@@ -23,6 +23,7 @@ namespace MovieApp.BusinessLayer.Concrete
 
         public void Create(AppUser appUser)
         {
+            appUser.UpdateSlug();
             _userDal.Create(appUser);
         }
 
@@ -39,6 +40,13 @@ namespace MovieApp.BusinessLayer.Concrete
         public AppUser GetById(int id)
         {
             return _userDal.GetById(id);
+        }
+        public AppUser GetBySlug(string slug)
+        {
+            var user = c.Users
+            .FirstOrDefault(m => m.Slug == slug);
+
+            return user;
         }
 
         public void Update(AppUser appUser)

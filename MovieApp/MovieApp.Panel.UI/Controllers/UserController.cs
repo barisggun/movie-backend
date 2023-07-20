@@ -25,23 +25,33 @@ namespace MovieApp.Panel.UI.Controllers
             this.webHostEnvironment = webHostEnvironment;
         }
 
-        public IActionResult Detail(int id)
+        public IActionResult Detail(string slug)
         {
-            var userRole = c.UserRoles.Where(x => x.UserId == id).Select(y => y.RoleId).FirstOrDefault();
+            var user = userManager.GetBySlug(slug);
+
+            if (user == null)
+            {
+                // Eğer kullanıcı bulunamazsa, 404 sayfasına yönlendirme yapabilirsiniz.
+                // Örnek olarak:
+                return NotFound();
+            }
+
+            var userId = user.Id;
+            var userRole = c.UserRoles.Where(x => x.UserId == userId).Select(y => y.RoleId).FirstOrDefault();
             var userRoleName = c.Roles.Where(x => x.Id == userRole).Select(y => y.Name).FirstOrDefault();
-            var username = c.Users.Select(x => x.UserName).FirstOrDefault();
+
+            var username = user.UserName;
             var commentID = c.Comments.Where(x => x.CommentUserName == username).Select(y => y.ID).FirstOrDefault();
             var commentDate = c.Comments.Where(x => x.ID == commentID).Select(y => y.CommentDate).FirstOrDefault();
             var commentContent = c.Comments.Where(x => x.ID == commentID).Select(y => y.CommentContent).FirstOrDefault();
             var movieId = c.Comments.Where(x => x.ID == commentID).Select(y => y.MovieId).FirstOrDefault();
-            var user = userManager.GetById(id);
-
 
             var model = new UserProfileModel
             {
-                UserID = user.Id,
+                UserID = userId,
                 UserName = user.UserName,
                 NameSurname = user.NameSurname,
+                Slug = user.Slug,
                 About = user.About,
                 UserRole = userRoleName,
                 ImageUrl = user.ImageUrl,
