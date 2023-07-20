@@ -15,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using static NuGet.Packaging.PackagingConstants;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using System.Linq;
+using MovieApp.DataAccess.Migrations;
 
 namespace MovieApp.Panel.UI.Controllers
 {
@@ -649,14 +650,20 @@ namespace MovieApp.Panel.UI.Controllers
         }
 
         [AllowAnonymous]
-        public IActionResult MoviesByActors(int Id)
+        public IActionResult MoviesByActors(string slug)
         {
-            var actor = c.Actors.Include(x => x.Movies).FirstOrDefault(y => y.ID == Id);
-
+            var actor = actorManager.GetBySlug(slug);
             if (actor == null)
             {
                 return NotFound();
             }
+
+            //var actor = c.Actors.Include(x => x.Movies).FirstOrDefault(y => y.ID == Id);
+
+            //if (actor == null)
+            //{
+            //    return NotFound();
+            //}
 
             return View(actor);
         }

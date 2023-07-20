@@ -26,7 +26,7 @@ namespace MovieApp.EntityLayer.Entities
         public string? BlogThumbnailImage { get; set; }
 
         [DisplayName("Slug")]
-        public string Slug { get; set; }
+        public string? Slug { get; set; }
 
         public void UpdateSlug()
         {

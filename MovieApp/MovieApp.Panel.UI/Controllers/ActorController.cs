@@ -27,13 +27,13 @@ namespace MovieApp.Panel.UI.Controllers
         {
             if (ModelState.IsValid)
             {
+                actor.UpdateSlug();
                 actorManager.Create(actor);
                 return RedirectToAction("Index");
             }
             return View(actor);
-
-            
         }
+
         public IActionResult Delete(int id)
         {
             Actor actor = actorManager.GetById(id);

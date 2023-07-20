@@ -9,7 +9,7 @@ namespace MovieApp.Panel.UI.ViewComponents.Main
         BlogManager bm = new BlogManager(new EfBlogRepository());
         public IViewComponentResult Invoke()
         {
-            var values = bm.GetAll().Take(6).ToList();
+            var values = bm.GetAll().OrderByDescending(x=>x.BlogCreateDate).Take(6).ToList();
             return View(values);
         }
     }

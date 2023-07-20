@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using MovieApp.Panel.UI.Models;
 using System.Security.Permissions;
+using MovieApp.DataAccess.Migrations;
 
 namespace MovieApp.Panel.UI.Controllers
 {
@@ -64,10 +65,9 @@ namespace MovieApp.Panel.UI.Controllers
         [HttpPost]
         public IActionResult Create(Blog b, IFormFile file)
         {
-             b.BlogImage = "";
+            b.BlogImage = "";
             if (ModelState.IsValid)
             {
-               
                 if (file != null)
                 {
                     string wwwrootPath = webHostEnvironment.WebRootPath;
@@ -75,7 +75,7 @@ namespace MovieApp.Panel.UI.Controllers
                     string extension = Path.GetExtension(file.FileName);
 
                     string yeniDosyaAdi = fileName + DateTime.Now.ToString("yymmssfff") + extension;
-                    string path = Path.Combine(wwwrootPath + "/images/blog/", yeniDosyaAdi);
+                    string path = Path.Combine(wwwrootPath, "images", "blog", yeniDosyaAdi);
 
                     using (var fileStream = new FileStream(path, FileMode.Create))
                     {
@@ -84,14 +84,16 @@ namespace MovieApp.Panel.UI.Controllers
 
                     b.BlogImage = yeniDosyaAdi;
                 }
-               
+
                 var username = User.Identity.Name;
                 var usermail = c.Users.Where(x => x.UserName == username).Select(y => y.Email).FirstOrDefault();
                 var userID = c.Users.Where(x => x.Email == usermail).Select(y => y.Id).FirstOrDefault();
 
                 b.BlogStatus = true;
-                b.BlogCreateDate = DateTime.Parse(DateTime.Now.ToShortDateString());
+                b.BlogCreateDate = DateTime.Now; // Doğrudan şu anki zamanı atayabiliriz.
                 b.AppUserId = userID;
+
+                b.UpdateSlug(); 
 
                 bm.Create(b);
                 return RedirectToAction("BlogListByWriter", "Blog");
@@ -107,6 +109,7 @@ namespace MovieApp.Panel.UI.Controllers
             ViewBag.cv = movievalues;
             return View(b);
         }
+
 
         public IActionResult BlogDelete(int id)
         {

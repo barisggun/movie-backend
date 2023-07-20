@@ -23,6 +23,7 @@ namespace MovieApp.BusinessLayer.Concrete
         }
         public void Create(Actor actor)
         {
+            actor.UpdateSlug();
             _actorDal.Create(actor);
         }
 
@@ -38,6 +39,14 @@ namespace MovieApp.BusinessLayer.Concrete
         public Actor GetById(int id)
         {
             return _actorDal.GetById(id);
+        }
+        public Actor GetBySlug(string slug)
+        {
+            var actor = c.Actors
+            .Include(m => m.Movies)
+            .FirstOrDefault(m => m.Slug == slug);
+
+            return actor;
         }
 
         public void Update(Actor actor)

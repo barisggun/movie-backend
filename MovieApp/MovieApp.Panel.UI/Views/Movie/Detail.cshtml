@@ -42,7 +42,7 @@
             <div class="director">
                 Oyuncular : @foreach (var actorName in Model.Actors)
                 {
-                        <a href="/Movie/MoviesByActors?Id=@actorName.ID">@actorName.ActorName </a>
+                        <a href="/Movie/MoviesByActors/@actorName.Slug">@actorName.ActorName </a>
                 }
             </div>
             <div class="director">

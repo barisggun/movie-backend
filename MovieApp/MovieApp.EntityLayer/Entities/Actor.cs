@@ -17,6 +17,15 @@ namespace MovieApp.EntityLayer.Entities
         [MinLength(5, ErrorMessage = "Oyuncu adı maksimum 60 karakter olabilir")]
         public string ActorName { get; set; }
         public List<Movie>? Movies { get; set; }
+
+        [DisplayName("Slug")]
+        public string? Slug { get; set; }
+
+        public void UpdateSlug()
+        {
+            Slug = SlugHelper.GenerateSlug(ActorName);
+            Console.WriteLine($"Updated Slug for {ActorName}: {Slug}");
+        }
     }
 }
 
