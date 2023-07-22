@@ -31,7 +31,8 @@ namespace MovieApp.Panel.UI.ViewComponents.ProfileComment
                 {
                     MovieId = movie.ID,
                     MoviePoster = movie.Poster,
-                    WatchListId = watchListIds
+                    WatchListId = watchListIds,
+                    MovieSlug = movie.Slug
                 };
 
                 watchList.Add(profileWatchListModel);

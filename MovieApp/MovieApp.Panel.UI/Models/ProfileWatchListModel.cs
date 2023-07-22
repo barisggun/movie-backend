@@ -5,5 +5,6 @@
         public int MovieId { get; set; }
         public List<int> WatchListId { get; set; }
         public string MoviePoster { get; set; }
+        public string MovieSlug { get; set; }
     }
 }
