@@ -28,7 +28,7 @@
                 <div class="filterTitle">
                     @foreach (var category in Model.Filter.Categories ?? new List<int>())
                     {
-                        <div class="element">
+                        <div class="filterContent">
                             <input type="checkbox" name="Categories" value="@category">
                             <p>@(ViewBag.CategoryNames != null && ViewBag.CategoryNames.ContainsKey(category) ? ViewBag.CategoryNames[category] : string.Empty)</p>
                         </div>
@@ -40,7 +40,7 @@
                 <div class="filterTitle">
                 @foreach (var rating in Model.Filter.Ratings ?? new List<int>())
                 {
-                    <div class="element">
+                        <div class="filterContent">
                         <input type="checkbox" name="Ratings" value="@rating">
                         <p>@rating</p>
                     </div>

@@ -383,7 +383,8 @@ body {
 .reviews {
     grid-column: 1 / 4;
     grid-row: 2 / 5;
-    max-width: 1360px;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .popularList {
@@ -394,7 +395,6 @@ body {
 .review {
     width: 100%;
     display: flex;
-    /*burda yeni şeyler var*/
     color: #000;
     padding: 15px;
     gap: 15px;
@@ -404,7 +404,6 @@ body {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     transition: 0.5s;
     background-color: hsla(0, 0%, 100%, 0.5);
-    flex-wrap: wrap;
 }
 
     .review:hover {
@@ -424,8 +423,8 @@ body {
     max-width: 50px;
 }
 
-.write{
-    width:100%;
+.write {
+    flex: 1;
 }
 .write p {
     /*burda da var*/
@@ -1191,6 +1190,7 @@ pre {
     width: 1200px;
     margin: 0 auto;
     margin-top: 16px;
+    margin-bottom: 172px;
 }
 
 .filters {
@@ -1346,6 +1346,8 @@ details > input {
 }
 
 .apply {
+    display: flex; /* Yeni*/
+    gap: 8px; /* Yeni*/
     margin-top: 16px;
     text-align: center;
 }
@@ -1356,17 +1358,16 @@ details > input {
     color: #FFF; /* Yeni*/
     border: none;
     border-radius: 8px;
-    padding: 10px 32px;
+    padding: 6px 18px; /* Yeni*/
     margin-left: -3px;
 }
 .resetButton {
     display: inline-block;
-    background-color: #0c177a; /* Yeni*/
-    color: #FFF; /* Yeni*/
+    background-color: #0c177a;
+    color: #FFF;
     border: none;
     border-radius: 8px;
-    padding: 10px 32px;
-    margin-left: -3px;
+    padding: 6px 18px;
 }
 summary::before {
     content: "+";

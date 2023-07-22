@@ -23,8 +23,10 @@
 
 
                 </h4>
-                <h3>@item.MovieTitle</h3>
-                <p>@item.Description.Substring(0,50)</p>
+                <a href="/Movie/Detail/@item.Slug">
+                    <h3>@item.MovieTitle</h3>
+                </a>
+                <p>@item.Description.Substring(0,20)</p>
             </div>
         </div>
     }
