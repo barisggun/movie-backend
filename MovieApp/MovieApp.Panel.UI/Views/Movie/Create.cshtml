@@ -22,15 +22,17 @@
 
             <div class="form-group">
                 <label for="actorSelect">Oyuncu Seç</label>
-                <select id="actorSelect" name="selectedActorIds" class="form-control">
-                    <option value="">Seç</option>
-                    @foreach (var actor in ViewBag.Actors)
-                    {
-                        <option value="@actor.Value">@actor.Text</option>
-                    }
-                </select>
+                <div class="dropdown actor-dropdown">
+                    <input type="text" id="searchBox" class="form-control" placeholder="Ara">
+                    <div class="dropdown-menu ">
+                        @foreach (var actor in ViewBag.Actors)
+                        {
+                            <a class="dropdown-item" href="#" data-value="@actor.Value">@actor.Text</a>
+                        }
+                    </div>
+                </div>
             </div>
-            <button type="button" class="btn btn-primary" id="addActorButton">Ekle</button>
+            @*<button type="button" class="btn btn-primary" id="addActorButton">Ekle</button>*@
 
             <!-- Seçilen oyuncuların listesi -->
             <ul id="actorList" class="list-group mt-3"></ul>
@@ -123,12 +125,39 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
+    $(document).ready(function () {
+        $(".dropdown-menu").hide(); // Sayfa yüklendiğinde dropdown menüleri gizle
+    });
+
+    // Oyuncu listesi açıldığında arama kutusunu göster ve liste aktif olsun
+    $(document).on("click", "#searchBox", function () {
+        $("#searchBox").val("").focus();
+        $(".actor-dropdown .dropdown-menu").show(); // Sadece oyuncu dropdown menüsünü göster
+    });
+
+    // Arama kutusuna her karakter girildiğinde filtreleme işlevi
+    $(document).on("input", "#searchBox", function () {
+        var filter, items, i, txtValue;
+        filter = $(this).val().toUpperCase();
+        items = $(".actor-dropdown .dropdown-menu a");
+        for (i = 0; i < items.length; i++) {
+            txtValue = items[i].textContent || items[i].innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                items[i].style.display = "";
+            } else {
+                items[i].style.display = "none";
+            }
+        }
+    });
+
     // Seçilen oyuncuyu listeye ekle
-    document.getElementById("addActorButton").addEventListener("click", function () {
-        var selectElement = document.getElementById("actorSelect");
-        var selectedActorId = selectElement.value;
-        var selectedActorName = selectElement.options[selectElement.selectedIndex].text;
+    $(document).on("click", ".dropdown-item", function (e) {
+        e.preventDefault();
+        var selectedActorId = $(this).data("value");
+        var selectedActorName = $(this).text();
 
         if (selectedActorId && selectedActorName) {
             var actorList = document.getElementById("actorList");
@@ -138,9 +167,43 @@
             listItem.innerHTML += '<input type="hidden" name="selectedActorIds" value="' + selectedActorId + '">';
             actorList.appendChild(listItem);
 
-            selectElement.value = "";
+            // Seçilen oyuncuyu listeden çıkar
+            $(this).hide();
         }
     });
+    $(document).on("click", "#actorList li", function () {
+        var selectedActorId = $(this).find("input[name='selectedActorIds']").val();
+        if (selectedActorId) {
+            $(this).remove();
+            // Çıkarılan oyuncuyu tekrar seçebilmek için dropdown listesini göster
+            $(".dropdown-item[data-value='" + selectedActorId + "']").show();
+        }
+    });
+
+    // Sayfanın herhangi bir yerine tıkladığımızda dropdown menüyü gizle
+    $(document).on("click", function (e) {
+        if (!$(e.target).closest(".actor-dropdown").length) {
+            $(".actor-dropdown .dropdown-menu").hide(); // Oyuncu dropdown menüsü haricindeki diğer dropdown menüleri gizle
+        }
+    });
+    //// Seçilen oyuncuyu listeye ekle
+    //document.getElementById("addActorButton").addEventListener("click", function () {
+    //    var selectElement = document.getElementById("actorSelect");
+    //    var selectedActorId = selectElement.value;
+    //    var selectedActorName = selectElement.options[selectElement.selectedIndex].text;
+
+    //    if (selectedActorId && selectedActorName) {
+    //        var actorList = document.getElementById("actorList");
+    //        var listItem = document.createElement("li");
+    //        listItem.classList.add("list-group-item");
+    //        listItem.textContent = selectedActorName;
+    //        listItem.innerHTML += '<input type="hidden" name="selectedActorIds" value="' + selectedActorId + '">';
+    //        actorList.appendChild(listItem);
+
+    //        selectElement.value = "";
+    //    }
+    //});
+
 
     document.getElementById("addCategoryButton").addEventListener("click", function () {
         var selectElement = document.getElementById("categorySelect");
