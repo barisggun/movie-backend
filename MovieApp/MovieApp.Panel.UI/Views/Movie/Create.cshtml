@@ -5,9 +5,8 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Create</h1>
+<h1>Film Oluşturma Ekranı</h1>
 
-<h4>Movie</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -24,7 +23,7 @@
                 <label for="actorSelect">Oyuncu Seç</label>
                 <div class="dropdown actor-dropdown">
                     <input type="text" id="searchBox" class="form-control" placeholder="Ara">
-                    <div class="dropdown-menu ">
+                    <div class="dropdown-menu dropdown-menu-scrollable" data-target="selectedActors">
                         @foreach (var actor in ViewBag.Actors)
                         {
                             <a class="dropdown-item" href="#" data-value="@actor.Value">@actor.Text</a>
@@ -37,7 +36,7 @@
             <!-- Seçilen oyuncuların listesi -->
             <ul id="actorList" class="list-group mt-3"></ul>
 
-            <div class="form-group">
+            @*<div class="form-group">
                 <label for="categorySelect">Kategori Seç</label>
                 <select id="categorySelect" name="selectedCategoryIds" class="form-control">
                     <option value="">Seç</option>
@@ -48,6 +47,21 @@
                 </select>
             </div>
             <button type="button" class="btn btn-primary" id="addCategoryButton">Ekle</button>
+
+            <ul id="categoryList" class="list-group mt-3"></ul>*@
+
+            <div class="form-group">
+                <label for="categorySelect">Kategori Seç</label>
+                <div class="dropdown category-dropdown">
+                    <input type="text" id="searchBoxCategory" class="form-control" placeholder="Ara">
+                    <div class="dropdown-menu dropdown-menu-scrollable" data-target="selectedCategories">
+                        @foreach (var category in ViewBag.Categories)
+                        {
+                            <a class="dropdown-item" href="#" data-value="@category.Value">@category.Text</a>
+                        }
+                    </div>
+                </div>
+            </div>
 
             <ul id="categoryList" class="list-group mt-3"></ul>
 
@@ -154,7 +168,7 @@
     });
 
     // Seçilen oyuncuyu listeye ekle
-    $(document).on("click", ".dropdown-item", function (e) {
+    $(document).on("click", ".actor-dropdown .dropdown-item", function (e) {
         e.preventDefault();
         var selectedActorId = $(this).data("value");
         var selectedActorName = $(this).text();
@@ -176,7 +190,7 @@
         if (selectedActorId) {
             $(this).remove();
             // Çıkarılan oyuncuyu tekrar seçebilmek için dropdown listesini göster
-            $(".dropdown-item[data-value='" + selectedActorId + "']").show();
+            $(".actor-dropdown .dropdown-item[data-value='" + selectedActorId + "']").show();
         }
     });
 
@@ -186,6 +200,68 @@
             $(".actor-dropdown .dropdown-menu").hide(); // Oyuncu dropdown menüsü haricindeki diğer dropdown menüleri gizle
         }
     });
+
+    ////////////////////////////////////////Categories/////////////////////////////////////////////
+
+    $(document).on("click", "#searchBoxCategory", function () {
+        $("#searchBoxCategory").val("").focus();
+        $(".category-dropdown .dropdown-menu").show();
+    });
+
+    // Arama kutusuna her karakter girildiğinde filtreleme işlevi
+    $(document).on("input", "#searchBoxCategory", function () {
+        var filter, items, i, txtValue;
+        filter = $(this).val().toUpperCase();
+        items = $(".category-dropdown .dropdown-menu a");
+        for (i = 0; i < items.length; i++) {
+            txtValue = items[i].textContent || items[i].innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                items[i].style.display = "";
+            } else {
+                items[i].style.display = "none";
+            }
+        }
+    });
+
+    // Seçilen kategoriyi listeye ekle
+    $(document).on("click", ".category-dropdown .dropdown-item", function (e) {
+        e.preventDefault();
+        var selectedCategoryId = $(this).data("value");
+        var selectedCategoryName = $(this).text();
+
+        if (selectedCategoryId && selectedCategoryName) {
+            var categoryList = document.getElementById("categoryList");
+            var listItem = document.createElement("li");
+            listItem.classList.add("list-group-item");
+            listItem.textContent = selectedCategoryName;
+            listItem.innerHTML += '<input type="hidden" name="selectedCategoryIds" value="' + selectedCategoryId + '">';
+            categoryList.appendChild(listItem);
+
+            // Seçilen oyuncuyu listeden çıkar
+            $(this).hide();
+        }
+    });
+
+    $(document).on("click", "#categoryList li", function () {
+        var selectedCategoryId = $(this).find("input[name='selectedCategoryIds']").val();
+        if (selectedCategoryId) {
+            $(this).remove();
+            // Çıkarılan oyuncuyu tekrar seçebilmek için dropdown listesini göster
+            $(".category-dropdown .dropdown-item[data-value='" + selectedCategoryId + "']").show();
+        }
+    });
+
+    // Sayfanın herhangi bir yerine tıkladığımızda dropdown menüyü gizle
+    $(document).on("click", function (e) {
+        if (!$(e.target).closest(".category-dropdown").length) {
+            $(".category-dropdown .dropdown-menu").hide(); // Oyuncu dropdown menüsü haricindeki diğer dropdown menüleri gizle
+        }
+    });
+
+
+
+
+
     //// Seçilen oyuncuyu listeye ekle
     //document.getElementById("addActorButton").addEventListener("click", function () {
     //    var selectElement = document.getElementById("actorSelect");
@@ -205,20 +281,20 @@
     //});
 
 
-    document.getElementById("addCategoryButton").addEventListener("click", function () {
-        var selectElement = document.getElementById("categorySelect");
-        var selectedCategoryId = selectElement.value;
-        var selectedCategoryName = selectElement.options[selectElement.selectedIndex].text;
+    //document.getElementById("addCategoryButton").addEventListener("click", function () {
+    //    var selectElement = document.getElementById("categorySelect");
+    //    var selectedCategoryId = selectElement.value;
+    //    var selectedCategoryName = selectElement.options[selectElement.selectedIndex].text;
 
-        if (selectedCategoryId && selectedCategoryName) {
-            var categoryList = document.getElementById("categoryList");
-            var listItem = document.createElement("li");
-            listItem.classList.add("list-group-item");
-            listItem.textContent = selectedCategoryName;
-            listItem.innerHTML += '<input type="hidden" name="selectedCategoryIds" value="' + selectedCategoryId + '">';
-            categoryList.appendChild(listItem);
+    //    if (selectedCategoryId && selectedCategoryName) {
+    //        var categoryList = document.getElementById("categoryList");
+    //        var listItem = document.createElement("li");
+    //        listItem.classList.add("list-group-item");
+    //        listItem.textContent = selectedCategoryName;
+    //        listItem.innerHTML += '<input type="hidden" name="selectedCategoryIds" value="' + selectedCategoryId + '">';
+    //        categoryList.appendChild(listItem);
 
-            selectElement.value = "";
-        }
-    });
+    //        selectElement.value = "";
+    //    }
+    //});
 </script>

@@ -13576,4 +13576,9 @@ dl {
   -ms-flex-positive: 1;
   flex-grow: 1; }
 
+
+.dropdown-menu-scrollable {
+    max-height: 200px; /* Set the maximum height as needed */
+    overflow-y: auto;
+}
 /*# sourceMappingURL=style.css.map */
