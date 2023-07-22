@@ -706,7 +706,7 @@ input {
     display: grid;
     grid-template-columns: 1fr 2fr;
     color: #ffff;
-    margin-bottom: 45px;
+    margin-bottom: 55px;
 }
 .forgatPassword{
     min-height: 70vh;

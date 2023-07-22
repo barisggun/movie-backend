@@ -32,7 +32,7 @@ namespace MovieApp.Panel.UI.Controllers
                 
             }
 
-            var filterMovies = c.Movies.Where(m=>m.MovieTitle.Contains(searchTerm)).ToList();
+            var filterMovies = c.Movies.Where(m=>m.MovieTitle.Contains(searchTerm) || m.Description.Contains(searchTerm)).ToList();
             var filterBlogs = c.Blogs.Where(m=>m.BlogContent.Contains(searchTerm) || m.BlogTitle.Contains(searchTerm)).ToList();
             var filterUsers = c.Users.Where(m => m.UserName.Contains(searchTerm) || m.NameSurname.Contains(searchTerm)).ToList();
 

@@ -205,13 +205,15 @@ namespace MovieApp.Panel.UI.Controllers
             var userProfile = c.Users.Where(x=>x.Id == userId).Select(y=>y.ImageUrl).FirstOrDefault();
             
             var movieId = blog.MovieId;
-            var movieName= c.Movies.Where(x=>x.ID==movieId).Select(y=>y.MovieTitle).FirstOrDefault();   
+            var movieName= c.Movies.Where(x=>x.ID==movieId).Select(y=>y.MovieTitle).FirstOrDefault();
+            var movieSlug = c.Movies.Where(x=>x.ID == movieId).Select(x=>x.Slug).FirstOrDefault();
 
             var model = new BlogReadAllModel
             {
                 UserID = userId,
                 BlogID = blog.ID,
                 Slug = blog.Slug,
+                MovieSlug = movieSlug,
                 BlogDate = blog.BlogCreateDate,
                 BlogContent = blog.BlogContent,
                 UserRole = userRoleName,
