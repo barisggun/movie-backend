@@ -31,5 +31,19 @@ namespace MovieApp.Panel.UI.Controllers
             }
             return View(director);
         }
+
+        [HttpPost]
+        public IActionResult Delete(int directorId)
+        {
+            var directorToDelete = directorManager.GetById(directorId);
+            if (directorToDelete == null)
+            {
+                return NotFound();
+            }
+
+            directorManager.Delete(directorToDelete);
+
+            return RedirectToAction("Index");
+        }
     }
 }

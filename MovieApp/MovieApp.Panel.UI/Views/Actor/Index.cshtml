@@ -5,10 +5,10 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Oyuncu Listesi</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Yeni Oyuncu Oluştur</a>
 </p>
 <table class="table">
     <thead>
@@ -32,9 +32,12 @@
                 @Html.DisplayFor(modelItem => item.ID)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+@*                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |*@
+
+                    @using (Html.BeginForm("Delete", "Actor", new { actorId = item.ID }, FormMethod.Post))
+                    {
+                        <input type="submit" value="Sil" class="btn btn-danger" onclick="return confirm('@item.ActorName isimli oyuncuyu silmek istediğinize emin misiniz?');" />
+                    }
             </td>
         </tr>
 }

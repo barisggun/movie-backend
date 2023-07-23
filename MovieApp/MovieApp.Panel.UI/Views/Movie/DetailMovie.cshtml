@@ -60,5 +60,5 @@
 
 @using (Html.BeginForm("Delete", "Movie", new { movieId = Model.MovieId }, FormMethod.Post))
 {
-    <input type="submit" value="Filmi Sil" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this movie?');" />
+    <input type="submit" value="Filmi Sil" class="btn btn-danger" onclick="return confirm('@Model.MovieTitle isimli filmi silmek istediğinize emin misiniz?');" />
 }

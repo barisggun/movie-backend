@@ -34,10 +34,18 @@ namespace MovieApp.Panel.UI.Controllers
             return View(actor);
         }
 
-        public IActionResult Delete(int id)
+        [HttpPost]
+        public IActionResult Delete(int actorId)
         {
-            Actor actor = actorManager.GetById(id);
-            return View(actor);
+            var actorToDelete = actorManager.GetById(actorId);
+            if (actorToDelete == null)
+            {
+                return NotFound();
+            }
+
+            actorManager.Delete(actorToDelete);
+
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
