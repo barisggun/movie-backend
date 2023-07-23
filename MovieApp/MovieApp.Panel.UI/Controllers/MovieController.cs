@@ -154,8 +154,6 @@ namespace MovieApp.Panel.UI.Controllers
 
             if (movieValue == null)
             {
-                // Eğer film bulunamazsa, 404 sayfasına yönlendirme yapabilirsiniz.
-                // Örnek olarak:
                 return NotFound();
             }
 
@@ -546,6 +544,22 @@ namespace MovieApp.Panel.UI.Controllers
                 }
             }
             return RedirectToAction("Index", "Movie");
+        }
+
+
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        public IActionResult Delete(int movieId)
+        {
+            var movieToDelete = movieManager.GetById(movieId);
+            if (movieToDelete == null)
+            {
+                return NotFound();
+            }
+
+            movieManager.Delete(movieToDelete);
+
+            return RedirectToAction("Index");
         }
 
 
