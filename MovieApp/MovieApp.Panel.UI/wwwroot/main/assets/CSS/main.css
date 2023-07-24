@@ -539,7 +539,7 @@ body {
         color: #ffff;
     }
 
-        .links li:hover {
+        .links li a:hover {
             color: #c3fcff;
         }
 

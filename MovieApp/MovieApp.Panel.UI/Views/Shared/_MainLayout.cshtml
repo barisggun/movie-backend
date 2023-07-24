@@ -38,7 +38,8 @@
                         <li>Anasayfa</li></a>
                         <a href="/Movie/MovieList">
                         <li>Filmler</li></a>
-
+                        <a href="/Blog/BlogList">
+                        <li>Bloglar</li></a>
                     </ul>
 
                     <form asp-controller="Main" asp-action="Search" method="get">
@@ -108,23 +109,21 @@
         <div class="links">
             <ul>
                 SineSözlük
-                <li>Sinesözlük Hakkında Bilgi Alın</li>
-                <li>Bize Ulaşın</li>
-                <li>Geri Bildirimde Bulun</li>
-                <li>Hata Bildir</li>
+                <li><a href="/Movie/MovieList">SineSözlük Hakkında</a></li>
+                <li><a href="/Movie/MovieList">İletişim</a></li>
+                <li><a href="/Movie/MovieList">Github</a></li>
+                <li><a href="/Movie/MovieList">Hata Bildir</a></li>
             </ul>
             <ul>
                 Sayfalar
-                <li>Filmler</li>
-                <li>Bloglar</li>
-                <li>Profil</li>
-                <li>Son Yorumlar</li>
+                <li><a href="/Movie/MovieList">Filmler</a></li>
+                <li><a href="/Blog/BlogList">Bloglar</a></li>
             </ul>
             <ul>
                 Sosyal Medya
-                <li><i class="fa-brands fa-instagram"></i></li>
-                <li><i class="fa-brands fa-facebook"></i></li>
-                <li><i class="fa-brands fa-twitter"></i></li>
+                <li><a href="https://www.instagram.com/sinesozlukoffical/"><i class="fa-brands fa-instagram"></i></a></li>
+@*                <li><i class="fa-brands fa-facebook"></i></li>
+                <li><i class="fa-brands fa-twitter"></i></li>*@
             </ul>
         </div>
     </div>
