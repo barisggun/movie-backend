@@ -1,0 +1,36 @@
+﻿@model MailRequest
+@{
+    ViewData["Title"] = "Contact";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<div class="form-title">
+    <h3>İletişim</h3>
+    <p id="userName">Görüşleriniz bizim için çok önemli. Her türlü öneri, şikayet, isteğinizi ve sitede bulduğunuz açıkları bize yazabilirsiniz.</p>
+</div>
+
+<form method="post">
+
+    <div class="contact-form">
+        <div class="left-form">
+            <h4>Ad-Soyad</h4>
+            <input class="contact-input" asp-for="Name" type="text">
+
+             <h4>Konu</h4>
+            <input class="contact-input" asp-for="Subject" type="text">
+
+            <p class="eror" id="error"></p>
+            <h4>Soru-Görüş-Öneri</h4>
+            <textarea asp-for="Body" class="contact-textarea" cols="21" rows="6"></textarea>
+            <h4>Email</h4>
+            <input class="contact-input" asp-for="SenderMail" type="email">
+            <br />
+            <button class="upd-btn"type="submit">Gönder</button>
+        </div>
+       
+
+
+
+    </div>
+</form>
+

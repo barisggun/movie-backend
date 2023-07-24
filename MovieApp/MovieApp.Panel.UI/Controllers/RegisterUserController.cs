@@ -95,7 +95,7 @@ namespace MovieApp.Panel.UI.Controllers
                     var password = _configuration["AppSettings:SmtpSettings:Password"];
 
                     MimeMessage mimeMessage = new MimeMessage();
-                    MailboxAddress mailboxAddressFrom = new MailboxAddress("SineSözlüK Kayıt", "sinesozluk.info@gmail.com");
+                    MailboxAddress mailboxAddressFrom = new MailboxAddress("SineSözlük Kayıt", "sinesozluk.info@gmail.com");
                     MailboxAddress mailboxAddressTo = new MailboxAddress("User", user.Email);
 
                     mimeMessage.From.Add(mailboxAddressFrom);

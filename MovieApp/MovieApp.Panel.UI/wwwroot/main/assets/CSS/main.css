@@ -1330,6 +1330,10 @@ details > input {
     background-color: #14181d;
     border-radius: 6px;
     transition: 0.5s;
+    color:white;
+    font-size:20px;
+    border:none;
+    font-weight:bold;
 }
 
     .upd-btn:hover {
