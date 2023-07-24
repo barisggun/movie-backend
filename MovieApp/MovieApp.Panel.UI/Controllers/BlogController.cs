@@ -199,6 +199,7 @@ namespace MovieApp.Panel.UI.Controllers
                 return NotFound();
             }
             var userId = blog.AppUserId;
+            var user = c.Users.FirstOrDefault(u => u.Id == userId);
             var userRoleId = c.UserRoles.Where(x => x.UserId == userId).Select(y => y.RoleId).FirstOrDefault();
             var userRoleName = c.Roles.Where(x => x.Id == userRoleId).Select(y => y.Name).FirstOrDefault();
             var userNameSurname = c.Users.Where(x=>x.Id == userId).Select(y=>y.NameSurname).FirstOrDefault();
@@ -220,7 +221,7 @@ namespace MovieApp.Panel.UI.Controllers
                 NameSurname = userNameSurname,
                 BlogImage = blog.BlogImage,
                 BlogTitle = blog.BlogTitle,
-                ProfilePicture = userProfile,
+                ProfilePicture = user.ProfilePictureUrl,
                 MovieId = movieId,
                 MovieName = movieName
             };

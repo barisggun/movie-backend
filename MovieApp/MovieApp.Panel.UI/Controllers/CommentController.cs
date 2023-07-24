@@ -87,7 +87,7 @@ namespace MovieApp.Panel.UI.Controllers
 
                 var username = User.Identity.Name;
 
-                if (comment.CommentUserName == username)
+                if (comment.CommentUserName == username || User.IsInRole("Admin"))
                 {
                     commentManager.Delete(comment);
                 }
