@@ -1671,3 +1671,9 @@ details[open] summary::before {
     color:red;
     border-radius:15px;
 }
+
+.blogContainer {
+    width: 1100px;
+    margin: 0 auto;
+    margin-top:20px;
+}

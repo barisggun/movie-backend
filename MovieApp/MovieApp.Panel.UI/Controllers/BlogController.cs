@@ -93,7 +93,7 @@ namespace MovieApp.Panel.UI.Controllers
                 b.BlogCreateDate = DateTime.Now; // Doğrudan şu anki zamanı atayabiliriz.
                 b.AppUserId = userID;
 
-                b.UpdateSlug(); 
+                b.UpdateSlug();
 
                 bm.Create(b);
                 return RedirectToAction("BlogListByWriter", "Blog");
@@ -122,11 +122,11 @@ namespace MovieApp.Panel.UI.Controllers
         {
             var blogvalue = bm.GetById(id);
             List<SelectListItem> movievalues = (from x in mm.GetList()
-                                                   select new SelectListItem
-                                                   {
-                                                       Text = x.MovieTitle,
-                                                       Value = x.ID.ToString()
-                                                   }).ToList();
+                                                select new SelectListItem
+                                                {
+                                                    Text = x.MovieTitle,
+                                                    Value = x.ID.ToString()
+                                                }).ToList();
 
             ViewBag.cv = movievalues;
             return View(blogvalue);
@@ -161,7 +161,7 @@ namespace MovieApp.Panel.UI.Controllers
             return RedirectToAction("BlogListByWriter");
         }
 
-        [Authorize(Roles ="Admin")]
+        [Authorize(Roles = "Admin")]
         public IActionResult AdminBlogListDelete(int id)
         {
             var blogvalue = bm.GetById(id);
@@ -172,7 +172,7 @@ namespace MovieApp.Panel.UI.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult AdminBlogListDetail(int id)
         {
-            var blog = c.Blogs.Include(x=>x.Movies).Include(c=>c.AppUsers).FirstOrDefault(y=>y.ID == id);
+            var blog = c.Blogs.Include(x => x.Movies).Include(c => c.AppUsers).FirstOrDefault(y => y.ID == id);
             return View(blog);
         }
 
@@ -202,12 +202,12 @@ namespace MovieApp.Panel.UI.Controllers
             var user = c.Users.FirstOrDefault(u => u.Id == userId);
             var userRoleId = c.UserRoles.Where(x => x.UserId == userId).Select(y => y.RoleId).FirstOrDefault();
             var userRoleName = c.Roles.Where(x => x.Id == userRoleId).Select(y => y.Name).FirstOrDefault();
-            var userNameSurname = c.Users.Where(x=>x.Id == userId).Select(y=>y.NameSurname).FirstOrDefault();
-            var userProfile = c.Users.Where(x=>x.Id == userId).Select(y=>y.ImageUrl).FirstOrDefault();
-            
+            var userNameSurname = c.Users.Where(x => x.Id == userId).Select(y => y.NameSurname).FirstOrDefault();
+            var userProfile = c.Users.Where(x => x.Id == userId).Select(y => y.ImageUrl).FirstOrDefault();
+
             var movieId = blog.MovieId;
-            var movieName= c.Movies.Where(x=>x.ID==movieId).Select(y=>y.MovieTitle).FirstOrDefault();
-            var movieSlug = c.Movies.Where(x=>x.ID == movieId).Select(x=>x.Slug).FirstOrDefault();
+            var movieName = c.Movies.Where(x => x.ID == movieId).Select(y => y.MovieTitle).FirstOrDefault();
+            var movieSlug = c.Movies.Where(x => x.ID == movieId).Select(x => x.Slug).FirstOrDefault();
 
             var model = new BlogReadAllModel
             {
@@ -228,6 +228,19 @@ namespace MovieApp.Panel.UI.Controllers
 
             return View(model);
         }
+
+        [AllowAnonymous]
+        public IActionResult BlogList()
+        {
+
+            var allBlogs = bm.GetAll();
+
+            return View(allBlogs);
+        }
+
+
+
+
     }
-    }
+}
 

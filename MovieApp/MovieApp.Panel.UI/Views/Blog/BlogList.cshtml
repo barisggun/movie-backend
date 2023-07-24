@@ -1,0 +1,28 @@
+﻿@model List<Blog>
+
+@{
+    ViewData["Title"] = "BlogList";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<div class="moviesByActorTitle">
+    <h2 style="color:white">Blog Yazıları</h2>
+</div>
+
+<div class="blogContainer">
+@foreach (var item in Model)
+{
+        <div class="new">
+            <div class="newPhoto">
+                @* <img src="~/images/blog/@item.BlogImage" alt="" />*@
+            </div>
+            <div class="newContent">
+                <h2>@item.BlogTitle</h2>
+                <p>
+                    @item.BlogContent.Substring(0,400)...
+                </p>
+                <a href="/Blog/BlogReadAll/@item.Slug">Devamını Oku</a>
+            </div>
+        </div>
+}
+</div>
