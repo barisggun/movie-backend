@@ -96,6 +96,11 @@ namespace MovieApp.Panel.UI.Controllers
                     }
 
                     var result = await _signInManager.PasswordSignInAsync(p.username, p.password, false, true);
+                    if (result.IsLockedOut)
+                    {
+                        ModelState.AddModelError("lockOutAccount", "Hesabınız geçici olarak kilitlendi. Lütfen daha sonra tekrar deneyin.");
+                        return View(p);
+                    }
                     if (result.Succeeded)
                     {
                         var roles = await _userManager.GetRolesAsync(user);

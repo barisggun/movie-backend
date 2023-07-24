@@ -49,6 +49,11 @@
                     <span class="error" style="color:red;font-family:Arial;">@Html.Raw(ViewData.ModelState["recaptcha"].Errors.FirstOrDefault().ErrorMessage)</span>
                 }
 
+                @if (!string.IsNullOrEmpty(ViewData.ModelState["lockOutAccount"]?.Errors?.FirstOrDefault()?.ErrorMessage))
+                {
+                    <span class="error" style="color:red;font-family:Arial;">@Html.Raw(ViewData.ModelState["lockOutAccount"].Errors.FirstOrDefault().ErrorMessage)</span>
+                }
+
                 <div class="g-recaptcha" data-sitekey="6LesIDonAAAAAPuiNDteWSZ-BDSxn1vxKy5PmhzA"></div>
 
                 <button type="submit" id="submit" class="submit-btn" href="">Giriş Yap</button>

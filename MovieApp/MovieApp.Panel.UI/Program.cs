@@ -26,6 +26,17 @@ namespace MovieApp.Panel.UI
             }).AddEntityFrameworkStores<Context>();
             //Identity End
 
+
+            builder.Services.Configure<IdentityOptions>(options =>
+            {
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                options.Lockout.MaxFailedAccessAttempts = 4;
+                options.Lockout.AllowedForNewUsers = true;
+            });
+
+
+
+
             //Toastr için
             builder.Services.AddHttpContextAccessor();
             builder.Services.AddScoped<INotificationService, NotificationService>();
