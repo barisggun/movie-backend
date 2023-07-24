@@ -19,10 +19,10 @@
                     <li class="drop-menu-item">
                         <a  href="/User/Edit/@Model.Id">Profil Ayarları</a>
                     </li>
-                    <li class="drop-menu-item">
+@*                    <li class="drop-menu-item">
                         <a href="#">Yardım</a>
                     </li>
-
+*@
                     @if (User.IsInRole("Admin") || User.IsInRole("Writer"))
                     {
                         <li class="drop-menu-item">
