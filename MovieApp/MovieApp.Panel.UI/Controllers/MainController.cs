@@ -1,4 +1,5 @@
-﻿using MailKit.Net.Smtp;
+﻿using CrmUygulamasi.UI.Services;
+using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -17,13 +18,16 @@ namespace MovieApp.Panel.UI.Controllers
     public class MainController : Controller
     {
         private readonly IConfiguration _configuration;
+        private readonly INotificationService notificationService;
         HomepageCoverManager homepageCoverManager = new HomepageCoverManager(new EfHomepageCoverRepository());
         MovieManager mm = new MovieManager(new EfMovieRepository());
         BlogManager bm = new BlogManager(new EfBlogRepository());
         Context c = new Context();
 
-        public MainController(IConfiguration configuration)
+
+        public MainController(IConfiguration configuration,INotificationService notificationService)
         {
+            this.notificationService = notificationService;
             _configuration = configuration;
         }
 
@@ -74,20 +78,24 @@ namespace MovieApp.Panel.UI.Controllers
 
             MailboxAddress mailboxAddressTo = new MailboxAddress("User", email);
             mimeMessage.To.Add(mailboxAddressTo);
+            if (ModelState.IsValid)
+            {         
+                var bodyBuilder = new BodyBuilder();
+                bodyBuilder.TextBody = "Bu mesaj SineSözlük.com iletişim formundan gönderilmiştir." + "\n\nGönderen kişinin mail adresi: " + mailRequest.SenderMail + "\nGönderen kişinin adı: " + mailRequest.Name + "\n\n\nGönderen kişinin mesajı: " + mailRequest.Body;
+                mimeMessage.Body = bodyBuilder.ToMessageBody();
+                mimeMessage.Subject = mailRequest.Subject;
 
-            var bodyBuilder = new BodyBuilder();
-            bodyBuilder.TextBody = "Bu mesaj SineSözlük.com iletişim formundan gönderilmiştir." + "\n\nGönderen kişinin mail adresi: " + mailRequest.SenderMail + "\nGönderen kişinin adı: " +  mailRequest.Name + "\n\n\nGönderen kişinin mesajı: " + mailRequest.Body;
-            mimeMessage.Body = bodyBuilder.ToMessageBody();
-            mimeMessage.Subject = mailRequest.Subject;
+                ISmtpClient client = new MailKit.Net.Smtp.SmtpClient();
+                client.Connect("smtp.gmail.com", 587, false);
+                client.Authenticate(email, password);
+                client.Send(mimeMessage);
+                client.Disconnect(true);
 
-            ISmtpClient client = new MailKit.Net.Smtp.SmtpClient();
-            client.Connect("smtp.gmail.com", 587, false);
-            client.Authenticate(email, password);
-            client.Send(mimeMessage);
-            client.Disconnect(true);
-
-
-            return View();
+                notificationService.Notification(NotifyType.Success, "Mesajınız başarıyla gönderildi, sizinle en kısa sürede iletişime geçeceğiz!");
+                return RedirectToAction("Contact","Main");
+            }
+ 
+            return View(mailRequest);
         }
 
     }

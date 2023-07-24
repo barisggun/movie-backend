@@ -15,15 +15,25 @@
         <div class="left-form">
             <h4>Ad-Soyad</h4>
             <input class="contact-input" asp-for="Name" type="text">
+            <br />
+            <span asp-validation-for="Name" class="errorMessage"></span>
 
              <h4>Konu</h4>
             <input class="contact-input" asp-for="Subject" type="text">
+            <br />
+            <span asp-validation-for="Subject" class="errorMessage"></span>
 
             <p class="eror" id="error"></p>
             <h4>Soru-Görüş-Öneri</h4>
             <textarea asp-for="Body" class="contact-textarea" cols="21" rows="6"></textarea>
+            <br />
+            <span asp-validation-for="Body" class="errorMessage"></span>
+
             <h4>Email</h4>
             <input class="contact-input" asp-for="SenderMail" type="email">
+            <br />
+            <span asp-validation-for="SenderMail" class="errorMessage"></span>
+
             <br />
             <button class="upd-btn"type="submit">Gönder</button>
         </div>

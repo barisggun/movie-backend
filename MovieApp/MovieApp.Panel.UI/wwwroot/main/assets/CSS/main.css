@@ -1666,3 +1666,8 @@ details[open] summary::before {
     margin-bottom:30px;
     margin-top:30px;
 }
+
+.errorMessage{
+    color:red;
+    border-radius:15px;
+}
