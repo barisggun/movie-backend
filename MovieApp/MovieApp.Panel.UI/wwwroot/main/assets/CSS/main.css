@@ -1027,6 +1027,7 @@ pre {
     margin-bottom: 45px;
     background-image: url(../img/png/BACKGROUND.png);
     padding: 20px;
+    border-radius:20px;
 }
 
 .comment {
@@ -1694,4 +1695,16 @@ details[open] summary::before {
 
 .goToMovie:hover{
     background-color:#f3f3f3c4;
+}
+
+.load-more-button {
+    display: inline-flex;
+    background-color: gold;
+    color: #000;
+    padding: 9px 8px 10px 8px;
+    border-radius:20px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    cursor: pointer;
 }

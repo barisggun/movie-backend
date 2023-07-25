@@ -207,7 +207,7 @@ namespace MovieApp.Panel.UI.Controllers
 
                     string gifUrl = data.data[0].images.original.url;
 
-                    string gifStyle = $"background-image: linear-gradient( 33deg, #13171D 24.97%, #13171D 38.3%, rgba(26, 26, 26, 0.0409746) 97.47%, #13171D 100% ), url({gifUrl});";
+                    string gifStyle = $"background-image: linear-gradient( 0deg, #13171D 1.00%, #13171D 1.0%, rgba(26, 26, 26, 0.0409746) 40.0%, #13171D 100% ), url({gifUrl});";
                     ViewBag.GifStyle = gifStyle;
                 }
             }
