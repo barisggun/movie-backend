@@ -15,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using MovieApp.Panel.UI.Models;
 using System.Security.Permissions;
 using MovieApp.DataAccess.Migrations;
+using X.PagedList;
 
 namespace MovieApp.Panel.UI.Controllers
 {
@@ -230,10 +231,10 @@ namespace MovieApp.Panel.UI.Controllers
         }
 
         [AllowAnonymous]
-        public IActionResult BlogList()
+        public IActionResult BlogList(int page = 1)
         {
 
-            var allBlogs = bm.GetAll();
+            var allBlogs = bm.GetAll().ToPagedList(page,4);
 
             return View(allBlogs);
         }

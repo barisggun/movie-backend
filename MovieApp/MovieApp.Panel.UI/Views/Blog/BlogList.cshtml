@@ -1,4 +1,6 @@
-﻿@model List<Blog>
+﻿@using X.PagedList
+@using X.PagedList.Mvc.Core
+@model IPagedList<Blog>
 
 @{
     ViewData["Title"] = "BlogList";
@@ -10,8 +12,8 @@
 </div>
 
 <div class="blogContainer">
-@foreach (var item in Model)
-{
+    @foreach (var item in Model)
+    {
         <div class="new">
             <div class="newPhoto">
                 @* <img src="~/images/blog/@item.BlogImage" alt="" />*@
@@ -24,5 +26,10 @@
                 <a href="/Blog/BlogReadAll/@item.Slug">Devamını Oku</a>
             </div>
         </div>
-}
+    }
+    <div class="pagination">
+        @Html.PagedListPager(Model, page => Url.Action("BlogList", new { page }))
+    </div>
+
 </div>
+
