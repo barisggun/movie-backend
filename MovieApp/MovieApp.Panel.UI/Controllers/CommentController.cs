@@ -16,6 +16,7 @@ namespace MovieApp.Panel.UI.Controllers
         Context c = new Context();
         CommentManager commentManager = new CommentManager(new EfCommentRepository());
         UserManager userManager = new UserManager(new EfUserRepository());
+        MovieManager mm = new MovieManager(new EfMovieRepository());
 
         private readonly INotificationService notificationService;
 
@@ -77,7 +78,7 @@ namespace MovieApp.Panel.UI.Controllers
 
 
         [HttpPost]
-        public IActionResult Delete(int commentId, int movieId)
+        public IActionResult Delete(int commentId, string slug)
         {
 
             Comment comment = commentManager.GetById(commentId);
@@ -98,8 +99,9 @@ namespace MovieApp.Panel.UI.Controllers
                 }
             }
 
+            Movie movie = mm.GetBySlug(slug);
 
-            return RedirectToAction("Detail", "Movie", new { id = movieId });
+            return RedirectToAction("Detail", "Movie", new { slug = slug });
         }
 
         [HttpPost]

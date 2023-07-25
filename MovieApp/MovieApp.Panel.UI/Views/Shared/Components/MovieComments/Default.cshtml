@@ -26,6 +26,7 @@
                             <form method="post" asp-action="Delete" asp-controller="Comment" class="deleteCommentForm">
                                 <input type="hidden" name="commentId" value="@item.ID" />
                                 <input type="hidden" name="movieId" value="@item.MovieId" />
+                                <input type="hidden" name="slug" value="@item.MovieSlug" />
                                 <button class="deleteComment" type="submit">Yorumu Sil</button>
                             </form>
                         }
