@@ -1678,3 +1678,20 @@ details[open] summary::before {
     margin: 0 auto;
     margin-top:20px;
 }
+
+.goToMovie {
+    display: inline-flex;
+    color:black;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+    font-size: 16px;
+    background-color: #f3f3f3cf;
+}
+
+.goToMovie:hover{
+    background-color:#f3f3f3c4;
+}

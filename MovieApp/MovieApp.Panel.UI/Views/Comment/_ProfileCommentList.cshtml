@@ -19,9 +19,10 @@
                 <input type="hidden" name="movieId" value="@item.MovieId" />
                 <input type="hidden" name="slug" value="@item.MovieSlug" />
                 <button class="deleteComment" type="submit">Yorumu Sil</button>
+                <a href="/Movie/Detail/@item.MovieSlug" class="goToMovie">Filmi İncele</a>
             </form>
         }
-        <a href="/Movie/Detail/@item.MovieSlug" class="deleteComment">Filmi İncele</a>
+      
         </div>
     }
 @*</div>
