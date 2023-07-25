@@ -1,5 +1,6 @@
 ﻿@model List<Comment>
 
+<div class="popularReviewsTop">
 <div class="popularReviews">
     <div class="title">
         <h4>Yorumlar</h4>
@@ -35,15 +36,19 @@
             }
         </div>
 
-        <div class="load-more-container">
-            <button id="loadMoreButton" class="load-more-button" type="button">Daha fazla yükle</button>
-        </div>
     }
+</div>
+    <div class="load-more-container">
+        <button id="loadMoreButton" class="load-more-button" type="button">Daha fazla yükle</button>
+    </div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function () {
+        if (@Model.Count <= 5) {
+            $(".load-more-container").hide();
+        }
         var startIndex = 5;
         var pageSize = 5;
 

@@ -363,12 +363,24 @@ body {
 .popularReviews {
     display: grid;
     gap: 55px;
+    /*gap: 55px;
+    width: 80%;
+    margin: 0 auto;
+    margin-bottom: 45px;*/
+    /*buralar yeni*/
+    /*padding:62px;
+    background-image:url(../img/png/BACKGROUND.png);
+    box-shadow: 0 0 50px rgba(42 128 241 / 25%);
+    border-radius: 20px;*/
+}
+
+.popularReviewsTop {
     width: 80%;
     margin: 0 auto;
     margin-bottom: 45px;
     /*buralar yeni*/
-    padding:62px;
-    background-image:url(../img/png/BACKGROUND.png);
+    padding: 62px;
+    background-image: url(../img/png/BACKGROUND.png);
     box-shadow: 0 0 50px rgba(42 128 241 / 25%);
     border-radius: 20px;
 }
@@ -1707,4 +1719,21 @@ details[open] summary::before {
     font-weight: bold;
     cursor: pointer;
     cursor: pointer;
+}
+
+.load-more-container{
+    margin-top:20px;
+    display:flex;
+    justify-content:center;
+}
+
+.popularReviewsHomepage {
+    display: grid;
+    width: 80%;
+    margin: 0 auto;
+    margin-bottom: 45px;
+    padding:62px;
+    background-image:url(../img/png/BACKGROUND.png);
+    box-shadow: 0 0 50px rgba(42 128 241 / 25%);
+    border-radius: 20px;
 }
