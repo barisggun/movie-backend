@@ -109,7 +109,7 @@ namespace MovieApp.Panel.UI.Controllers
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> Edit(string slug, UserProfileEditModel model, [FromForm(Name = "ImageFile")] IFormFile? imageFile, [FromForm(Name = "ProfileImageFile")] IFormFile? profileImageFile)
-        {
+            {
             if (ModelState.IsValid)
             {
                 //var username = User.Identity.Name;
@@ -118,10 +118,11 @@ namespace MovieApp.Panel.UI.Controllers
                 //var userId = c.Users.Where(x => x.Id == id);
                 //var user = await _userManager.FindByIdAsync(id.ToString());
 
-                if (user == null)
-                {
-                    return RedirectToAction("Index", "Home");
-                }
+                //if (user == null)
+                //{
+                //    return RedirectToAction("Index", "Home");
+                //}
+                c.Entry(user).State = EntityState.Detached;
 
                 user.NameSurname = model.NameSurname;
                 user.About = model.About;
@@ -231,7 +232,7 @@ namespace MovieApp.Panel.UI.Controllers
                 }
 
 
-                await _userManager.UpdateAsync(user);
+                userManager.Update(user);
 
                 return RedirectToAction("Detail", new { slug = user.Slug });
             }
@@ -241,9 +242,9 @@ namespace MovieApp.Panel.UI.Controllers
 
         [HttpPost]
         [Authorize]
-        public IActionResult RemoveCoverPhoto(int id)
+        public IActionResult RemoveCoverPhoto(string slug)
         {
-            var user = userManager.GetById(id);
+            var user = userManager.GetBySlug(slug);
             if (user == null)
             {
                 return Json(new { success = false, imageUrl = "" });
@@ -257,9 +258,9 @@ namespace MovieApp.Panel.UI.Controllers
 
         [HttpPost]
         [Authorize]
-        public IActionResult RemoveProfilePhoto(int id)
+        public IActionResult RemoveProfilePhoto(string slug)
         {
-            var user = userManager.GetById(id);
+            var user = userManager.GetBySlug(slug);
             if (user == null)
             {
                 return Json(new { success = false, imageUrl = "" });
