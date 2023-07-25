@@ -105,7 +105,7 @@ namespace MovieApp.Panel.UI.Controllers
         }
 
         [HttpPost]
-        public IActionResult DeleteFromProfile(int commentId, int movieId)
+        public IActionResult DeleteFromProfile(int commentId, string slug)
         {
 
             Comment comment = commentManager.GetById(commentId);
@@ -119,8 +119,10 @@ namespace MovieApp.Panel.UI.Controllers
 
                 if (comment.CommentUserName == username)
                 {
+                    Movie movie = mm.GetBySlug(slug);
                     commentManager.Delete(comment);
-                    return RedirectToAction("Detail", "User", new { id = userId });
+                    var userSlug = userManager.GetBySlug(username);
+                    return RedirectToAction("Detail", "User", new { slug = userSlug });
                 }
                 else
                 {
