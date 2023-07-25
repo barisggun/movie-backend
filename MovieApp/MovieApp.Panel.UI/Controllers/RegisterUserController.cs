@@ -86,6 +86,7 @@ namespace MovieApp.Panel.UI.Controllers
                     TermsOfUse = p.TermsOfUse
                 };
 
+                user.UpdateSlug();
                 var  result = await _userManager.CreateAsync(user,p.Password);
 
 

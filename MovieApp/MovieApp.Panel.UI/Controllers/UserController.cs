@@ -4,8 +4,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MovieApp.BusinessLayer.Concrete;
+using MovieApp.DataAccess.Abstract;
 using MovieApp.DataAccess.Concrete;
 using MovieApp.DataAccess.EntityFramework;
+using MovieApp.DataAccess.Migrations;
 using MovieApp.EntityLayer.Entities;
 using MovieApp.Panel.UI.Models;
 using System.Security.Claims;
@@ -74,20 +76,20 @@ namespace MovieApp.Panel.UI.Controllers
 
 
         [Authorize]
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(string slug)
         {
             var currentUser = await _userManager.GetUserAsync(User);
 
-            if (currentUser == null || currentUser.Id != id)
+            if (currentUser == null)
             {
                 return RedirectToAction("Login", "Account");
             }
 
-            var user = await _userManager.FindByIdAsync(id.ToString());
+            var user = userManager.GetBySlug(slug);
 
-            if (user == null)
+            if (user == null || user.Id != currentUser.Id)
             {
-                // 
+                return RedirectToAction("Index", "Main");
             }
 
             var model = new UserProfileEditModel
@@ -95,6 +97,7 @@ namespace MovieApp.Panel.UI.Controllers
                 UserID = user.Id,
                 NameSurname = user.NameSurname,
                 About = user.About,
+                UserSlug = user.Slug,
                 EMail = user.Email,
                 ImageUrl = user.ImageUrl,
                 ProfilePictureUrl = user.ProfilePictureUrl
@@ -105,18 +108,19 @@ namespace MovieApp.Panel.UI.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Edit(int id, UserProfileEditModel model, [FromForm(Name = "ImageFile")] IFormFile? imageFile, [FromForm(Name = "ProfileImageFile")] IFormFile? profileImageFile)
+        public async Task<IActionResult> Edit(string slug, UserProfileEditModel model, [FromForm(Name = "ImageFile")] IFormFile? imageFile, [FromForm(Name = "ProfileImageFile")] IFormFile? profileImageFile)
         {
             if (ModelState.IsValid)
             {
                 //var username = User.Identity.Name;
                 //var userId  = c.Users.Where(x => x.UserName == username).Select(y => y.Id).FirstOrDefault();
-                var userId = c.Users.Where(x => x.Id == id);
-                var user = await _userManager.FindByIdAsync(id.ToString());
+                var user = userManager.GetBySlug(slug);
+                //var userId = c.Users.Where(x => x.Id == id);
+                //var user = await _userManager.FindByIdAsync(id.ToString());
 
                 if (user == null)
                 {
-
+                    return RedirectToAction("Index", "Home");
                 }
 
                 user.NameSurname = model.NameSurname;
@@ -229,7 +233,7 @@ namespace MovieApp.Panel.UI.Controllers
 
                 await _userManager.UpdateAsync(user);
 
-                return RedirectToAction("Detail", new { id = id });
+                return RedirectToAction("Detail", new { slug = user.Slug });
             }
 
             return View(model);

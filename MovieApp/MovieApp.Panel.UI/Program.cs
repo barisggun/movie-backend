@@ -124,7 +124,11 @@ namespace MovieApp.Panel.UI
                    name: "userDetail",
                    pattern: "User/Detail/{slug}",
                    defaults: new { controller = "User", action = "Detail" });
-                
+                endpoints.MapControllerRoute(
+                   name: "userEdit",
+                   pattern: "User/Edit/{slug}",
+                   defaults: new { controller = "User", action = "Edit" });
+
                 endpoints.MapControllerRoute(
                    name: "default",
                    pattern: "{controller=Main}/{action=Index}/{id?}");

@@ -5,6 +5,7 @@
         public int UserID { get; set; }
         public string? NameSurname { get; set; }
         public string? About { get; set; }
+        public string? UserSlug { get; set; }
         public string? OldPassword { get; set; }
         public string? NewPassword { get; set; }
         public string? EMail { get; set; }
