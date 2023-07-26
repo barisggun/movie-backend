@@ -234,7 +234,7 @@ namespace MovieApp.Panel.UI.Controllers
         public IActionResult BlogList(int page = 1)
         {
 
-            var allBlogs = bm.GetAll().ToPagedList(page,4);
+            var allBlogs = bm.GetAll().OrderByDescending(m=>m.BlogCreateDate).ToPagedList(page,6);
 
             return View(allBlogs);
         }

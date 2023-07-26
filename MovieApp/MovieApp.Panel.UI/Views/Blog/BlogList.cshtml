@@ -10,14 +10,14 @@
 <div class="moviesByActorTitle">
     <h2 style="color:white">Blog Yazıları</h2>
 </div>
-
-<div class="blogContainer">
+<br />
+@*<div class="blogContainer">
     @foreach (var item in Model)
     {
         <div class="new">
             <div class="newPhoto">
                 @* <img src="~/images/blog/@item.BlogImage" alt="" />*@
-            </div>
+@*            </div>
             <div class="newContent">
                 <h2>@item.BlogTitle</h2>
                 <p>
@@ -31,5 +31,76 @@
         @Html.PagedListPager(Model, page => Url.Action("BlogList", new { page }))
     </div>
 
+</div>*@
+
+<div class="movieNews">
+    <div class="col-1">
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            if (i % 3 == 0)
+            {
+                <div class="new">
+                    <div class="newPhoto">
+                        <img src="~/images/blog/@Model[i].BlogImage" alt="" />
+                    </div>
+                    <div class="newContent">
+                        <h2>@Model[i].BlogTitle</h2>
+                        <p>
+                            @Model[i].BlogContent.Substring(0,200)...
+                        </p>
+                        <a href="/Blog/BlogReadAll/@Model[i].Slug">Devamını Oku</a>
+                    </div>
+                </div>
+
+            }
+
+        }
+    </div>
+    <div class="col-2">
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            if (i % 3 == 1)
+            {
+                <div class="new">
+                    <div class="newPhoto">
+                        <img src="~/images/blog/@Model[i].BlogImage" alt="" />
+                    </div>
+                    <div class="newContent">
+                        <h2>@Model[i].BlogTitle</h2>
+                        <p>
+                            @Model[i].BlogContent.Substring(0,200)...
+
+                        </p>
+                        <a href="/Blog/BlogReadAll/@Model[i].Slug">Devamını Oku</a>
+                    </div>
+                </div>
+
+            }
+        }
+    </div>
+    <div class="col-3">
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            if (i % 3 == 2)
+            {
+                <div class="new">
+                    <div class="newPhoto">
+                        <img src="~/images/blog/@Model[i].BlogImage" alt="" />
+                    </div>
+                    <div class="newContent">
+                        <h2>@Model[i].BlogTitle</h2>
+                        <p>
+                            @Model[i].BlogContent.Substring(0,200)...
+                        </p>
+                        <a href="/Blog/BlogReadAll/@Model[i].Slug">Devamını Oku</a>
+                    </div>
+                </div>
+
+            }
+        }
+    </div>
+    <div class="pagination">
+        @Html.PagedListPager(Model, page => Url.Action("BlogList", new { page }))
+    </div>
 </div>
 
