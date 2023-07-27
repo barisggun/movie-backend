@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 
-<div class="moviesByActorTitle">
+@*<div class="moviesByActorTitle">
     <h2 style="color:white">@Model.ActorName İsimli Oyuncunun Filmleri</h2>
 </div>
 
@@ -26,5 +26,32 @@
 else
 {
     <p>Uygun film bulunamadı.</p>
-}
+}*@
 
+<div class="justReviewed">
+    <div class="title">
+        <h3>@Model.ActorName İsimli Oyuncunun Filmleri</h3>
+    </div>
+    <br />
+    <div class="movies">
+        @if (Model.Movies.Any())
+        {
+            @foreach (var item in Model.Movies)
+            {
+                <div class="movie">
+                    <a href="/Movie/Detail/@item.Slug"><img src="~/images/movie/@item.Poster" alt="" /></a>
+                    <div class="card-content">
+                        <h4>@item.MovieTitle</h4>
+                        <p>@item.Description.Substring(0,50)</p>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="title">
+                <h4>Uygun film blunamadı</h4>
+            </div>
+        }
+    </div>
+</div>

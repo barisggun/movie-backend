@@ -673,13 +673,6 @@ namespace MovieApp.Panel.UI.Controllers
                 return NotFound();
             }
 
-            //var actor = c.Actors.Include(x => x.Movies).FirstOrDefault(y => y.ID == Id);
-
-            //if (actor == null)
-            //{
-            //    return NotFound();
-            //}
-
             return View(actor);
         }
 

@@ -8,6 +8,13 @@
 <h1>Yeni Blog Giriş</h1>
 <br />
 
+<style>
+    .custom-textarea {
+        height: 500px;
+        width: 1500px;
+        resize: vertical;
+    }
+</style>
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create" method="post" enctype="multipart/form-data">
@@ -33,7 +40,7 @@
 
             <div class="form-group">
                 <label asp-for="BlogContent" class="control-label"></label>
-                <input asp-for="BlogContent" class="form-control" />
+                <textarea asp-for="BlogContent" class="form-control custom-textarea"></textarea>
                 <span asp-validation-for="BlogContent" class="text-danger"></span>
             </div>
 
@@ -47,3 +54,4 @@
 <div>
     <a asp-action="Index">Blog Listesine Geri Dön</a>
 </div>
+
