@@ -13582,3 +13582,9 @@ dl {
     overflow-y: auto;
 }
 /*# sourceMappingURL=style.css.map */
+
+.custom-textarea {
+    height: 500px; 
+    width: 1500px;
+    resize: vertical;
+}
