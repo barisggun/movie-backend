@@ -76,11 +76,11 @@
         </div>
     </form>
     <script>
-        function removeCoverPhoto() {
+    @*    function removeCoverPhoto() {
             $.ajax({
                 type: "POST",
                 url: "@Url.Action("RemoveCoverPhoto", "User")",
-                data: { id: @Model.UserID },
+                data: { slug: @Model.UserSlug },
                 success: function (result) {
                     if (result.success) {
                         $("#showImage").attr("src", result.imageUrl);
@@ -94,10 +94,30 @@
             });
         }
 
+*@
+            function removeCoverPhoto() {
+            $.ajax({
+                type: "POST",
+                    url: "@Url.Action("RemoveCoverPhoto", "User", new { slug = Model.UserSlug })",
+                success: function (result) {
+                    if (result.success) {
+                        $("#showImage").attr("src", result.imageUrl);
+                    } else {
+                        alert("Profil fotoğrafı kaldırılamadı.");
+                    }
+                },
+                error: function () {
+                    alert("Bir hata oluştu.");
+                }
+            });
+        }
+
+
+
         function removeProfilePhoto() {
             $.ajax({
                 type: "POST",
-                url: "@Url.Action("RemoveProfilePhoto", "User", new { id = Model.UserID })",
+                url: "@Url.Action("RemoveProfilePhoto", "User", new { slug = Model.UserSlug })",
                 success: function (result) {
                     if (result.success) {
                         $("#showImage2").attr("src", result.imageUrl);
