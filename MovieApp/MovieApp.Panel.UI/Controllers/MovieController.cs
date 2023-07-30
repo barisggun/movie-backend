@@ -569,13 +569,20 @@ namespace MovieApp.Panel.UI.Controllers
         {
             var allMovies = movieManager.GetAll(); // Veritabanından bütün filmleri al
 
+            var availableYears = GetAvailableYears();
+            var availableRatings = GetAvailableRatings();
+            var availableCategories = GetAvailableCategories();
+
             var model = new MovieListModel
             {
                 Filter = new FilterModel
                 {
                     Years = GetAvailableYears(),
+                    SelectedYears = new List<int>(),
                     Categories = GetAvailableCategories(),
+                    SelectedCategories = new List<int>(),
                     Ratings = GetAvailableRatings(),
+                    SelectedRatings = new List<int>(),
                     CategoryNames = c.Categories.Select(x=>x.CategoryName).ToList()
                     
                 },
@@ -589,15 +596,39 @@ namespace MovieApp.Panel.UI.Controllers
         [HttpPost]
         public IActionResult MovieList(FilterModel filters)
         {
+            var availableYears = GetAvailableYears();
+            var availableCategories = GetAvailableCategories();
+            var availableRatings = GetAvailableRatings();
+
+
+            filters.Years = filters.Years?.Where(year => availableYears.Contains(year)).ToList();
+            filters.Categories = filters.Categories?.Where(category => availableCategories.Contains(category)).ToList();
+            filters.Ratings = filters.Ratings?.Where(rating => availableRatings.Contains(rating)).ToList();
+
+           
+            filters.Sorting = Request.Form["Sorting"].ToString();
+            filters.SelectedYears = filters.Years;
+            filters.SelectedRatings = filters.Ratings;
+            filters.SelectedCategories = filters.Categories;
 
             var filteredMovies = GetFilteredMovies(filters);
 
             var model = new MovieListModel
             {
-                Filter = filters,
+                Filter = new FilterModel
+                {
+                    Years = availableYears,
+                    SelectedYears = filters.SelectedYears,
+                    Categories = availableCategories,
+                    SelectedCategories = filters.SelectedCategories,
+                    Ratings = availableRatings,
+                    SelectedRatings = filters.SelectedRatings,
+                    Sorting = filters.Sorting
+                },
                 Movies = filteredMovies.ToList()
             };
 
+            GetAvailableCategoryNames();
             return View(model);
         }
 
@@ -613,7 +644,8 @@ namespace MovieApp.Panel.UI.Controllers
 
             if (filters.Categories != null && filters.Categories.Any())
             {
-                movies = movies.Where(m => m.Categories.Any(c => filters.Categories.Contains(c.ID)));
+                var categoryIds = filters.Categories; // No need for conversion, as it's already a List<int>
+                movies = movies.Where(m => m.Categories.Any(c => categoryIds.Contains(c.ID)));
             }
 
 

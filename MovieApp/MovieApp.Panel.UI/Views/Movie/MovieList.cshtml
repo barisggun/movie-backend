@@ -12,15 +12,13 @@
             <details open>
                 <summary>Film Yılı</summary>
                 <div class="filterTitle">
-                @foreach (var year in Model.Filter.Years ?? new List<int>())
-                {
+                    @foreach (var year in Model.Filter.Years ?? new List<int>())
+                    {
                         <div class="filterContent">
-                       
-                            <input type="checkbox" name="Years" value="@year">
+                            <input type="checkbox" name="Years" value="@year" @(Model.Filter.SelectedYears?.Contains(year) == true ? "checked" : "")>
                             <p>@year</p>
-  
-                    </div>
-                }
+                        </div>
+                    }
                 </div>
             </details>
             <details open>
@@ -29,7 +27,7 @@
                     @foreach (var category in Model.Filter.Categories ?? new List<int>())
                     {
                         <div class="filterContent">
-                            <input type="checkbox" name="Categories" value="@category">
+                            <input type="checkbox" name="Categories" value="@category" @(Model.Filter.SelectedCategories?.Contains(category) == true ? "checked" : "")>
                             <p>@(ViewBag.CategoryNames != null && ViewBag.CategoryNames.ContainsKey(category) ? ViewBag.CategoryNames[category] : string.Empty)</p>
                         </div>
                     }
@@ -41,7 +39,7 @@
                 @foreach (var rating in Model.Filter.Ratings ?? new List<int>())
                 {
                         <div class="filterContent">
-                        <input type="checkbox" name="Ratings" value="@rating">
+                            <input type="checkbox" name="Ratings" value="@rating" @(Model.Filter.SelectedRatings?.Contains(rating) == true ? "checked" : "")>
                         <p>@rating</p>
                     </div>
                 }
