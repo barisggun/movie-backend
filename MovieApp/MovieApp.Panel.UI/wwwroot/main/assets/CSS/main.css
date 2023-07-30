@@ -1755,3 +1755,11 @@ details[open] summary::before {
     box-shadow: 0 0 50px rgba(42 128 241 / 25%);
     border-radius: 20px;
 }
+
+.searchTitle {
+    margin: 0 auto;
+    margin-bottom: 3px;
+    padding: 0 55px;
+    color: #ffffff;
+    max-width: 1110px;
+}

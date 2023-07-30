@@ -4,81 +4,150 @@
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 
-<h1 style="color:white">Arama Sonuçları</h1>
+<div class="moviesByActorTitle">
+    <h2 style="color:white">Arama Sonuçları</h2>
+</div>
+<br />
+<br />
+
 @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
 {
     <p class="error" style="color:white">@ViewBag.ErrorMessage</p>
 }
 else
-{
+{   
     if (Model.Movies.Count == 0 && Model.Blogs.Count == 0 && Model.Users.Count == 0)
     {
+           <div class="searchTitle">
         <p style="color:white">Aradığınız kritere uygun bir sonuç bulunamadı!</p>
+        </div>
     }
 
     else
     {
         if (Model.Movies.Count > 0)
         {
-            <h2 style="color:white">Filmler</h2>
+            <div class="searchTitle">
+                <h4 style="color:white">Filmler</h4>
+            </div>
+            <br />
             <div class="onerilenFilmler">
 
                 @foreach (var item in Model.Movies)
                 {
 
                     <a href="/Movie/Detail/@item.Slug"><img src="~/images/movie/@item.Poster" alt="" /></a>
-
+                    
                 }
 
             </div>
+            <br />
         }
 
         if (Model.Blogs.Count > 0)
         {
-            <div class="movieNews">
+        <div class="searchTitle">
+            <h4 style="color:white">Bloglar</h4>
+        </div>
+        <br />
+        <div class="movieNews">
+            
+            <div class="col-1">
+                @for (int i = 0; i < Model.Blogs.Count; i++)
+                {
+                    if (i % 3 == 0)
+                    {
+                        <div class="new">
+                            <div class="newPhoto">
+                                <img src="~/images/blog/@Model.Blogs[i].BlogImage" alt="" />
+                            </div>
+                            <div class="newContent">
+                                <h2>@Model.Blogs[i].BlogTitle</h2>
+                                <p>
+                                    @Model.Blogs[i].BlogContent.Substring(0,200)...
+                                </p>
+                                <a href="/Blog/BlogReadAll/@Model.Blogs[i].Slug">Devamını Oku</a>
+                            </div>
+                        </div>
 
-            <h2 style="color:white">Bloglar</h2>
-            @foreach (var item in Model.Blogs)
+                    }
+
+                }
+            </div>
+            <div class="col-2">
+                @for (int i = 0; i < Model.Blogs.Count; i++)
+                {
+                    if (i % 3 == 1)
+                    {
+                        <div class="new">
+                            <div class="newPhoto">
+                                <img src="~/images/blog/@Model.Blogs[i].BlogImage" alt="" />
+                            </div>
+                            <div class="newContent">
+                                <h2>@Model.Blogs[i].BlogTitle</h2>
+                                <p>
+                                    @Model.Blogs[i].BlogContent.Substring(0,200)...
+
+                                </p>
+                                <a href="/Blog/BlogReadAll/@Model.Blogs[i].Slug">Devamını Oku</a>
+                            </div>
+                        </div>
+
+                    }
+                }
+            </div>
+            <div class="col-3">
+                @for (int i = 0; i < Model.Blogs.Count; i++)
+                {
+                    if (i % 3 == 2)
+                    {
+                        <div class="new">
+                            <div class="newPhoto">
+                                <img src="~/images/blog/@Model.Blogs[i].BlogImage" alt="" />
+                            </div>
+                            <div class="newContent">
+                                <h2>@Model.Blogs[i].BlogTitle</h2>
+                                <p>
+                                    @Model.Blogs[i].BlogContent.Substring(0,200)...
+                                </p>
+                                <a href="/Blog/BlogReadAll/@Model.Blogs[i].Slug">Devamını Oku</a>
+                            </div>
+                        </div>
+
+                    }
+                }
+            </div>
+        </div>
+        }
+    }
+    if (Model.Users.Count > 0)
+    {
+        <div class="searchTitle">
+            <h4 style="color:white">Kullanıcılar</h4>
+        </div>
+        <br />
+        <div class="onerilenFilmler">
+
+            @foreach (var item in Model.Users)
             {
-                <div class="new">
-                    <div class="newPhoto">
-                        <img src="~/images/blog/@item.BlogImage" alt="" />
+                <div class="review">
+                    <div class="image">
+                        <img src="~/images/profile/@item.ProfilePictureUrl" alt="" />
                     </div>
-                    <div class="newContent">
-                        <h2>@item.BlogTitle</h2>
+                    <div class="write">
+                        <a href="/User/Detail/@item.Slug" style="color:white;"><h2>@item.UserName</h2></a>
+
                         <p>
-                            @item.BlogContent.Substring(0,300)...
+                            @item.NameSurname
                         </p>
-                        <a href="/Blog/BlogReadAll/@item.Slug">Devamını Oku</a>
                     </div>
                 </div>
             }
-            </div>       
-        }
-        if (Model.Users.Count > 0)
-        {
-            <h2 style="color:white">Kullanıcılar</h2>
-            <div class="onerilenFilmler">
 
-                @foreach (var item in Model.Users)
-                {
-                    <div class="review">
-                        <div class="image">
-                            <img src="~/images/profile/@item.ProfilePictureUrl" alt="" />
-                        </div>
-                        <div class="write">
-                            <a href="/User/Detail/@item.Slug" style="color:white;"><h2>@item.UserName</h2></a>
-
-                            <p>
-                                @item.NameSurname
-                            </p>
-                        </div>
-                    </div>
-                }
-
-            </div>
-        }
+        </div>
+        <br />
     }
+}
 }
 
 
