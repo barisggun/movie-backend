@@ -1,16 +1,46 @@
 ﻿@model Blog
 @{
     ViewData["Title"] = "BlogDetails";
-    Layout = "~/Views/Shared/_MainLayout.cshtml";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
+<form method="get" class="col-8">
+    <br />
+    <div class="form-group">
+        <label for="BlogTitle"><h3>@Model.BlogTitle</h3></label>
+    </div>
+    <div class="form-group">
+        <label for="Poster">
+            <h5>Blog Posteri:</h5>
+            <img src="~/images/blog/@Model.BlogImage" alt="Selected Image" style="max-width: 200px; margin-top: 10px;" />
+        </label>
+    </div>
+    <div class="form-group">
+        <h5>Blog Yayımlanma Tarihi:</h5>
+        <label for="Date">@(((DateTime)Model.BlogCreateDate).ToString("dd-MMM-yyyy"))</label>
+    </div>
+    <div class="form-group">
+        <label for="Oyuncular">
+            <h5>Yazarın Adı Soyadı:</h5>
+            <label for="film"><h4>@Model.AppUsers.NameSurname</h4></label>
+        </label>
+    </div>
+    <div class="form-group">
+        <label for="Oyuncular">
+            <h5>Yazıldığı Film:</h5>
+            <label for="film"><h4>@Model.Movies.MovieTitle</h4></label>
+        </label>
+    </div>
+    <div class="form-group">
+        <label for="BlogContent">
+            <h5>Blog İçeriği:</h5>
+            @Model.BlogContent
+        </label>
+    </div>
 
-    <h1>@Model.BlogTitle</h1>
-<h1>@Model.BlogContent</h1>
-<h1>@Model.BlogThumbnailImage</h1>
-<h1>@Model.BlogImage</h1>
-<h1>@(((DateTime)Model.BlogCreateDate).ToString("dd-MMM-yyyy"))</h1>
-<h1>Film Adı: @Model.Movies.MovieTitle</h1>
-<h1>Yazar Adı: @Model.AppUsers.NameSurname</h1>
-<h1>Yazar Adı: @Model.Movies.Poster</h1>
+</form>
 
+@using (Html.BeginForm("BlogDelete", "Blog", new { Id = Model.ID }, FormMethod.Post))
+{
+    <input type="submit" value="Filmi Sil" class="btn btn-danger" onclick="return confirm('@Model.BlogTitle isimli blog yazısını silmek istediğinize emin misiniz?');" />
+}
