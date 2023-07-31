@@ -92,6 +92,8 @@ namespace MovieApp.Panel.UI.Controllers
 
                 if(result.Succeeded)
                 {
+                    await _userManager.AddToRoleAsync(user, "Member");
+
                     var email = _configuration["AppSettings:SmtpSettings:Email"];
                     var password = _configuration["AppSettings:SmtpSettings:Password"];
 
