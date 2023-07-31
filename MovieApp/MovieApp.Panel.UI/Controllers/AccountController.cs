@@ -84,7 +84,7 @@ namespace MovieApp.Panel.UI.Controllers
                         mimeMessage.Subject = "SineSözlük Onay Kodu";
 
                         ISmtpClient client = new MailKit.Net.Smtp.SmtpClient();
-                        client.Connect("smtp.gmail.com", 587, false);
+                        client.Connect("smtp.gmail.com", 587, true);
                         client.Authenticate(email, password);
                         client.Send(mimeMessage);
                         client.Disconnect(true);
@@ -188,7 +188,7 @@ namespace MovieApp.Panel.UI.Controllers
 
                 using (var client = new MailKit.Net.Smtp.SmtpClient())
                 {
-                    client.Connect("smtp.gmail.com", 587, false);
+                    client.Connect("smtp.gmail.com", 587, true);
                     client.Authenticate(email, password);
                     client.Send(mimeMessage);
                     client.Disconnect(true);
