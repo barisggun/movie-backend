@@ -420,3 +420,4 @@ FodyWeavers.xsd
 /.gitignore
 /.gitignore
 /MovieApp/MovieApp.Panel.UI/appsettings.json
+/MovieApp/MovieApp.Panel.UI/appsettings.Development.json
