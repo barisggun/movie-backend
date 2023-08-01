@@ -549,6 +549,28 @@ body {
     .newContent:hover {
         box-shadow: 0 0 50px rgba(42 128 241 / 25%);
     }
+
+.newContentBlog {
+    height: 280px;
+    background-color: #2c3440;
+    padding: 15px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    color: white;
+}
+
+    .newContentBlog a {
+        color: #9ab;
+        margin-top: 10px;
+    }
+
+        .newContentBlog a:hover {
+            color: #fff;
+        }
+
+    .newContentBlog:hover {
+        box-shadow: 0 0 50px rgba(42 128 241 / 25%);
+    }
 /* Movie News */
 /* footer start */
 .footer {
