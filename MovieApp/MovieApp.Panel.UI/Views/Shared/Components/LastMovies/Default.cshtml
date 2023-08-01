@@ -3,7 +3,7 @@
 
 <div class="justReviewed">
     <div class="title">
-        <h4>Son Yayınlanan Filmler</h4>
+        <h4>Son çıkan filmler</h4>
     </div>
     <h4 class="title-footer">En sevdiğiniz filmleri şimdi inceleyebilirsiniz..</h4>
     <br />
@@ -14,7 +14,7 @@
                 <a href="/Movie/Detail/@item.Slug"><img src="~/images/movie/@item.Poster" alt="" /></a>
                 <div class="card-content">
                     <h4>@item.MovieTitle</h4>
-                    <p>@item.Description.Substring(0,50)</p>
+                    @*<p>@item.Description.Substring(0,50)</p>*@
                 </div>
             </div>
         }

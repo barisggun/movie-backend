@@ -349,7 +349,16 @@ body {
     .film-category:hover {
         background-color: #1328E3;
         border: 1px solid black;
-        color: #000;
+        color: #fff;
+    }
+
+    .film-category a:hover {
+        color: #fff;
+    }
+
+    .film-category a {
+        font-size: 17px;
+        color: #1328E3;
     }
 /*buraya kadar*/
 .cards img {
