@@ -152,6 +152,8 @@ namespace MovieApp.Panel.UI.Controllers
 
                 b.BlogImage = yeniDosyaAdi;
             }
+            b.UpdateSlug();
+
             var username = User.Identity.Name;
             var usermail = c.Users.Where(x => x.UserName == username).Select(y => y.Email).FirstOrDefault();
             var userID = c.Users.Where(x => x.Email == usermail).Select(y => y.Id).FirstOrDefault();

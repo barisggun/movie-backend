@@ -41,6 +41,9 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function () {
+        if (@Model.Count <= 5){
+            $(".load-more-container").hide();
+        }
         var startIndex = 5;
         var pageSize = 5;
         var totalComments = @Model.Count;
@@ -57,7 +60,7 @@
 
                     startIndex += pageSize;
 
-                    if (startIndex >= totalComments) {
+                    if (startIndex >= @Model.Count) {
                         $(".load-more-container").hide();
                     }
                 },
