@@ -63,13 +63,19 @@ margin-bottom : 100px;">
                 <a href="#" class="fas fa-star s2 @(Model.UserRating >= 2 ? "selected" : " ")" id="s2" onclick="rate(2)"></a>
                 <a href="#" class="fas fa-star s1 @(Model.UserRating >= 1 ? "selected" : " ")" id="s1" onclick="rate(1)"></a>
             </div>
- 
 
 
-            
-            
+
+
             <div class="director">
-                <h4> Ortalama Puan: @Model.AverageRating </h4>
+                @if (Model.AverageRating.HasValue)
+                {
+                    <h4>Ortalama Puan: @Model.AverageRating.Value.ToString("F1")</h4>
+                }
+                else
+                {
+                    <h4>Ortalama Puan: N/A</h4>
+                }
             </div>
            @* <div id="notification-container" class="@TempData["NotificationType"]">
                 @TempData["NotificationMessage"]
