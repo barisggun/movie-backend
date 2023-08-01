@@ -24,22 +24,8 @@
 
                 </h4>
                 <a href="/Movie/Detail/@item.Slug">
-                   @{
-                        string movieTitle = item.MovieTitle;
-                        string truncatedTitle;
-
-                        if (movieTitle.Length > 11)
-                        {
-                            truncatedTitle = movieTitle.Substring(0, 11)+"...";
-                        }
-                        else
-                        {
-                            truncatedTitle = movieTitle;
-                        }
-
-                        string htmlOutput = $"<h3>{truncatedTitle}</h3>";
-                   }
-                    @Html.Raw(htmlOutput)
+                  
+                    @item.MovieTitle
                 </a>
               @*  <p>@item.Description.Substring(0,20)</p>*@
             </div>

@@ -344,6 +344,7 @@ body {
     margin-bottom: 15px;
     text-align: center;
     cursor: pointer;
+    word-wrap: break-word;
 }
 
     .film-category:hover {
@@ -363,7 +364,9 @@ body {
 /*buraya kadar*/
 .cards img {
     /*buralar yeni*/
-    max-height: 164px;
+    height: 200px;
+    width: 500px;
+    object-fit: cover;
     cursor: pointer;
     transition: 0.5s;
     border-radius: 8px;
