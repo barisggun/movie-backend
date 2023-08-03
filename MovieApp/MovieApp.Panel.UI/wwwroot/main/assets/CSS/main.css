@@ -1561,6 +1561,66 @@ details[open] summary::before {
     .resetPassContent div { /* Yeni */
         margin-bottom: 16px;
     }
+.side {
+    padding: 15px;
+    background-color: #1328e3;
+    color: #fff;
+    margin: 15px;
+}
+
+.sidebar ul {
+    display: grid;
+    gap: 15px;
+}
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 0;
+    right: 0;
+    background-color: #14181d;
+    padding-top: 20px;
+    z-index: 1;
+    transition: 0.3s;
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+    .sidenav.active {
+        left: 0;
+    }
+.sidenavLeft {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+    padding-top: 20px;
+    z-index: 1;
+    transition: 0.3s;
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+.closebtn {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    font-size: 36px;
+    color: red;
+}
+
+.filters {
+    padding: 20px;
+}
+.navigationBar {
+    font-size: 30px;
+    cursor: pointer;
+    color: #fff;
+    display: none;
+}
 /* Yeni */
 @media (max-width: 1050px) {
     .container {
@@ -1797,4 +1857,27 @@ details[open] summary::before {
     padding: 0 55px;
     color: #ffffff;
     max-width: 1110px;
+}
+@media (max-width: 600px) {
+    .films {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+
+    .filterContainer {
+        display: block;
+        margin: 0 50px;
+    }
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {
+        padding-top: 15px;
+    }
+
+        .sidenav a {
+            font-size: 18px;
+        }
 }

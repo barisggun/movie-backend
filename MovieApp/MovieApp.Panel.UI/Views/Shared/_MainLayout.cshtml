@@ -95,11 +95,21 @@
 
 
             </div>
-            <ul>
-                <li class="hamburger-icon">
-                    <i class="fa-solid fa-bars"></i>
-                </li>
-            </ul>
+            <div id="mySidenav" class="sidenav">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                <div class="sidebar">
+                    <ul>
+                        <li class="side"><a href="index.html">Anasayfa</a></li>
+                        <li class="side"><a href="movies.html">Filmler</a></li>
+                        <li class="side"><a href="blogDetail.html">Listeler</a></li>
+                        <li class="side"><a href="signin.html">Sign In</a></li>
+                        <li class="side"><a href="signup.html">Sign Up</a></li>
+                        <input class="filter" type="text" placeholder="Ara" />
+                    </ul>
+                </div>
+            </div>
+            <span class="navigationBar" onclick="openNav()">&#9776;</span>
+        </div>
         </div>
         <!-- Header Finish-->
         @RenderBody()
