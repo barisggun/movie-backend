@@ -36,6 +36,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\home\sass\pages\" />
+    <Folder Include="wwwroot\images\blog\" />
     <Folder Include="wwwroot\images\movie\" />
     <Folder Include="wwwroot\images\homepage\" />
   </ItemGroup>
