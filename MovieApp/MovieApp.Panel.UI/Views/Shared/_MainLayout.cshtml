@@ -32,7 +32,7 @@
             <div class="navbar">
                 <div class="logo">
                     <a href="/Main/Index">
-                    <img class="logo" src="~/main/assets/img/sinesozluk.png" alt="" />
+                        <img class="logo" src="~/main/assets/img/sinesozluk.png" alt="" />
                     </a>
                 </div>
                 <div class="nav">
@@ -71,7 +71,7 @@
 
                 <ul class="menu">
                     <li class="menu-item">
-                        <a href="https://www.github.com/barisgun/movie-backend">
+                        <a href="https://www.github.com/barisggun/movie-backend">
                             <img class="icon"
                                  src="~/main/assets/img/github-mark-white.png"
                                  alt="" />
@@ -99,20 +99,32 @@
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
                 <div class="sidebar">
                     <ul>
-                        <li class="side"><a href="index.html">Anasayfa</a></li>
-                        <li class="side"><a href="movies.html">Filmler</a></li>
-                        <li class="side"><a href="blogDetail.html">Listeler</a></li>
-                        <li class="side"><a href="signin.html">Sign In</a></li>
-                        <li class="side"><a href="signup.html">Sign Up</a></li>
-                        <input class="filter" type="text" placeholder="Ara" />
+                        <li class="side"><a href="/Main/Index">Anasayfa</a></li>
+                        <li class="side"><a href="/Movie/MovieList">Filmler</a></li>
+                        <li class="side"><a href="/Blog/BlogList">Bloglar</a></li>
+                        @if (!User.Identity.IsAuthenticated)
+                        {
+                            <li class="side"><a href="/Account/Login">Giriş Yap</a></li>
+                            <li class="side"><a href="/RegisterUser/Index">Üye Ol</a></li>
+                        }
+                        <form asp-controller="Main" asp-action="Search" method="get">
+                            <input class="filter" type="text" name="searchTerm" placeholder="Ara" />
+                            <button type="submit" style="display: none;">Ara</button>
+                        </form>
+                        @*  <input class="filter" type="text" placeholder="Ara" />*@
                     </ul>
                 </div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    @await Component.InvokeAsync("HomePageUsernameResponsive")
+                }
+
             </div>
             <span class="navigationBar" onclick="openNav()">&#9776;</span>
         </div>
-        </div>
-        <!-- Header Finish-->
-        @RenderBody()
+    </div>
+    <!-- Header Finish-->
+    @RenderBody()
     </div>
     <!-- Footer Başlangıç-->
     <div class="footer">
@@ -135,7 +147,7 @@
             <ul>
                 Sosyal Medya
                 <li><a href="https://www.instagram.com/sinesozlukoffical/"><i class="fa-brands fa-instagram"></i></a></li>
-@*                <li><i class="fa-brands fa-facebook"></i></li>
+                @*                <li><i class="fa-brands fa-facebook"></i></li>
                 <li><i class="fa-brands fa-twitter"></i></li>*@
             </ul>
         </div>
@@ -144,6 +156,6 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <partial name="_Notifications"/>
+    <partial name="_Notifications" />
 </body>
 </html>

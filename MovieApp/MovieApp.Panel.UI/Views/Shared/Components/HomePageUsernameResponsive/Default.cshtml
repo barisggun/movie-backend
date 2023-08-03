@@ -1,0 +1,42 @@
+﻿@using MovieApp.EntityLayer.Entities
+@model AppUser
+
+
+<div class="side">
+
+    @if (User.IsInRole("Member") || User.IsInRole("Admin") || User.IsInRole("Writer"))
+    {
+        <ul class="menu">
+            <li class="menu-item">
+                <a href="#">
+                    @Model.UserName
+                </a>
+
+                <ul class="drop-menu">
+                    <li class="drop-menu-item">
+                        <a href="/User/Detail/@Model.Slug">Profil</a>
+                    </li>
+                    <li class="drop-menu-item">
+                        <a href="/User/Edit/@Model.Slug">Profil Ayarları</a>
+                    </li>
+                    @*                    <li class="drop-menu-item">
+                <a href="#">Yardım</a>
+                </li>
+                *@
+                    @if (User.IsInRole("Admin") || User.IsInRole("Writer"))
+                    {
+                        <li class="drop-menu-item">
+                            <a href="/Admin/Index">Admin paneli</a>
+                        </li>
+                    }
+                    <li class="drop-menu-item">
+                        <a href="/Account/Logout">Çıkış Yap</a>
+                    </li>
+                </ul>
+
+            </li>
+        </ul>
+    }
+
+
+</div>
