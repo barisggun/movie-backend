@@ -1743,7 +1743,7 @@ details[open] summary::before {
 
     .popularReviewsHomepage {
         width: 100%;
-        padding: 38px
+        padding: 38px;
     }
 
     .review {
