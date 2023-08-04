@@ -23,8 +23,7 @@
                     @if (item.Categories != null && item.Categories.Any())
                     {
                         <p class="bold-italic">
-                            Kategori:
-                            <br />
+
                             @for (var i = 0; i < item.Categories.Count; i++)
                             {
                                 @item.Categories[i].CategoryName
