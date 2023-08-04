@@ -1614,6 +1614,111 @@ details[open] summary::before {
     color: #fff;
     display: none;
 }
+.deleteComment {
+    display: inline-flex;
+    background-color: #CD0404;
+    color: #000;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+    .deleteComment:hover {
+        background: darkred;
+        text-decoration: none;
+    }
+
+.commentUserName {
+    color: black;
+    width: 200px
+}
+
+/*Movies by actor title*/
+.moviesByActorTitle {
+    margin: 0 auto;
+    padding: 0 55px;
+    color: #ffffff;
+    border-bottom: 3px solid #fff;
+    max-width: 1110px;
+}
+
+.success-message {
+    color: green;
+    text-align: center;
+    font-size: 17px;
+}
+
+.g-recaptcha {
+    margin-bottom: 30px;
+    margin-top: 30px;
+}
+
+.errorMessage {
+    color: red;
+    border-radius: 15px;
+}
+
+.blogContainer {
+    width: 1100px;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+.goToMovie {
+    display: inline-flex;
+    color: black;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+    font-size: 16px;
+    background-color: #f3f3f3cf;
+}
+
+    .goToMovie:hover {
+        background-color: #f3f3f3c4;
+    }
+
+.load-more-button {
+    display: inline-flex;
+    background-color: gold;
+    color: #000;
+    padding: 9px 8px 10px 8px;
+    border-radius: 20px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    cursor: pointer;
+}
+
+.load-more-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.popularReviewsHomepage {
+    display: grid;
+    width: 80%;
+    margin: 0 auto;
+    margin-bottom: 45px;
+    padding: 62px;
+    background-image: url(../img/png/BACKGROUND.png);
+    box-shadow: 0 0 50px rgba(42 128 241 / 25%);
+}
+
+.searchTitle {
+    margin: 0 auto;
+    margin-bottom: 3px;
+    padding: 0 55px;
+    color: #ffffff;
+    max-width: 1110px;
+}
 /* Yeni */
 @media (max-width: 1050px) {
     .container {
@@ -1640,8 +1745,9 @@ details[open] summary::before {
         width: auto;
     }
 
-    .popularReviews {
+    .popularReviewsHomepage {
         width: 100%;
+        padding: 38px;
     }
 
     .review {
@@ -1782,111 +1888,7 @@ details[open] summary::before {
 
     /*Yorum silme*/
 
-    .deleteComment {
-        display: inline-flex;
-        background-color: #CD0404;
-        color: #000;
-        padding: 10px;
-        border-radius: 10px;
-        border: none;
-        font-weight: bold;
-        cursor: pointer;
-        margin-top: 15px;
-    }
-
-        .deleteComment:hover {
-            background: darkred;
-            text-decoration: none;
-        }
-
-    .commentUserName {
-        color: black;
-        width: 200px
-    }
-
-    /*Movies by actor title*/
-    .moviesByActorTitle {
-        margin: 0 auto;
-        padding: 0 55px;
-        color: #ffffff;
-        border-bottom: 3px solid #fff;
-        max-width: 1110px;
-    }
-
-    .success-message {
-        color: green;
-        text-align: center;
-        font-size: 17px;
-    }
-
-    .g-recaptcha {
-        margin-bottom: 30px;
-        margin-top: 30px;
-    }
-
-    .errorMessage {
-        color: red;
-        border-radius: 15px;
-    }
-
-    .blogContainer {
-        width: 1100px;
-        margin: 0 auto;
-        margin-top: 20px;
-    }
-
-    .goToMovie {
-        display: inline-flex;
-        color: black;
-        padding: 10px;
-        border-radius: 10px;
-        border: none;
-        font-weight: bold;
-        cursor: pointer;
-        margin-top: 15px;
-        font-size: 16px;
-        background-color: #f3f3f3cf;
-    }
-
-        .goToMovie:hover {
-            background-color: #f3f3f3c4;
-        }
-
-    .load-more-button {
-        display: inline-flex;
-        background-color: gold;
-        color: #000;
-        padding: 9px 8px 10px 8px;
-        border-radius: 20px;
-        border: none;
-        font-weight: bold;
-        cursor: pointer;
-        cursor: pointer;
-    }
-
-    .load-more-container {
-        margin-top: 20px;
-        display: flex;
-        justify-content: center;
-    }
-
-    .popularReviewsHomepage {
-        display: grid;
-        width: 80%;
-        margin: 0 auto;
-        margin-bottom: 45px;
-        padding: 62px;
-        background-image: url(../img/png/BACKGROUND.png);
-        box-shadow: 0 0 50px rgba(42 128 241 / 25%);
-    }
-
-    .searchTitle {
-        margin: 0 auto;
-        margin-bottom: 3px;
-        padding: 0 55px;
-        color: #ffffff;
-        max-width: 1110px;
-    }
+    
 
     @media (max-width: 600px) {
         .films {
