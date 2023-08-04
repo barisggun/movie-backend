@@ -93,35 +93,35 @@
                     </li>
                 </ul>
 
+                <div id="mySidenav" class="sidenav">
+                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                    <div class="sidebar">
+                        <ul>
+                            <li class="side"><a href="/Main/Index">Anasayfa</a></li>
+                            <li class="side"><a href="/Movie/MovieList">Filmler</a></li>
+                            <li class="side"><a href="/Blog/BlogList">Bloglar</a></li>
+                            @if (!User.Identity.IsAuthenticated)
+                            {
+                                <li class="side"><a href="/Account/Login">Giriş Yap</a></li>
+                                <li class="side"><a href="/RegisterUser/Index">Üye Ol</a></li>
+                            }
+                            <form asp-controller="Main" asp-action="Search" method="get">
+                                <input class="filter" type="text" name="searchTerm" placeholder="Ara" />
+                                <button type="submit" style="display: none;">Ara</button>
+                            </form>
+                            @*  <input class="filter" type="text" placeholder="Ara" />*@
+                        </ul>
+                    </div>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        @await Component.InvokeAsync("HomePageUsernameResponsive")
+                    }
 
-            </div>
-            <div id="mySidenav" class="sidenav">
-                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                <div class="sidebar">
-                    <ul>
-                        <li class="side"><a href="/Main/Index">Anasayfa</a></li>
-                        <li class="side"><a href="/Movie/MovieList">Filmler</a></li>
-                        <li class="side"><a href="/Blog/BlogList">Bloglar</a></li>
-                        @if (!User.Identity.IsAuthenticated)
-                        {
-                            <li class="side"><a href="/Account/Login">Giriş Yap</a></li>
-                            <li class="side"><a href="/RegisterUser/Index">Üye Ol</a></li>
-                        }
-                        <form asp-controller="Main" asp-action="Search" method="get">
-                            <input class="filter" type="text" name="searchTerm" placeholder="Ara" />
-                            <button type="submit" style="display: none;">Ara</button>
-                        </form>
-                        @*  <input class="filter" type="text" placeholder="Ara" />*@
-                    </ul>
                 </div>
-                @if (User.Identity.IsAuthenticated)
-                {
-                    @await Component.InvokeAsync("HomePageUsernameResponsive")
-                }
-
+                <span class="navigationBar" onclick="openNav()">&#9776;</span>
             </div>
-            <span class="navigationBar" onclick="openNav()">&#9776;</span>
-        </div>
+            </div>
+           
     </div>
     <!-- Header Finish-->
     @RenderBody()
