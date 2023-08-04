@@ -35,6 +35,12 @@ namespace MovieApp.BusinessLayer.Concrete
         {
             return _movieDal.GetAll();
         }
+        
+        public List<Movie> GetAllWithCat()
+        {
+            var values = c.Movies.Include(x=> x.Categories).ToList();
+            return values;
+        }
 
         public Movie GetById(int id)
         {
