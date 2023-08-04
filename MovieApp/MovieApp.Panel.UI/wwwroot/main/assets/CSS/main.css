@@ -165,6 +165,18 @@ body {
         display: block;
     }
 
+.menu-item2 {
+    display: inline-block;
+    position: relative;
+}
+
+    .menu-item2 a {
+        text-decoration: none;
+        padding: 6px 10px;
+        color: #fff;
+        display: block;
+    }
+
 .drop-menu {
     display: none;
     position: absolute;
@@ -230,6 +242,70 @@ body {
 .menu-item:hover .drop-menu {
     display: block;
 }
+
+/*Menu Item 2 */
+.drop-menu2 {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    border-radius: 10px;
+    min-width: 100px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}
+
+.drop-menu2-item {
+    width: 100%;
+}
+
+    .drop-menu2-item:hover {
+        background-color: #eee;
+        border-radius: 10px;
+    }
+
+    .drop-menu2-item a {
+        color: #555;
+    }
+
+.menu-item2:hover .drop-menu2 {
+    display: block;
+}
+
+.menu-item2 {
+    display: inline-block;
+    position: relative;
+}
+
+.menu-item2 a {
+    text-decoration: none;
+    padding: 6px 10px;
+    color: #fff;
+    display: block;
+}
+
+.drop-menu2 {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    min-width: 100px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}
+
+.drop-menu2-item {
+    width: 100%;
+}
+
+    .drop-menu-item2:hover {
+        background-color: #eee;
+    }
+
+    .drop-menu-item2 a {
+        color: #555;
+    }
+
+.menu-item2:hover .drop-menu {
+    display: block;
+}
+/*Menu Item 2 End*/
 
 .justReviewed {
     margin: 60px auto;
