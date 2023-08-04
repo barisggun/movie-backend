@@ -1728,9 +1728,7 @@ details[open] summary::before {
         display:block;
     }
 
-    .menu {
-        display:none;
-    }
+ 
     .hero {
         width: 100%;
         height: 880px;
