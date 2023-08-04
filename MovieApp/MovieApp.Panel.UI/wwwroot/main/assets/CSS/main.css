@@ -1728,6 +1728,9 @@ details[open] summary::before {
         display:block;
     }
 
+    .menu2{
+        display:none;
+    }
  
     .hero {
         width: 100%;
