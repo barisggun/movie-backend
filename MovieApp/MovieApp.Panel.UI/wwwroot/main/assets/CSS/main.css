@@ -352,7 +352,24 @@ body {
     cursor: pointer;
     border-radius: 6px;
 }
+.films {
+    margin: 0 20px 150px 20px;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.filmImage img {
+    width: 150px;
+    height: 200px;
+    cursor: pointer;
+    transition: 0.3s;
+}
 
+    .filmImage img:hover {
+        transform: scale(1.1);
+    }
 .card-content {
     width: 120px;
     opacity: 0;
@@ -1320,23 +1337,23 @@ pre {
 }
 
 .filterContainer {
-    display: grid;
-    grid-template-columns: 240px auto;
+    display: flex;
     color: #fff;
-    width: 1200px;
+    width: 1055px;
     margin: 0 auto;
     margin-top: 16px;
-    margin-bottom: 172px;
+    justify-content: space-around;
 }
 
 .filters {
     height: 480px;
-    background-color: #13171d;
+    color: #000;
     min-height: 800px;
 }
 
 .filterMainContent {
     background-color: #13171d;
+    color: #000;
     margin: 32px; /* Yeni */
 }
 
@@ -1370,16 +1387,20 @@ details input {
 }
 
 details > summary {
-    padding: 4px;
-    width: 240px;
-    background-color: #0c177a; /* Yeni*/
-    color: #FFF; /* Yeni*/
+    width: 100%;
+    border-bottom: 1px solid #72828a;
+    color: #72828a; /* Yeni*/
     border: none;
     cursor: pointer;
     font-weight: 500; /* Yeni*/
-    border-radius: 8px; /* Yeni*/
+    padding: 15px; /*yeni*/
+    display: flex; /*yeni*/
+    gap: 15px;
 }
 
+    details > summary:hover {
+        background-color: #efefef;
+    }
 details > input {
     background-color: #eeeeee;
     padding: 4px;
@@ -1391,8 +1412,18 @@ details > input {
     display: flex;
     align-items: center;
     gap: 10px;
+    color: #000;
+    padding: 0 0 5px 20px;
 }
+    .filterContent p {
+        margin: 0 10px;
+        cursor: pointer;
+    }
 
+    .filterContent input[type="radio"] {
+        margin-right: 5px;
+        cursor: pointer;
+    }
 .contact-form {
     background-image: url(../img/png/magicpattern-mesh-gradient-1686830930882..png);
     max-width: 1110px;
@@ -1490,11 +1521,12 @@ details > input {
     gap: 8px; /* Yeni*/
     margin-top: 16px;
     text-align: center;
+    justify-content: center;
 }
 
 .applyButton {
     display: inline-block;
-    background-color: #0c177a; /* Yeni*/
+    background-color: #000; /* Yeni*/
     color: #FFF; /* Yeni*/
     border: none;
     border-radius: 8px;
@@ -1503,11 +1535,24 @@ details > input {
 }
 .resetButton {
     display: inline-block;
-    background-color: #0c177a;
+    background-color: #000;
     color: #FFF;
     border: none;
     border-radius: 8px;
     padding: 6px 18px;
+}
+span {
+    font-size: 30px;
+    cursor: pointer;
+    color: #fff;
+}
+/* Yeni Filtreleme Bölümü Bitiş */
+
+.filterMenu {
+    font-size: 30px;
+    cursor: pointer;
+    flex: 0 0 auto;
+    height: 40px;
 }
 summary::before {
     content: "+";

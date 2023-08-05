@@ -8,80 +8,100 @@
 <!-- Filtreleme formu -->
 <form method="post" action="/Movie/MovieList/">
     <div class="filterContainer">
-        <div class="filters">
-            <details open>
-                <summary>Film Yılı</summary>
-                <div class="filterTitle">
-                    @foreach (var year in Model.Filter.Years ?? new List<int>())
-                    {
+        <div id="mySidenavLeft" class="sidenavLeft">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNavFilter()">&times;</a>
+            <div class="filters">
+                <h3>SineSözlük</h3>
+                <details close>
+                    <summary>Film Yılı</summary>
+                    <div class="filterTitle">
+                        @foreach (var year in Model.Filter.Years ?? new List<int>())
+                        {
+                            <div class="filterContent">
+                                <input type="checkbox" name="Years" value="@year" @(Model.Filter.SelectedYears?.Contains(year) == true ? "checked" : "")>
+                                <p>@year</p>
+                            </div>
+                        }
+                    </div>
+                </details>
+                <details close>
+                    <summary>Kategori</summary>
+                    <div class="filterTitle">
+                        @foreach (var category in Model.Filter.Categories ?? new List<int>())
+                        {
+                            <div class="filterContent">
+                                <input type="checkbox" name="Categories" value="@category" @(Model.Filter.SelectedCategories?.Contains(category) == true ? "checked" : "")>
+                                <p>@(ViewBag.CategoryNames != null && ViewBag.CategoryNames.ContainsKey(category) ? ViewBag.CategoryNames[category] : string.Empty)</p>
+                            </div>
+                        }
+                    </div>
+                </details>
+                <details close>
+                    <summary>Puan</summary>
+                    <div class="filterTitle">
+                        @foreach (var rating in Model.Filter.Ratings ?? new List<int>())
+                        {
+                            <div class="filterContent">
+                                <input type="checkbox" name="Ratings" value="@rating" @(Model.Filter.SelectedRatings?.Contains(rating) == true ? "checked" : "")>
+                                <p>@rating</p>
+                            </div>
+                        }
+                    </div>
+                </details>
+                <details close>
+                    <summary>Sıralama(Puan)</summary>
+                    <div class="filterTitle">
                         <div class="filterContent">
-                            <input type="checkbox" name="Years" value="@year" @(Model.Filter.SelectedYears?.Contains(year) == true ? "checked" : "")>
-                            <p>@year</p>
+                            <input type="checkbox" name="Sorting" value="lowToHigh" @(Model.Filter.Sorting == "lowToHigh" ? "checked" : "")>
+                            <p>Düşükten yükseğe</p>
                         </div>
-                    }
-                </div>
-            </details>
-            <details open>
-                <summary>Kategori</summary>
-                <div class="filterTitle">
-                    @foreach (var category in Model.Filter.Categories ?? new List<int>())
-                    {
                         <div class="filterContent">
-                            <input type="checkbox" name="Categories" value="@category" @(Model.Filter.SelectedCategories?.Contains(category) == true ? "checked" : "")>
-                            <p>@(ViewBag.CategoryNames != null && ViewBag.CategoryNames.ContainsKey(category) ? ViewBag.CategoryNames[category] : string.Empty)</p>
+                            <input type="checkbox" name="Sorting" value="highToLow" @(Model.Filter.Sorting == "highToLow" ? "checked" : "")>
+                            <p>Yüksekten düşüğe</p>
                         </div>
-                    }
-                </div>
-            </details>
-            <details open>
-                <summary>Puan</summary>
-                <div class="filterTitle">
-                @foreach (var rating in Model.Filter.Ratings ?? new List<int>())
-                {
-                        <div class="filterContent">
-                            <input type="checkbox" name="Ratings" value="@rating" @(Model.Filter.SelectedRatings?.Contains(rating) == true ? "checked" : "")>
-                        <p>@rating</p>
                     </div>
-                }
+                </details>
+                <div class="apply">
+                    <button type="submit" class="applyButton" style="cursor: pointer;">Filtrele</button>
+                    <button type="button" class="resetButton" id="resetButton" style="cursor: pointer;">Temizle</button>
                 </div>
-            </details>
-            <details open>
-                <summary>Sıralama(Puan)</summary>
-                <div class="filterTitle">
-                    <div class="filterContent">
-                        <input type="checkbox" name="Sorting" value="lowToHigh" @(Model.Filter.Sorting == "lowToHigh" ? "checked" : "")>
-                        <p>Düşükten yükseğe</p>
-                    </div>
-                    <div class="filterContent">
-                        <input type="checkbox" name="Sorting" value="highToLow" @(Model.Filter.Sorting == "highToLow" ? "checked" : "")>
-                        <p>Yüksekten düşüğe</p>
-                    </div>
-                </div>
-            </details>
-            <div class="apply">
-                <a href=""><button type="submit" class="applyButton" href="#" style="cursor:pointer">Filtrele</button></a>     
-                <a href="@Url.Action("MovieList", "Movie")" class="resetButton">Sıfırla</a>
             </div>
         </div>
-        <div class="filterMainContent">
-            <!-- Filtreleme Sonuçları -->
-            <p>Filtreleme Sonuçları</p>
-            @if (Model.Movies.Any())
-            {
-                <div class="filterResult">
-                @foreach (var movie in Model.Movies)
+            <span class="filterMenu" onclick="openNavFilter()">&#9776; Filtrele</span>
+            <div class="films">
+                <!-- Filtreleme Sonuçları -->
+                @if (Model.Movies.Any())
                 {
-                        <div class="filterResultContent">
-                            <a href="/Movie/Detail/@movie.Slug"><img src="~/images/movie/@movie.Poster" alt="" /></a>
-                    </div>
+                    
+                        @foreach (var movie in Model.Movies)
+                        {
+                            <div class="filmImage">
+                                <a href="/Movie/Detail/@movie.Slug"><img src="~/images/movie/@movie.Poster" alt="" /></a>
+                            </div>
+                        }
+                   
                 }
-                </div>
-            }
-            else
-            {
-                <p>Uygun film bulunamadı.</p>
-            }
+                else
+                {
+                    <p>Uygun film bulunamadı.</p>
+                }
+            </div>
         </div>
-    </div>
+
     @*<button type="submit" class="apply; applyButton" style="cursor: pointer;">Filtrele</button>*@
 </form>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const resetButton = document.querySelector("#resetButton");
+        const filterGroups = document.querySelectorAll('.filterTitle');
+
+        resetButton.addEventListener("click", () => {
+            filterGroups.forEach(group => {
+                const selectedRadio = group.querySelector('input[type="checkbox"]:checked');
+                if (selectedRadio) {
+                    selectedRadio.checked = false;
+                }
+            });
+        });
+    });
+</script>

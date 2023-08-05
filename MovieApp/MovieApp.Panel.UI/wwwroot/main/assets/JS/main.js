@@ -47,3 +47,19 @@ function openNav() {
 function closeNav() {
     document.getElementById("mySidenav").style.width = "0";
 }
+
+function openNavFilter() {
+    document.getElementById("mySidenavLeft").style.width = "250px";
+}
+
+function closeNavFilter() {
+    document.getElementById("mySidenavLeft").style.width = "0";
+}
+const resetButton = document.querySelector("#resetButton");
+const resetFilter = document.querySelectorAll("#reset");
+
+resetButton.addEventListener("click", () => {
+    resetFilter.forEach(resetItem => {
+        resetItem.checked = false;
+    });
+});
