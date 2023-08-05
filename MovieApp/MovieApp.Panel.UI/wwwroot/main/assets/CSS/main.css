@@ -1136,6 +1136,7 @@ pre {
 
 /* Modal Content */
 .modal-content {
+    display: none;
     background-image: url(../img/png/magicpattern-mesh-gradient-1686830930882..png);
     margin: auto;
     padding: 20px;
