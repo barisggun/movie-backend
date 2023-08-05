@@ -337,7 +337,7 @@ body {
         color: rgba(255, 255, 255, 0.60);
     }
 
-.film-category {
+.film-category{
     padding: 3px;
     width: 150px;
     border-radius: 11px;
@@ -863,6 +863,8 @@ pre {
 
 .director {
     font-weight: bold;
+    display:flex;
+    gap:15px;
 }
 
 .addMyWatch,
