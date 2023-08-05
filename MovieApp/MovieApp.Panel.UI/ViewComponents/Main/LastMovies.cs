@@ -9,7 +9,7 @@ namespace MovieApp.Panel.UI.ViewComponents.Main
         MovieManager mm = new MovieManager(new EfMovieRepository());
         public IViewComponentResult Invoke()
         {
-            var values = mm.GetAll().OrderByDescending(m => m.ReleaseDate).Take(6).ToList();
+            var values = mm.GetAllWithCat().OrderByDescending(m => m.ReleaseDate).Take(6).ToList();
             return View(values);
         }
     }

@@ -4,7 +4,13 @@
     ViewData["Title"] = "Movie";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
+<style>
 
+    .director a {
+        font-size: inherit;
+    }
+
+</style>
 @*<div style="background-image: linear-gradient( 33deg, #1a1a1a 24.97%, #1a1a1a 38.3%, rgba(26, 26, 26, 0.0409746) 97.47%, #1a1a1a 100% ), url(/images/movie/@Model.MovieDetailPoster);
      background-repeat: no-repeat;
      width: 1066px;
@@ -47,9 +53,16 @@ margin-bottom : 100px;">
                 }
             </div>
             <div class="director">
-                Kategori : @foreach (var categoryName in Model.CategoryNames)
+                Kategori:  @if (Model.CategoryNames != null && Model.CategoryNames.Any())
                 {
-                    <span>@categoryName |</span>
+                        @foreach (var categoryName in Model.CategoryNames)
+                        {
+                            <span>@categoryName</span>
+                            @if (!categoryName.Equals(Model.CategoryNames.Last()))
+                            {
+                                <span> | </span>
+                            }
+                        }
                 }
             </div>
             <div class="director">
