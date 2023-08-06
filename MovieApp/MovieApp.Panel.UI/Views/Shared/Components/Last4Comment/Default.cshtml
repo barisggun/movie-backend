@@ -22,7 +22,14 @@
                     <a href="/User/Detail/@item.CommentUserName"><p>@item.CommentUserName</p></a>
                     
                     <p>
-                        @item.CommentContent.Substring(0,194)...
+                        @if (item.CommentContent.Length <= 194)
+                        {
+                        <p>@item.CommentContent</p>
+                        }
+                        else
+                        {
+                        <p>@item.CommentContent.Substring(0, 194)...</p>
+                        }
                     </p>
                 </div>
             </div>

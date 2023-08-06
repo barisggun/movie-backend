@@ -49,20 +49,26 @@ margin-bottom : 100px;">
             <div class="director">
                 Oyuncular : @foreach (var actorName in Model.Actors)
                 {
-                        <a href="/Movie/MoviesByActors/@actorName.Slug">@actorName.ActorName </a>
+                    <a href="/Movie/MoviesByActors/@actorName.Slug">
+                        @actorName.ActorName
+                        @if (!actorName.Equals(Model.Actors.Last()))
+                        {
+                            <span> | </span>
+                        }
+                    </a>
                 }
             </div>
             <div class="director">
                 Kategori:  @if (Model.CategoryNames != null && Model.CategoryNames.Any())
                 {
-                        @foreach (var categoryName in Model.CategoryNames)
+                    @foreach (var categoryName in Model.CategoryNames)
+                    {
+                        <span>@categoryName</span>
+                        @if (!categoryName.Equals(Model.CategoryNames.Last()))
                         {
-                            <span>@categoryName</span>
-                            @if (!categoryName.Equals(Model.CategoryNames.Last()))
-                            {
-                                <span> | </span>
-                            }
+                            <span> | </span>
                         }
+                    }
                 }
             </div>
             <div class="director">
@@ -90,8 +96,8 @@ margin-bottom : 100px;">
                     <h4>Ortalama Puan: N/A</h4>
                 }
             </div>
-           @* <div id="notification-container" class="@TempData["NotificationType"]">
-                @TempData["NotificationMessage"]
+            @* <div id="notification-container" class="@TempData["NotificationType"]">
+            @TempData["NotificationMessage"]
             </div>*@
 
             <div class="wraper"></div>
@@ -109,14 +115,14 @@ margin-bottom : 100px;">
 
             </div>
             <br />
-         @*   <div id="notification-container2" class="@TempData["NotificationType"]">
-                @TempData["NotificationMessage"]
+            @*   <div id="notification-container2" class="@TempData["NotificationType"]">
+            @TempData["NotificationMessage"]
             </div>
             <div id="notification-container3" class="@TempData["NotificationType"]">
-                @TempData["NotificationMessage"]
+            @TempData["NotificationMessage"]
             </div>*@
         </div>
-        
+
     </div>
 </div>
 
@@ -137,8 +143,8 @@ margin-bottom : 100px;">
                 width: 100%;
                 height: 100%;
             }
-        </style>
-        <div class="codegena"><iframe width='1066' height='800' src="https://www.youtube.com/embed/@Model.TrailerUrl?&theme=dark&autoplay=1&autohide=1&modestbranding=1&fs=0&showinfo=0&rel=0" frameborder="0"></iframe></div><div style='font-size: 0.8em'></div>
+    </style>
+    <div class="codegena"><iframe width='1066' height='800' src="https://www.youtube.com/embed/@Model.TrailerUrl?&theme=dark&autoplay=1&autohide=1&modestbranding=1&fs=0&showinfo=0&rel=0" frameborder="0"></iframe></div><div style='font-size: 0.8em'></div>
 
 </div>
 

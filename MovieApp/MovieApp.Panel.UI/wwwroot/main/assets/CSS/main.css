@@ -1544,7 +1544,7 @@ details > input {
     border-radius: 8px;
     padding: 6px 18px;
 }
-span {
+.filterContainer > span {
     font-size: 30px;
     cursor: pointer;
     color: #fff;
