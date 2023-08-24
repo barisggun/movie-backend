@@ -1,5 +1,5 @@
 
-![Logo](https://www.sinesozluk.com/main/assets/img/sinesozluk.png)
+![Logo]([https://www.sinesozluk.com/main/assets/img/sinesozluk.png](https://www.sinesozluk.com/admin/assets/images/sinesozluk_admin.png))
 
     
 ## Film critical website project - Sinesozluk.com
