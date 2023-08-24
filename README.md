@@ -1,5 +1,5 @@
 
-![Logo](https://hizliresim.com/75fegpo](https://github.com/barisggun/movie-backend/blob/main/sinesozluk.logo%20(1).png?raw=true))
+![Logo](https://raw.githubusercontent.com/barisggun/movie-backend/main/sinesozluk.logo%20(1).png)
 
     
 ## Film critical website project - Sinesozluk.com
