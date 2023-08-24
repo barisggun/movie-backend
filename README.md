@@ -73,29 +73,29 @@ For support, you can send an e-mail to barisggun@gmail.com, isilaycakar1@gmail.c
   
 ## Screenshots
 
-![Uygulama Ekran Görüntüsü](https://hizliresim.com/oswgi10))
+![Uygulama Ekran Görüntüsü](https://hizliresim.com/oswgi10)
 
-![Uygulama Ekran Görüntüsü](https://hizliresim.com/diejd1u))
-
-
-![Uygulama Ekran Görüntüsü](https://hizliresim.com/1def4z1))
+![Uygulama Ekran Görüntüsü](https://hizliresim.com/diejd1u)
 
 
-![Uygulama Ekran Görüntüsü](https://hizliresim.com/kgni8yn))
+![Uygulama Ekran Görüntüsü](https://hizliresim.com/1def4z1)
 
 
-![Uygulama Ekran Görüntüsü](https://hizliresim.com/chkffnk))
+![Uygulama Ekran Görüntüsü](https://hizliresim.com/kgni8yn)
 
 
-![Uygulama Ekran Görüntüsü](https://hizliresim.com/lb7hixl))
+![Uygulama Ekran Görüntüsü](https://hizliresim.com/chkffnk)
 
 
-![Uygulama Ekran Görüntüsü](https://hizliresim.com/lkj0i9m))
+![Uygulama Ekran Görüntüsü](https://hizliresim.com/lb7hixl)
 
 
-![Uygulama Ekran Görüntüsü](https://hizliresim.com/o9oe5d2))
+![Uygulama Ekran Görüntüsü](https://hizliresim.com/lkj0i9m)
 
 
-![Uygulama Ekran Görüntüsü](https://hizliresim.com/fs34j5d)https://hizliresim.com/fs34j5d)
+![Uygulama Ekran Görüntüsü](https://hizliresim.com/o9oe5d2)
+
+
+![Uygulama Ekran Görüntüsü](https://hizliresim.com/fs34j5d)
 
   
