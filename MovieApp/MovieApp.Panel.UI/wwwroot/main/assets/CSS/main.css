@@ -1342,7 +1342,7 @@ pre {
 .filterContainer {
     display: flex;
     color: #fff;
-    width: 1055px;
+    width: 100%;
     margin: 0 auto;
     margin-top: 16px;
     justify-content: space-around;
@@ -2025,7 +2025,6 @@ details[open] summary::before {
 
         .filterContainer {
             display: block;
-            margin: 0 50px;
         }
     }
 
