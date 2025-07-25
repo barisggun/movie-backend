@@ -2,7 +2,7 @@
 ![Logo](https://raw.githubusercontent.com/barisggun/movie-backend/main/sinesozluk.logo%20(1).png)
 
     
-## Film critical website project - Sinesozluk.com
+## Film critical website project - Sinesozluk.blog
 
 This project is designed as a movie critical site. It was developed by 2 Backend and 2 Frontend developers within a 1-month internship following the Acunmedya Academy Extended Software Specialist training.
 
